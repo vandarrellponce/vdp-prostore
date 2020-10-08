@@ -13,13 +13,8 @@ const App = () => {
 			<Header />
 			<main className="py-3">
 				<Container>
-					<Route path="/" exact>
-						<Home />
-					</Route>
-
-					<Route path="/products/:productId" exact>
-						<ProductDetail />
-					</Route>
+					<Route path="/products/:id" component={ProductDetail} />
+					<Route path="/" exact component={Home} />
 				</Container>
 			</main>
 			<Footer />
