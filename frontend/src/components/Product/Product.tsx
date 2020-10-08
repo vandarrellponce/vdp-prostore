@@ -1,5 +1,6 @@
 import React from 'react'
 import Card from 'react-bootstrap/Card'
+import Rating from '../Rating/Rating'
 
 interface Props {
 	product: {
@@ -32,9 +33,11 @@ const Product: React.FC<Props> = (props) => {
 				</a>
 
 				<Card.Text as="div">
-					<div className="my-3">
-						{product.rating} from {product.numReviews} reviews
-					</div>
+					<Rating
+						value={product.rating}
+						text={` ${product.numReviews} reviews`}
+						color="orange"
+					/>
 				</Card.Text>
 
 				<Card.Text as="h3"> &#8369;{product.price}</Card.Text>
