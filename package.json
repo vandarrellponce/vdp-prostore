@@ -1,0 +1,25 @@
+{
+	"name": "vdp-prostore",
+	"version": "1.0.0",
+	"description": "E-commerse app built with MERN stack and a course from Brad Traversy",
+	"main": "index.js",
+	"scripts": {
+		"start": "node backend/server",
+		"dev": "nodemon backend/server"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/vandarrellponce/vdp-prostore.git"
+	},
+	"author": "Van Darrell Ponce",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/vandarrellponce/vdp-prostore/issues"
+	},
+	"homepage": "https://github.com/vandarrellponce/vdp-prostore#readme",
+	"dependencies": {
+		"cors": "^2.8.5",
+		"express": "^4.17.1",
+		"nodemon": "^2.0.4"
+	}
+}
