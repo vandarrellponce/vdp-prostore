@@ -3,6 +3,7 @@ import Container from 'react-bootstrap/Container'
 import './app.css'
 import Footer from './components/Footer/Footer'
 import Header from './components/Header/Header'
+import Home from './screens/Home'
 
 const App = () => {
 	return (
@@ -10,7 +11,7 @@ const App = () => {
 			<Header />
 			<main className="py-3">
 				<Container>
-					<h1>welcome to my shop</h1>
+					<Home />
 				</Container>
 			</main>
 			<Footer />
