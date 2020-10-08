@@ -1,16 +1,25 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Image from 'react-bootstrap/Image'
 import ListGroup from 'react-bootstrap/ListGroup'
 import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
-import products from '../products'
+
 import { Link } from 'react-router-dom'
 import Rating from '../components/Rating/Rating'
+import Axios from 'axios'
 
 const ProductDetail = (props) => {
-	const product = products.find((item) => item._id === props.match.params.id)
+	const [product, setProduct] = useState(null)
+
+	useEffect(() => {
+		Axios.get(
+			`http://localhost:5000/api/products/${props.match.params.id}`
+		).then((res) => setProduct(res.data))
+	}, [])
+
+	if (!product) return <div>Fetching Data</div>
 
 	return (
 		<div>
