@@ -17,7 +17,7 @@ const ProductDetail = (props) => {
 		Axios.get(
 			`http://localhost:5000/api/products/${props.match.params.id}`
 		).then((res) => setProduct(res.data))
-	}, [])
+	}, [props.match.params.id])
 
 	if (!product) return <div>Fetching Data</div>
 
