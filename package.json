@@ -21,6 +21,7 @@
 	},
 	"homepage": "https://github.com/vandarrellponce/vdp-prostore#readme",
 	"dependencies": {
+		"bcryptjs": "^2.4.3",
 		"concurrently": "^5.3.0",
 		"cors": "^2.8.5",
 		"dotenv": "^8.2.0",
