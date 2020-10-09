@@ -2,13 +2,16 @@ import express from 'express'
 import cors from 'cors'
 import dotenv from 'dotenv'
 import productRoute from './routes/productRoute.js'
-
+import connectDB from './config/db.js'
 
 // APP CONFIG
 dotenv.config()
 const app = express()
 app.use(express.json())
 app.use(cors())
+
+// DATBASE CONNECTION
+await connectDB()
 
 // ROUTES
 app.use(productRoute)

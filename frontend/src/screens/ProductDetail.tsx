@@ -24,7 +24,7 @@ const ProductDetail = (props) => {
 	return (
 		<div>
 			<Link to="/">
-				<Button className="btn my-3" type="button">
+				<Button className="btn my-3 btn-secondary" type="button">
 					Go Back
 				</Button>
 			</Link>
@@ -76,7 +76,7 @@ const ProductDetail = (props) => {
 
 							<ListGroup.Item>
 								<Button
-									className="btn-block"
+									className="btn-block btn-warning"
 									type="button"
 									disabled={product.countInStock === 0}
 								>
