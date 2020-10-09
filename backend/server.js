@@ -14,7 +14,7 @@ app.use(cors())
 await connectDB()
 
 // ROUTES
-app.use(productRoute)
+app.use('/api/products', productRoute)
 app.get('/', (req, res) => {
 	res.send('API is running')
 })
