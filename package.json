@@ -3,6 +3,7 @@
 	"version": "1.0.0",
 	"description": "E-commerse app built with MERN stack and a course from Brad Traversy",
 	"main": "index.js",
+	"type": "module",
 	"scripts": {
 		"start": "node backend/server",
 		"server": "nodemon backend/server",

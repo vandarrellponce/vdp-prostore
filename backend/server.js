@@ -1,7 +1,8 @@
-const express = require('express')
-const cors = require('cors')
-const dotenv = require('dotenv')
-const productRoute = require('./routes/productRoute')
+import express from 'express'
+import cors from 'cors'
+import dotenv from 'dotenv'
+import productRoute from './routes/productRoute.js'
+
 
 // APP CONFIG
 dotenv.config()

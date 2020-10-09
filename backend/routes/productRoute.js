@@ -1,6 +1,6 @@
-const express = require('express')
+import express from 'express'
 const router = express.Router()
-const products = require('../data/products')
+import products from '../data/products.js'
 
 router.get('/api/products', (req, res) => {
 	res.send(products)
@@ -11,4 +11,4 @@ router.get('/api/products/:id', (req, res) => {
 	res.send(product)
 })
 
-module.exports = router
+export default router
