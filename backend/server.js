@@ -3,6 +3,7 @@ import cors from 'cors'
 import dotenv from 'dotenv'
 import productRoute from './routes/productRoute.js'
 import connectDB from './config/db.js'
+import errorHandler from './middlewares/errorHandler.js'
 
 // APP CONFIG
 dotenv.config()
@@ -14,10 +15,17 @@ app.use(cors())
 await connectDB()
 
 // ROUTES
-app.use('/api/products', productRoute)
-app.get('/', (req, res) => {
+app.get('/api', (req, res) => {
 	res.send('API is running')
 })
+app.use('/api/products', productRoute)
+
+app.all('*', (req, res) =>
+	res.status(404).send({ message: `Not found - ${req.originalUrl}` })
+)
+
+// ERROR HANDLER
+app.use(errorHandler)
 
 // PORT CONFIG
 const port = process.env.PORT || 5005
