@@ -19,4 +19,4 @@ const users = [
 	},
 ]
 
-export default user
+export default users
