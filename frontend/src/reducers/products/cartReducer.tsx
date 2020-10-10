@@ -13,7 +13,7 @@ const cartReducer = (state = { cartItems: [] }, action) => {
 			if (itemExists) {
 				return {
 					...state,
-					cartItems: state.cartItems.map((currentItem) =>
+					cartItems: [...state.cartItems].map((currentItem) =>
 						currentItem.product === newItem.product
 							? newItem
 							: currentItem
@@ -29,8 +29,8 @@ const cartReducer = (state = { cartItems: [] }, action) => {
 		case CART_REMOVE_ITEM: {
 			return {
 				...state,
-				cartItems: state.cartItems.filter(
-					(item) => item._id !== action.payload
+				cartItems: [...state.cartItems].filter(
+					(item) => item.product !== action.payload
 				),
 			}
 		}

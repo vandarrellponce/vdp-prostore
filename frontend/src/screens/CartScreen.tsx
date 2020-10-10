@@ -10,6 +10,7 @@ import Button from 'react-bootstrap/Button'
 import Card from 'react-bootstrap/Card'
 import Form from 'react-bootstrap/Form'
 import addToCart from '../actions/cart/addToCart'
+import removeFromCart from '../actions/cart/removeFromCart'
 
 const CartScreen = ({ match, location, history }) => {
 	// STATES
@@ -25,7 +26,8 @@ const CartScreen = ({ match, location, history }) => {
 
 	// HANDLERS
 	const removeFromCartHandler = (id) => {
-		console.log(id)
+		dispatch(removeFromCart(id))
+		history.push('/cart')
 	}
 
 	const checkOutHandler = (e) => {
