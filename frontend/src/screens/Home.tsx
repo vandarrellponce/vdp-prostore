@@ -1,17 +1,24 @@
 import Axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import Col from 'react-bootstrap/esm/Col'
 import Row from 'react-bootstrap/esm/Row'
 import Product from '../components/Product/Product'
+import { useSelector, useDispatch } from 'react-redux'
+import { getProductList } from '../actions/productActions'
 
 const Home = () => {
-	const [products, setProducts] = useState([])
+	const { products, loading, error } = useSelector(
+		(state) => state.productList
+	)
+	const dispatch = useDispatch()
 
 	useEffect(() => {
-		Axios.get('http://localhost:5000/api/products').then((res) =>
-			setProducts(res.data)
-		)
-	}, [])
+		dispatch(getProductList())
+	}, [dispatch])
+
+	if (loading) return <div> Fetching Product Data</div>
+	if (error) return <div> Error Loading Product Data : ({error})</div>
+
 	return (
 		<div>
 			<h2 className="text-center">Latest Products</h2>

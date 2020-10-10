@@ -5,7 +5,7 @@ import {
 } from '../constants/productConst'
 
 const initState = {
-	products: [1, 2, 3],
+	products: [],
 	loading: false,
 	error: null,
 }
