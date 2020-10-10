@@ -4,7 +4,7 @@ import { CART_ADD_ITEM, CART_REMOVE_ITEM } from '../../constants/cartConstants'
 const addToCart = (id, qty) => async (dispatch, getState) => {
 	try {
 		const product = (
-			await Axios.get(`https://localhost:5000/api/products/${id}`)
+			await Axios.get(`http://localhost:5000/api/products/${id}`)
 		).data
 		const item = {
 			name: product.name,
@@ -18,7 +18,7 @@ const addToCart = (id, qty) => async (dispatch, getState) => {
 		dispatch({ type: CART_ADD_ITEM, payload: item })
 		localStorage.setItem(
 			'cartItems',
-			JSON.stringify(getState().cart.cartItems)
+			JSON.stringify({ cartItems: getState().cart.cartItems })
 		)
 	} catch (error) {
 		console.log(error)

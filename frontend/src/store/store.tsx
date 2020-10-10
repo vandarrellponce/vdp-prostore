@@ -8,7 +8,7 @@ import cartReducer from '../reducers/products/cartReducer'
 const initialState = {
 	cart: localStorage.getItem('cartItems')
 		? JSON.parse(localStorage.getItem('cartItems'))
-		: [],
+		: { cartItems: [] },
 }
 const rootReducer = combineReducers({
 	productList: productListReducer,
