@@ -5,21 +5,33 @@ import Image from 'react-bootstrap/Image'
 import ListGroup from 'react-bootstrap/ListGroup'
 import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
-
+import { useSelector, useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import Rating from '../components/Rating/Rating'
 import Axios from 'axios'
+import getProductDetails from '../actions/products/productDetailsAction'
+import Loader from '../components/Loader/Loader'
+import Message from '../components/Message/Message'
 
 const ProductDetail = (props) => {
-	const [product, setProduct] = useState(null)
+	const productId = props.match.params.id
+	const { product, loading, error } = useSelector((state) => {
+		return state.productDetails
+	})
+	const dispatch = useDispatch()
 
 	useEffect(() => {
-		Axios.get(
-			`http://localhost:5000/api/products/${props.match.params.id}`
-		).then((res) => setProduct(res.data))
-	}, [props.match.params.id])
+		dispatch(getProductDetails(productId))
+	}, [dispatch, productId])
 
-	if (!product) return <div>Fetching Data</div>
+	if (loading) return <Loader />
+	if (error)
+		return (
+			<Message
+				variant="danger"
+				children={<h5>`Error loading Product Details - (${error})`</h5>}
+			/>
+		)
 
 	return (
 		<div>

@@ -4,7 +4,7 @@ import Col from 'react-bootstrap/esm/Col'
 import Row from 'react-bootstrap/esm/Row'
 import Product from '../components/Product/Product'
 import { useSelector, useDispatch } from 'react-redux'
-import { getProductList } from '../actions/productActions'
+import getProductList from '../actions/products/productListActions'
 import Loader from '../components/Loader/Loader'
 import Message from '../components/Message/Message'
 
@@ -23,7 +23,7 @@ const Home = () => {
 		return (
 			<Message
 				variant="secondary"
-				children={<h2>`Error Loading Product Data : ({error})` </h2>}
+				children={<h5>`Error Loading Product Data : ({error})` </h5>}
 			/>
 		)
 
