@@ -6,11 +6,14 @@ main {
 	display: flex;
 	flex-direction: column;
 } */
-
 h2,
 h3,
 h4 {
 	padding: 1rem 0;
+}
+h1 {
+	font-size: 1.6rem;
+	padding: 0.1 rem;
 }
 
 .rating span {
