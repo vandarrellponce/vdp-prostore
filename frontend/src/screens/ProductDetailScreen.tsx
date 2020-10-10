@@ -5,6 +5,7 @@ import Image from 'react-bootstrap/Image'
 import ListGroup from 'react-bootstrap/ListGroup'
 import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
+import Form from 'react-bootstrap/Form'
 import { useSelector, useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import Rating from '../components/Rating/Rating'
@@ -14,12 +15,20 @@ import Loader from '../components/Loader/Loader'
 import Message from '../components/Message/Message'
 
 const ProductDetail = (props) => {
+	//	STATES
 	const productId = props.match.params.id
+	const [qty, setQty] = useState(1)
 	const { product, loading, error } = useSelector((state) => {
 		return state.productDetails
 	})
 	const dispatch = useDispatch()
+	const qtyValues = [...Array(product.countInStock)].map((x, i) => (
+		<option key={i + 1} value={i + 1}>
+			{i + 1}
+		</option>
+	))
 
+	// USE EFFECTS
 	useEffect(() => {
 		dispatch(getProductDetails(productId))
 	}, [dispatch, productId])
@@ -32,6 +41,12 @@ const ProductDetail = (props) => {
 				children={<h5>`Error loading Product Details - (${error})`</h5>}
 			/>
 		)
+
+	// HANDLERS
+	const addToCartHandler = (e) => {
+		e.preventDefault()
+		props.history.push(`/cart/${product._id}?qty=${qty}`)
+	}
 
 	return (
 		<div>
@@ -85,12 +100,32 @@ const ProductDetail = (props) => {
 									</Col>
 								</Row>
 							</ListGroup.Item>
-
+							{product.countInStock > 0 && (
+								<ListGroup.Item>
+									<Row>
+										<Col>Quantity:</Col>
+										<Col>
+											<Form.Control
+												as="select"
+												value={qty}
+												onChange={(e) =>
+													setQty(
+														Number(e.target.value)
+													)
+												}
+											>
+												{qtyValues}
+											</Form.Control>
+										</Col>
+									</Row>
+								</ListGroup.Item>
+							)}
 							<ListGroup.Item>
 								<Button
 									className="btn-block btn-warning"
 									type="button"
 									disabled={product.countInStock === 0}
+									onClick={addToCartHandler}
 								>
 									Add To Cart
 								</Button>

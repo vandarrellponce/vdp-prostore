@@ -23,7 +23,7 @@ const Header = () => {
 					<Navbar.Collapse id="basic-navbar-nav">
 						{/* margin left auto */}
 						<Nav className="ml-auto">
-							<LinkContainer to="/">
+							<LinkContainer to="/cart/">
 								<Nav.Link>
 									<i className="fas fa-shopping-cart px-1"></i>
 									Cart
