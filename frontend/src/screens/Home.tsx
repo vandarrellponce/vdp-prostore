@@ -5,6 +5,8 @@ import Row from 'react-bootstrap/esm/Row'
 import Product from '../components/Product/Product'
 import { useSelector, useDispatch } from 'react-redux'
 import { getProductList } from '../actions/productActions'
+import Loader from '../components/Loader/Loader'
+import Message from '../components/Message/Message'
 
 const Home = () => {
 	const { products, loading, error } = useSelector(
@@ -16,8 +18,14 @@ const Home = () => {
 		dispatch(getProductList())
 	}, [dispatch])
 
-	if (loading) return <div> Fetching Product Data</div>
-	if (error) return <div> Error Loading Product Data : ({error})</div>
+	if (loading) return <Loader />
+	if (error)
+		return (
+			<Message
+				variant="secondary"
+				children={<h2>`Error Loading Product Data : ({error})` </h2>}
+			/>
+		)
 
 	return (
 		<div>
