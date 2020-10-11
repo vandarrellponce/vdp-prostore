@@ -1,7 +1,7 @@
 import expressAsyncHandler from 'express-async-handler'
 import User from '../models/userModel.js'
 
-// @desc	Login user and get token
+// @desc	Login user and generate token
 // @route	Post /api/users/login
 // @access	Public
 export const authUser = expressAsyncHandler(async (req, res) => {
@@ -11,13 +11,13 @@ export const authUser = expressAsyncHandler(async (req, res) => {
 			req.body.password
 		)
 		const token = await user.generateAuthToken()
-		res.status(201).send({ user, token })
+		res.status(200).send({ user, token })
 	} catch (error) {
 		res.status(404)
 		throw new Error(error.message)
 	}
 })
-// @desc	Create user and get token
+// @desc	Create user and generate token
 // @route	Post /api/users/login
 // @access	Public
 export const createUser = expressAsyncHandler(async (req, res) => {
@@ -30,17 +30,33 @@ export const createUser = expressAsyncHandler(async (req, res) => {
 		throw new Error(error.message)
 	}
 })
-
-/* // @desc	Logout user and remove token
+// @desc	Logout user and remove token
 // @route	Post /api/users/logout
-// @access	Public
-export const logoutUser = expressAsyncHandler(async(req, res) => {
+// @access	Private
+export const logoutUser = expressAsyncHandler(async (req, res) => {
 	try {
-		
+		const tokens = req.user.tokens
+		req.user.tokens = tokens.filter((token) => token.token !== req.token)
+		await req.user.save()
+		res.send({ status: 'Logout successful' })
 	} catch (error) {
-		
+		res.status(500)
+		throw new Error(error.message)
 	}
-}) */
+})
+// @desc	Logout all user's session
+// @route	Post /api/users/logoutall
+// @access	Private
+export const logoutAllUserSession = expressAsyncHandler(async (req, res) => {
+	try {
+		req.user.tokens = []
+		await req.user.save()
+		res.send({ status: 'Logged out from all sessions' })
+	} catch (error) {
+		res.status(500)
+		throw new Error(error.message)
+	}
+})
 // @desc	Get user profile
 // @route	Post /api/users/profile
 // @access	Private
