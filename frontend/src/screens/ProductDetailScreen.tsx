@@ -13,6 +13,7 @@ import Axios from 'axios'
 import getProductDetails from '../actions/products/productDetailsAction'
 import Loader from '../components/Loader/Loader'
 import Message from '../components/Message/Message'
+import addToCart from '../actions/cart/addToCart'
 
 const ProductDetail = (props) => {
 	//	STATES
@@ -45,7 +46,9 @@ const ProductDetail = (props) => {
 	// HANDLERS
 	const addToCartHandler = (e) => {
 		e.preventDefault()
-		props.history.push(`/cart/${product._id}?qty=${qty}`)
+		dispatch(addToCart(product._id, qty))
+		props.history.push('/cart')
+		/* props.history.push(`/cart/${product._id}?qty=${qty}`) */
 	}
 
 	return (
