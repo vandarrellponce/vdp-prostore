@@ -7,7 +7,7 @@ import {
 
 export const loginUser = (email, password) => async (dispatch) => {
 	try {
-		dispatch(USER_LOGIN_REQUEST)
+		dispatch({ type: USER_LOGIN_REQUEST })
 
 		const { user, token } = await (
 			await Axios.post('http://localhost:5000/api/users/login', {

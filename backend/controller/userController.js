@@ -13,7 +13,7 @@ export const authUser = expressAsyncHandler(async (req, res) => {
 		const token = await user.generateAuthToken()
 		res.status(200).send({ user, token })
 	} catch (error) {
-		res.status(404)
+		res.status(401)
 		throw new Error(error.message)
 	}
 })

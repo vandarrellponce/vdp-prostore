@@ -10,7 +10,7 @@ import {
 import auth from '../middlewares/authMiddleware.js'
 
 router.post('/login', authUser)
-router.post('/signup', createUser)
+router.post('/register', createUser)
 router.get('/logout', auth, logoutUser)
 router.get('/logoutall', auth, logoutAllUserSession)
 router.route('/profile').get(auth, getUserProfile)
