@@ -41,3 +41,14 @@ export const logoutUser = expressAsyncHandler(async(req, res) => {
 		
 	}
 }) */
+// @desc	Get user profile
+// @route	Post /api/users/profile
+// @access	Private
+export const getUserProfile = expressAsyncHandler(async (req, res) => {
+	try {
+		res.send(req.user)
+	} catch (error) {
+		res.status(404)
+		throw new Error(error.message)
+	}
+})

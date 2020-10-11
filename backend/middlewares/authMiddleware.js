@@ -1,7 +1,7 @@
 import expressAsyncHandler from 'express-async-handler'
 import jwt from 'jsonwebtoken'
 import dotenv from 'dotenv'
-import User from '../models/userModel'
+import User from '../models/userModel.js'
 dotenv.config()
 
 const auth = expressAsyncHandler(async (req, res, next) => {
