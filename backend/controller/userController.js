@@ -22,6 +22,13 @@ export const authUser = expressAsyncHandler(async (req, res) => {
 // @access	Public
 export const createUser = expressAsyncHandler(async (req, res) => {
 	try {
+		// Check if user with given email exists, if does throw error
+		const user = await User.findOne({ email: req.body.email })
+		if (user) {
+			res.status(400)
+			throw new Error('Email already in use')
+		}
+		// If does not exist, proceed on creating user
 		const newUser = await new User(req.body).save()
 		const token = await newUser.generateAuthToken()
 		res.status(201).send({ user: newUser, token })

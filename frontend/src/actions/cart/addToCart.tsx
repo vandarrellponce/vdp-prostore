@@ -18,7 +18,7 @@ const addToCart = (id, qty) => async (dispatch, getState) => {
 		dispatch({ type: CART_ADD_ITEM, payload: item })
 		localStorage.setItem(
 			'cartItems',
-			JSON.stringify({ cartItems: getState().cart.cartItems })
+			JSON.stringify(getState().cart.cartItems)
 		)
 	} catch (error) {
 		console.log(error)

@@ -1,13 +1,14 @@
 import expressAsyncHandler from 'express-async-handler'
 import jwt from 'jsonwebtoken'
-import dotenv from 'dotenv'
 import User from '../models/userModel.js'
-dotenv.config()
 
 const auth = expressAsyncHandler(async (req, res, next) => {
 	try {
 		// Retrieve token from the header
-		const token = req.header('Authorization').replace('Bearer ', '')
+		const token = req.headers.authorization.replace('Bearer ', '')
+
+		// Protection if no token provided
+		if (!token) throw new Error('Not authorized - No token provided')
 
 		// Verify if token is valid
 		const decoded = jwt.verify(token, process.env.JWT_SECRET)
@@ -17,7 +18,8 @@ const auth = expressAsyncHandler(async (req, res, next) => {
 			_id: decoded._id,
 			'tokens.token': token,
 		})
-		if (!user) throw new Error('invalid token')
+
+		if (!user) throw new Error('Invalid token')
 
 		req.token = token
 		req.user = user
