@@ -3,6 +3,7 @@ import {
 	USER_LOGIN_REQUEST,
 	USER_LOGIN_SUCCESS,
 	USER_LOGOUT,
+	USER_LOGOUT_FAIL,
 } from '../../constants/userConstants'
 
 const userReducer = (
@@ -36,6 +37,13 @@ const userReducer = (
 		}
 		case USER_LOGOUT: {
 			return {}
+		}
+		case USER_LOGOUT_FAIL: {
+			return {
+				...state,
+				loading: false,
+				error: action.payload,
+			}
 		}
 		default:
 			return state
