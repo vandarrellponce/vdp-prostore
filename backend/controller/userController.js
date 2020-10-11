@@ -30,3 +30,14 @@ export const createUser = expressAsyncHandler(async (req, res) => {
 		throw new Error(error.message)
 	}
 })
+
+/* // @desc	Logout user and remove token
+// @route	Post /api/users/logout
+// @access	Public
+export const logoutUser = expressAsyncHandler(async(req, res) => {
+	try {
+		
+	} catch (error) {
+		
+	}
+}) */
