@@ -1,7 +1,7 @@
 import expressAsyncHandler from 'express-async-handler'
 import User from '../models/userModel.js'
 
-// @desc	Auth user and get token
+// @desc	Login user and get token
 // @route	Post /api/users/login
 // @access	Public
 export const authUser = expressAsyncHandler(async (req, res) => {
@@ -11,15 +11,22 @@ export const authUser = expressAsyncHandler(async (req, res) => {
 			req.body.password
 		)
 		const token = await user.generateAuthToken()
-
-		res.send({
-			_id: user._id,
-			name: user.name,
-			email: user.email,
-			isAdmin: user.isAdmin,
-			token: token,
-		})
-	} catch (err) {
-		res.status(404).send(err.message)
+		res.status(201).send({ user, token })
+	} catch (error) {
+		res.status(404)
+		throw new Error(error.message)
+	}
+})
+// @desc	Create user and get token
+// @route	Post /api/users/login
+// @access	Public
+export const createUser = expressAsyncHandler(async (req, res) => {
+	try {
+		const newUser = await new User(req.body).save()
+		const token = await newUser.generateAuthToken()
+		res.status(201).send({ user: newUser, token })
+	} catch (error) {
+		res.status(404)
+		throw new Error(error.message)
 	}
 })
