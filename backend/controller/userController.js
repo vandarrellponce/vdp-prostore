@@ -75,3 +75,31 @@ export const getUserProfile = expressAsyncHandler(async (req, res) => {
 		throw new Error(error.message)
 	}
 })
+// @desc	Update user profile
+// @route	PUT /api/users/profile
+// @access	Private
+export const updateUserProfile = expressAsyncHandler(async (req, res) => {
+	const updates = Object.keys(req.body)
+	const allowedUpdates = ['name', 'email', 'password']
+	const isValidOperation = updates.every((update) =>
+		allowedUpdates.includes(update)
+	)
+
+	if (!isValidOperation)
+		return res
+			.status(400)
+			.send({ error: 'Updating invalid field is not allowed!' })
+	try {
+		const user = req.user
+		updates.forEach((update) => (user[update] = req.body[update]))
+		const savedUser = await user.save()
+		/* const user = await User.findByIdAndUpdate(id, req.body, {
+            new: true, 
+            runValidators: true
+            }) */
+		res.send(savedUser)
+	} catch (error) {
+		res.status(404)
+		throw new Error(error.message)
+	}
+})
