@@ -13,6 +13,7 @@ import FormContainer from '../components/FormContainer/FormContainer'
 const LoginScreen = (props) => {
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
+	const [formError, setFormError] = useState(null)
 	const { userInfo, loading, error } = useSelector((state) => state.user)
 	const dispatch = useDispatch()
 	const redirect = props.location.search
@@ -26,17 +27,39 @@ const LoginScreen = (props) => {
 	// HANDLERS
 	const submitHandler = (e) => {
 		e.preventDefault()
-		dispatch(loginUser(email, password))
+		let formPassed = true
+		if (email === '') {
+			setFormError('Please fill up the required fields')
+			document.getElementById('email').textContent = '* Email is required'
+			formPassed = false
+		} else {
+			document.getElementById('email').textContent = 'Email'
+			formPassed = true
+		}
+		if (password === '') {
+			setFormError('Please fill up the required fields')
+			document.getElementById('password').textContent =
+				'* Password is required'
+			formPassed = false
+		} else {
+			document.getElementById('password').textContent = 'Password'
+			formPassed = true
+		}
+		if (formPassed) {
+			setFormError(null)
+			dispatch(loginUser(email, password))
+		}
 	}
 
 	return (
 		<FormContainer>
 			<h1>Sign In</h1>
 			{error && <Message children={error} variant="info" />}
+			{formError && <Message children={formError} variant="danger" />}
 			{loading && <Loader />}
 			<Form onSubmit={submitHandler}>
 				<Form.Group controlId="email">
-					<Form.Label>Email Address</Form.Label>
+					<Form.Label id="email">Email Address</Form.Label>
 					<Form.Control
 						type="email"
 						value={email}
@@ -46,7 +69,7 @@ const LoginScreen = (props) => {
 				</Form.Group>
 
 				<Form.Group controlId="password">
-					<Form.Label>Password</Form.Label>
+					<Form.Label id="password">Password</Form.Label>
 					<Form.Control
 						type="password"
 						value={password}

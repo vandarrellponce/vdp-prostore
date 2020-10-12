@@ -5,7 +5,6 @@ import productListReducer from '../reducers/products/productListReducer'
 import productDetailsReducer from '../reducers/products/productDetailsReducer'
 import cartReducer from '../reducers/cart/cartReducer'
 import userReducer from '../reducers/users/userInOutReducers'
-import userRegReducer from '../reducers/users/userRegReducer'
 
 // RETREIVING ITEMS FROM STORAGE
 const cartItemsFromStorage = localStorage.getItem('cartItems')

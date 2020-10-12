@@ -71,7 +71,10 @@ const RegisterScreen = (props) => {
 			formPassed = false
 		}
 
-		if (formPassed) dispatch(registerUser(name, email, password))
+		if (formPassed) {
+			setFormError(null)
+			dispatch(registerUser(name, email, password))
+		}
 	}
 
 	return (
