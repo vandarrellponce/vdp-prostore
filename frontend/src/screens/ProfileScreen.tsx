@@ -10,27 +10,34 @@ import Loader from '../components/Loader/Loader'
 import FormContainer from '../components/FormContainer/FormContainer'
 import registerUser from '../actions/users/registerUser'
 import getUserDetails from '../actions/users/getUserDetails'
+import updateUserProfile from '../actions/users/updateUserProfile'
+import { truncate } from 'fs'
 
 const ProfileScreen = (props) => {
 	const [name, setName] = useState('')
-	const [email, setEmail] = useState('')
+	/* const [email, setEmail] = useState('') */
+	const [isChangePassword, setIsChangePassword] = useState(true)
 	const [password, setPassword] = useState('')
 	const [rePassword, setRePassword] = useState('')
 	const [formError, setFormError] = useState(null)
+	const dispatch = useDispatch()
 
 	const { userInfo: userDetail, loading, error } = useSelector(
 		(state) => state.userDetails
 	)
-
+	const { success, error: errorUpdate } = useSelector(
+		(state) => state.userUpdate
+	)
 	const { userInfo: userFromLogin } = useSelector((state) => state.user)
-	const dispatch = useDispatch()
 
+	// USE EFFECT
 	useEffect(() => {
 		if (!userFromLogin) return props.history.push('/login')
 		if (!userDetail) dispatch(getUserDetails('profile'))
 		if (userDetail) {
 			setName(userDetail.name)
-			setEmail(userDetail.email)
+
+			/* setEmail(userDetail.email) */
 		}
 	}, [userFromLogin, props.history, dispatch, userDetail])
 
@@ -40,7 +47,13 @@ const ProfileScreen = (props) => {
 
 		if (password !== rePassword)
 			return setFormError('Password does not match')
-		//dispatch()
+		dispatch(
+			updateUserProfile({
+				name,
+
+				password,
+			})
+		)
 
 		setFormError(null)
 	}
@@ -51,10 +64,24 @@ const ProfileScreen = (props) => {
 	return (
 		<Row>
 			<Col md={3}>
-				<h2>User Profile</h2>
+				{success && (
+					<Message
+						children={
+							'User profile updated, click here to refresh the page'
+						}
+						variant="success"
+					/>
+				)}
+
+				{errorUpdate && (
+					<Message children={errorUpdate} variant="info" />
+				)}
 				{error && <Message children={error} variant="info" />}
 				{formError && <Message children={formError} variant="danger" />}
 				{loading && <Loader />}
+
+				<h2>User Profile</h2>
+
 				<Form onSubmit={submitHandler}>
 					<Form.Group controlId="name">
 						<Form.Label id="name">Name</Form.Label>
@@ -66,22 +93,23 @@ const ProfileScreen = (props) => {
 						></Form.Control>
 					</Form.Group>
 
-					<Form.Group controlId="email">
+					{/* <Form.Group controlId="email">
 						<Form.Label id="email">Email Address</Form.Label>
 						<Form.Control
 							type="email"
 							value={email}
 							onChange={(e) => setEmail(e.target.value)}
 						></Form.Control>
-					</Form.Group>
+					</Form.Group> */}
 
 					<Form.Group controlId="password">
 						<Form.Label id="password">Password</Form.Label>
 						<Form.Control
 							type="password"
 							value={password}
-							placeholder="Enter password"
+							placeholder="Enter new password"
 							onChange={(e) => setPassword(e.target.value)}
+							disabled={!isChangePassword}
 						></Form.Control>
 					</Form.Group>
 
@@ -92,8 +120,9 @@ const ProfileScreen = (props) => {
 						<Form.Control
 							type="password"
 							value={rePassword}
-							placeholder="Re-enter password"
+							placeholder="Re-enter new password"
 							onChange={(e) => setRePassword(e.target.value)}
+							disabled={!isChangePassword}
 						></Form.Control>
 					</Form.Group>
 					<Button type="submit" variant="secondary">

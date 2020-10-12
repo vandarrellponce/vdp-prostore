@@ -10,7 +10,10 @@ interface Props {
 
 const Message: React.FC<Props> = ({ variant, children }) => {
 	return (
-		<div>
+		<div
+			onClick={() => window.location.reload()}
+			style={{ cursor: 'pointer' }}
+		>
 			<Alert variant={variant}>{children}</Alert>
 		</div>
 	)

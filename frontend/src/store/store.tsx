@@ -6,6 +6,7 @@ import productDetailsReducer from '../reducers/products/productDetailsReducer'
 import cartReducer from '../reducers/cart/cartReducer'
 import userReducer from '../reducers/users/userInOutReducers'
 import userDetailsReducer from '../reducers/users/userDetailsReducer'
+import userUpdateReducer from '../reducers/users/userUpdateReducer'
 
 // RETREIVING ITEMS FROM STORAGE
 const cartItemsFromStorage = localStorage.getItem('cartItems')
@@ -28,6 +29,7 @@ const rootReducer = combineReducers({
 	cart: cartReducer,
 	user: userReducer, // for the current user logged in
 	userDetails: userDetailsReducer,
+	userUpdate: userUpdateReducer,
 })
 // STORE
 const middleware = [thunk]
