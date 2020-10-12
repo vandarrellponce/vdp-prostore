@@ -16,6 +16,7 @@ export const loginUser = (email, password) => async (dispatch) => {
 			})
 		).data
 		const userInfo = {
+			_id: user._id,
 			name: user.name,
 			email: user.email,
 			isAdmin: user.isAdmin,
