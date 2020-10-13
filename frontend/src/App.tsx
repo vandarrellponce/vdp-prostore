@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import Loader from './components/Loader/Loader'
 import { authUser } from './actions/users/loginUser'
 import ShippingScreen from './screens/ShippingScreen'
+import PaymentScreen from './screens/PaymentScreen'
 
 const App = () => {
 	const { userInfo } = useSelector((state) => state.user)
@@ -27,6 +28,7 @@ const App = () => {
 			<Header />
 			<main className="py-3">
 				<Container>
+					<Route path="/payment" component={PaymentScreen} />
 					<Route path="/shipping" component={ShippingScreen} />
 					<Route path="/products/:id" component={ProductDetail} />
 					<Route path="/cart/:id?" component={CartScreen} />
