@@ -22,9 +22,7 @@ const RegisterScreen = (props) => {
 		? props.location.search.split('=')[1]
 		: '/'
 
-	useEffect(() => {
-		if (userInfo) props.history.push(redirect)
-	}, [userInfo, redirect, props.history])
+	if (userInfo) props.history.push(redirect)
 
 	// HANDLERS
 	const submitHandler = (e) => {

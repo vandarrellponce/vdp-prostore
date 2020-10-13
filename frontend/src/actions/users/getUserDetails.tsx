@@ -10,7 +10,9 @@ export const getUserDetails = (id) => async (dispatch, getState) => {
 		dispatch({ type: USER_DETAILS_REQUEST })
 		const config = {
 			headers: {
-				Authorization: `Bearer ${getState().user.userInfo.token}`,
+				Authorization: `Bearer ${JSON.parse(
+					localStorage.getItem('token')
+				)}`,
 			},
 		}
 		const res = await Axios.get(

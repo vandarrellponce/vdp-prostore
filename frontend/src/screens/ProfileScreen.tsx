@@ -22,24 +22,16 @@ const ProfileScreen = (props) => {
 	const [formError, setFormError] = useState(null)
 	const dispatch = useDispatch()
 
-	const { userInfo: userDetail, loading, error } = useSelector(
-		(state) => state.userDetails
-	)
-	const { success, error: errorUpdate } = useSelector(
-		(state) => state.userUpdate
-	)
-	const { userInfo: userFromLogin } = useSelector((state) => state.user)
+	const { userInfo, loading, error } = useSelector((state) => state.user)
 
 	// USE EFFECT
 	useEffect(() => {
-		if (!userFromLogin) return props.history.push('/login')
-		if (!userDetail) dispatch(getUserDetails('profile'))
-		if (userDetail) {
-			setName(userDetail.name)
+		if (userInfo) {
+			setName(userInfo.name)
 
 			/* setEmail(userDetail.email) */
 		}
-	}, [userFromLogin, props.history, dispatch, userDetail])
+	}, [userInfo, dispatch])
 
 	// HANDLERS
 	const submitHandler = (e) => {
@@ -58,24 +50,20 @@ const ProfileScreen = (props) => {
 		setFormError(null)
 	}
 
-	if (!userFromLogin) return <Loader />
+	if (!userInfo) props.history.push('/login')
 	if (loading) return <Loader />
-	if (!userDetail) return <Loader />
 	return (
 		<Row>
 			<Col md={3}>
-				{success && (
+				{/* 	{success && (
 					<Message
 						children={
 							'User profile updated, click here to refresh the page'
 						}
 						variant="success"
 					/>
-				)}
+				)} */}
 
-				{errorUpdate && (
-					<Message children={errorUpdate} variant="info" />
-				)}
 				{error && <Message children={error} variant="info" />}
 				{formError && <Message children={formError} variant="danger" />}
 				{loading && <Loader />}

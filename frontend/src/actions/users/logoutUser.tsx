@@ -5,7 +5,9 @@ export const logoutUser = () => async (dispatch, getState) => {
 	try {
 		const config = {
 			headers: {
-				Authorization: `Bearer ${getState().user.userInfo.token}`,
+				Authorization: `Bearer ${JSON.parse(
+					localStorage.getItem('token')
+				)}`,
 			},
 		}
 		localStorage.removeItem('userInfo')

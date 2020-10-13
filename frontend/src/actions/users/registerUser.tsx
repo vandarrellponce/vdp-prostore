@@ -15,14 +15,9 @@ const registerUser = (name, email, password) => async (dispatch) => {
 				password,
 			})
 		).data
-		const userInfo = {
-			name: user.name,
-			email: user.email,
-			isAdmin: user.isAdmin,
-			token: token,
-		}
-		dispatch({ type: USER_REGISTER_SUCCESS, payload: userInfo })
-		localStorage.setItem('userInfo', JSON.stringify(userInfo))
+
+		dispatch({ type: USER_REGISTER_SUCCESS, payload: user })
+		localStorage.setItem('token', JSON.stringify(token))
 	} catch (error) {
 		dispatch({
 			type: USER_REGISTER_FAIL,

@@ -7,24 +7,25 @@ import {
 	USER_UPDATE_SUCCESS,
 } from '../../constants/userConstants'
 
-export const updateUserProfile = (user) => async (dispatch, getState) => {
+export const updateUserProfile = (updatedUser) => async (dispatch) => {
 	try {
 		dispatch({ type: USER_UPDATE_REQUEST })
 		const config = {
 			headers: {
-				Authorization: `Bearer ${getState().user.userInfo.token}`,
+				Authorization: `Bearer ${JSON.parse(
+					localStorage.getItem('token')
+				)}`,
 			},
 		}
-		const res = await Axios.put(
-			`http://localhost:5000/api/users/profile`,
-			user,
-			config
-		)
-		const newUserInfo = JSON.parse(localStorage.getItem('userInfo'))
-		newUserInfo.name = res.data.name
-		localStorage.setItem('userInfo', JSON.stringify(newUserInfo))
+		const user = await (
+			await Axios.put(
+				`http://localhost:5000/api/users/profile`,
+				updatedUser,
+				config
+			)
+		).data
 
-		dispatch({ type: USER_UPDATE_SUCCESS, payload: res.data })
+		dispatch({ type: USER_UPDATE_SUCCESS, payload: user })
 	} catch (error) {
 		dispatch({
 			type: USER_UPDATE_FAIL,

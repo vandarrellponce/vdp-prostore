@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Container from 'react-bootstrap/Container'
 import { BrowserRouter, Route } from 'react-router-dom'
 import './app.css'
@@ -10,8 +10,17 @@ import LoginScreen from './screens/LoginScreen'
 import ProductDetail from './screens/ProductDetailScreen'
 import ProfileScreen from './screens/ProfileScreen'
 import RegisterScreen from './screens/RegisterScreen'
+import { useDispatch, useSelector } from 'react-redux'
+import Loader from './components/Loader/Loader'
+import { authUser } from './actions/users/loginUser'
 
 const App = () => {
+	const { userInfo } = useSelector((state) => state.user)
+	const dispatch = useDispatch()
+	useEffect(() => {
+		dispatch(authUser())
+	}, [])
+
 	return (
 		<BrowserRouter>
 			<Header />

@@ -20,10 +20,6 @@ const LoginScreen = (props) => {
 		? props.location.search.split('=')[1]
 		: '/'
 
-	useEffect(() => {
-		if (userInfo) props.history.push(redirect)
-	}, [userInfo, redirect, props.history])
-
 	// HANDLERS
 	const submitHandler = (e) => {
 		e.preventDefault()
@@ -50,7 +46,7 @@ const LoginScreen = (props) => {
 			dispatch(loginUser(email, password))
 		}
 	}
-
+	if (userInfo) props.history.push(redirect)
 	return (
 		<FormContainer>
 			<h1>Sign In</h1>

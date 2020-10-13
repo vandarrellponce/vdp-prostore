@@ -1,4 +1,6 @@
 import {
+	USER_AUTH_FAIL,
+	USER_AUTH_SUCCESS,
 	USER_LOGIN_FAIL,
 	USER_LOGIN_REQUEST,
 	USER_LOGIN_SUCCESS,
@@ -22,6 +24,20 @@ const userReducer = (
 	action
 ) => {
 	switch (action.type) {
+		// USER_AUTH
+		case USER_AUTH_SUCCESS: {
+			return {
+				...state,
+				userInfo: action.payload,
+				error: null,
+			}
+		}
+		case USER_AUTH_FAIL: {
+			return {
+				...state,
+				error: action.payload,
+			}
+		}
 		// USER LOGIN
 		case USER_LOGIN_REQUEST: {
 			return {
