@@ -5,6 +5,7 @@ import Col from 'react-bootstrap/Col'
 import { useDispatch, useSelector } from 'react-redux'
 import FormContainer from '../components/FormContainer/FormContainer'
 import CheckoutSteps from '../components/CheckoutSteps.tsx/CheckoutSteps'
+import savePaymentMethod from '../actions/cart/savePaymentMethod'
 
 const PaymentScreen = ({ history }) => {
 	const [paymentMethod, setPaymentMethod] = useState('PayPal')
@@ -18,10 +19,10 @@ const PaymentScreen = ({ history }) => {
 	// HANDLERS
 	const submitHandler = (e) => {
 		e.preventDefault()
-		// dispatch(savePaymentMethod(paymentMethod))
+		dispatch(savePaymentMethod(paymentMethod))
 		history.push('/placeorder')
 	}
-	if (!userInfo?.shippingAddress) history.push('/shipping')
+
 	return (
 		<FormContainer>
 			<CheckoutSteps step1 step2 step3 />

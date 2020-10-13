@@ -13,7 +13,9 @@ const cartItemsFromStorage = localStorage.getItem('cartItems')
 
 // INITIAL STATE
 const initialState = {
-	cart: { cartItems: cartItemsFromStorage },
+	cart: {
+		cartItems: cartItemsFromStorage,
+	},
 }
 // ROOT REDUCER
 const rootReducer = combineReducers({
