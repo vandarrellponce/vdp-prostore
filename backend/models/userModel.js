@@ -35,6 +35,12 @@ const userSchema = mongoose.Schema(
 				}
 			},
 		},
+		shippingAddress: {
+			street: { type: String },
+			sitio: { type: String },
+			barangay: { type: String },
+			city: { type: String },
+		},
 		isAdmin: {
 			type: Boolean,
 			required: true,

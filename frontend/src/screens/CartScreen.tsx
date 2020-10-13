@@ -31,7 +31,7 @@ const CartScreen = ({ match, location, history }) => {
 	}
 
 	const checkOutHandler = (e) => {
-		console.log('checkout')
+		history.push('/shipping')
 	}
 
 	return (

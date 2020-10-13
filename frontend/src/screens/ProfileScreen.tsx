@@ -44,7 +44,6 @@ const ProfileScreen = (props) => {
 		dispatch(
 			updateUser({
 				name,
-
 				password,
 			})
 		)

@@ -80,7 +80,7 @@ export const getUserProfile = expressAsyncHandler(async (req, res) => {
 // @access	Private
 export const updateUserProfile = expressAsyncHandler(async (req, res) => {
 	const updates = Object.keys(req.body)
-	const allowedUpdates = ['name', 'email', 'password']
+	const allowedUpdates = ['name', 'email', 'password', 'shippingAddress']
 	const isValidOperation = updates.every((update) =>
 		allowedUpdates.includes(update)
 	)
