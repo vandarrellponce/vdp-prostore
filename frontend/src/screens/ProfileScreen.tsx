@@ -10,7 +10,7 @@ import Loader from '../components/Loader/Loader'
 import FormContainer from '../components/FormContainer/FormContainer'
 import registerUser from '../actions/users/registerUser'
 import getUserDetails from '../actions/users/getUserDetails'
-import updateUserProfile from '../actions/users/updateUserProfile'
+import updateUser from '../actions/users/updateUser'
 import { truncate } from 'fs'
 
 const ProfileScreen = (props) => {
@@ -22,7 +22,9 @@ const ProfileScreen = (props) => {
 	const [formError, setFormError] = useState(null)
 	const dispatch = useDispatch()
 
-	const { userInfo, loading, error } = useSelector((state) => state.user)
+	const { userInfo, loading, updateError: error } = useSelector(
+		(state) => state.user
+	)
 
 	// USE EFFECT
 	useEffect(() => {
@@ -40,7 +42,7 @@ const ProfileScreen = (props) => {
 		if (password !== rePassword)
 			return setFormError('Password does not match')
 		dispatch(
-			updateUserProfile({
+			updateUser({
 				name,
 
 				password,

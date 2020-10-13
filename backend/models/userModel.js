@@ -2,6 +2,7 @@ import mongoose from 'mongoose'
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 import dotenv from 'dotenv'
+import validator from 'validator'
 dotenv.config()
 
 const userSchema = mongoose.Schema(
@@ -11,13 +12,28 @@ const userSchema = mongoose.Schema(
 			required: true,
 		},
 		email: {
-			type: String,
 			required: true,
+			type: String,
+			trim: true,
+			lowercase: true,
 			unique: true,
+			validate(value) {
+				if (!validator.isEmail(value))
+					throw new Error('Invalid Email Format')
+			},
 		},
 		password: {
-			type: String,
 			required: true,
+			type: String,
+			minlength: 6,
+			trim: true,
+			validate(value) {
+				if (value.toLowerCase().includes('password')) {
+					throw new Error(
+						'Password must not contain the word password'
+					)
+				}
+			},
 		},
 		isAdmin: {
 			type: Boolean,

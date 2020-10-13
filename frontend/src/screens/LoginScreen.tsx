@@ -14,7 +14,7 @@ const LoginScreen = (props) => {
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
 	const [formError, setFormError] = useState(null)
-	const { userInfo, loading, error } = useSelector((state) => state.user)
+	const { userInfo, loading, loginError } = useSelector((state) => state.user)
 	const dispatch = useDispatch()
 	const redirect = props.location.search
 		? props.location.search.split('=')[1]
@@ -50,7 +50,7 @@ const LoginScreen = (props) => {
 	return (
 		<FormContainer>
 			<h1>Sign In</h1>
-			{error && <Message children={error} variant="info" />}
+			{loginError && <Message children={loginError} variant="info" />}
 			{formError && <Message children={formError} variant="danger" />}
 			{loading && <Loader />}
 			<Form onSubmit={submitHandler}>

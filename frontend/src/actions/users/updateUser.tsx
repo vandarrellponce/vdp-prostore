@@ -7,7 +7,7 @@ import {
 	USER_UPDATE_SUCCESS,
 } from '../../constants/userConstants'
 
-export const updateUserProfile = (updatedUser) => async (dispatch) => {
+export const updateUser = (updatedUser) => async (dispatch) => {
 	try {
 		dispatch({ type: USER_UPDATE_REQUEST })
 		const config = {
@@ -36,4 +36,4 @@ export const updateUserProfile = (updatedUser) => async (dispatch) => {
 	}
 }
 
-export default updateUserProfile
+export default updateUser

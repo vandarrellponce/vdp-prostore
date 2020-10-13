@@ -20,6 +20,10 @@ const userReducer = (
 		userInfo: null,
 		loading: false,
 		error: null,
+		authError: null,
+		loginError: null,
+		registerError: null,
+		updateError: null,
 	},
 	action
 ) => {
@@ -35,7 +39,7 @@ const userReducer = (
 		case USER_AUTH_FAIL: {
 			return {
 				...state,
-				error: action.payload,
+				authError: action.payload,
 			}
 		}
 		// USER LOGIN
@@ -56,7 +60,7 @@ const userReducer = (
 			return {
 				...state,
 				loading: false,
-				error: action.payload,
+				loginError: action.payload,
 			}
 		}
 		// USER LOGOUT
@@ -88,7 +92,7 @@ const userReducer = (
 			return {
 				...state,
 				loading: false,
-				error: action.payload,
+				registerError: action.payload,
 			}
 		}
 		// USER UPDATE
@@ -109,7 +113,7 @@ const userReducer = (
 			return {
 				...state,
 				loading: false,
-				error: action.payload,
+				updateError: action.payload,
 			}
 		}
 		case USER_UPDATE_RESET: {

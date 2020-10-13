@@ -16,7 +16,9 @@ const RegisterScreen = (props) => {
 	const [password, setPassword] = useState('')
 	const [rePassword, setRePassword] = useState('')
 	const [formError, setFormError] = useState(null)
-	const { userInfo, loading, error } = useSelector((state) => state.user)
+	const { userInfo, loading, registerError: error } = useSelector(
+		(state) => state.user
+	)
 	const dispatch = useDispatch()
 	const redirect = props.location.search
 		? props.location.search.split('=')[1]
