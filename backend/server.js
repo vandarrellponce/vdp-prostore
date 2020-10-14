@@ -3,6 +3,7 @@ import cors from 'cors'
 import dotenv from 'dotenv'
 import productRoutes from './routes/productRoutes.js'
 import userRoutes from './routes/userRoutes.js'
+import orderRoutes from './routes/orderRoutes.js'
 import connectDB from './config/db.js'
 import errorHandler from './middlewares/errorHandler.js'
 
@@ -21,6 +22,7 @@ app.get('/api', (req, res) => {
 })
 app.use('/api/products', productRoutes)
 app.use('/api/users', userRoutes)
+app.use('/api/orders', orderRoutes)
 app.all('*', (req, res) =>
 	res.status(404).send({ message: `Not found - ${req.originalUrl}` })
 )

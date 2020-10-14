@@ -8,7 +8,7 @@ import CheckoutSteps from '../components/CheckoutSteps.tsx/CheckoutSteps'
 import savePaymentMethod from '../actions/cart/savePaymentMethod'
 
 const PaymentScreen = ({ history }) => {
-	const [paymentMethod, setPaymentMethod] = useState('PayPal')
+	const [paymentMethod, setPaymentMethod] = useState('')
 
 	const dispatch = useDispatch()
 	const { userInfo, authError, loading } = useSelector((state) => state.user)
@@ -37,7 +37,6 @@ const PaymentScreen = ({ history }) => {
 						value="Paypal"
 						name="paymentMethod"
 						label="Paypal or Credit Card"
-						checked
 						onChange={(e) => {
 							setPaymentMethod(e.target.value)
 						}}
@@ -45,8 +44,8 @@ const PaymentScreen = ({ history }) => {
 
 					<Form.Check
 						type="radio"
-						id="cod"
-						value="cod"
+						id="Cash on Delivery"
+						value="Cash on Delivery"
 						name="paymentMethod"
 						label="Cash on Delivery"
 						onChange={(e) => {
