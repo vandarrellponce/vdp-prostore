@@ -52,7 +52,7 @@ const PlaceOrderScreen = ({ history }) => {
 	}
 
 	if (!paymentMethod) history.push('/payment')
-	if (!userInfo) return <Loader />
+	if (!userInfo) return <Message children="Please log in to continue" />
 	if (loading) return <Loader />
 	return (
 		<div>
