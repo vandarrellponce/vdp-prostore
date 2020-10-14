@@ -9,10 +9,19 @@ import { useDispatch, useSelector } from 'react-redux'
 import CheckoutSteps from '../components/CheckoutSteps.tsx/CheckoutSteps'
 import Loader from '../components/Loader/Loader'
 import { Link } from 'react-router-dom'
+import createOrder from '../actions/order/createOrder'
+import Message from '../components/Message/Message'
 
 const PlaceOrderScreen = ({ history }) => {
 	const { cartItems, paymentMethod } = useSelector((state) => state.cart)
 	const { userInfo } = useSelector((state) => state.user)
+	const { order, loading, createError } = useSelector((state) => state.order)
+	const dispatch = useDispatch()
+
+	//USE EFFECT
+	useEffect(() => {
+		if (order) history.push(`/order/${order._id}`)
+	}, [order, history])
 
 	// CALCULATE PRICES
 	const itemsPrice = cartItems.reduce(
@@ -27,13 +36,28 @@ const PlaceOrderScreen = ({ history }) => {
 	function capitalize(s) {
 		return s[0].toUpperCase() + s.slice(1)
 	}
-	const placeOrderHandler = (e) => {}
+	const placeOrderHandler = async (e) => {
+		e.preventDefault()
+		await dispatch(
+			createOrder({
+				paymentMethod,
+				itemsPrice,
+				shippingPrice,
+				taxPrice,
+				totalPrice,
+				orderItems: cartItems,
+				shippingAddress: userInfo.shippingAddress,
+			})
+		)
+	}
 
 	if (!paymentMethod) history.push('/payment')
 	if (!userInfo) return <Loader />
+	if (loading) return <Loader />
 	return (
 		<div>
 			<CheckoutSteps step1 step2 step3 step4 />
+
 			<Row>
 				<Col md={8}>
 					<ListGroup variant="flush">
@@ -138,6 +162,14 @@ const PlaceOrderScreen = ({ history }) => {
 									order, address, and delivery charge. Please
 									keep your line open. Thank you.
 								</p>
+							</ListGroup.Item>
+							<ListGroup.Item>
+								{createError && (
+									<Message
+										children={createError}
+										variant="danger"
+									/>
+								)}
 							</ListGroup.Item>
 							<ListGroup.Item variant="info">
 								<strong>Status: Not yet verified</strong>
