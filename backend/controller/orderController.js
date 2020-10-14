@@ -39,3 +39,24 @@ export const createOrder = expressAsyncHandler(async (req, res) => {
 		throw new Error(error.message)
 	}
 })
+
+// @desc	Get Order by ID
+// @route	Get /api/orders/:orderId
+// @access	Private
+export const getOrderById = expressAsyncHandler(async (req, res) => {
+	try {
+		const orderId = req.params.orderId
+		const order = await Order.findById(orderId).populate(
+			'user',
+			'name email'
+		)
+		if (!order) {
+			res.status(404)
+			throw new Error('No order information found')
+		}
+		res.send(order)
+	} catch (error) {
+		res.status(401)
+		throw new Error(error.message)
+	}
+})
