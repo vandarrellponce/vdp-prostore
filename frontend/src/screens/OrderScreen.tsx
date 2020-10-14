@@ -22,8 +22,8 @@ const OrderScreen = ({ match }) => {
 
 	// USE EFFECT
 	useEffect(() => {
-		if (!order) dispatch(getOrder(orderId))
-	}, [])
+		if (!order || order._id !== orderId) dispatch(getOrder(orderId))
+	}, [order, orderId])
 
 	function capitalize(s) {
 		return s[0].toUpperCase() + s.slice(1)
