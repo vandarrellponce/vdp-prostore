@@ -16,6 +16,7 @@ import { authUser } from './actions/users/loginUser'
 import ShippingScreen from './screens/ShippingScreen'
 import PaymentScreen from './screens/PaymentScreen'
 import PlaceOrderScreen from './screens/PlaceOrderScreen'
+import OrderScreen from './screens/OrderScreen'
 
 const App = () => {
 	const { userInfo } = useSelector((state) => state.user)
@@ -29,6 +30,7 @@ const App = () => {
 			<Header />
 			<main className="py-3">
 				<Container>
+					<Route path="/orders/:orderId" component={OrderScreen} />
 					<Route path="/placeorder" component={PlaceOrderScreen} />
 					<Route path="/payment" component={PaymentScreen} />
 					<Route path="/shipping" component={ShippingScreen} />

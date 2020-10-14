@@ -1,6 +1,8 @@
 main {
 	min-height: 80vh;
 }
+body {
+}
 
 /* .app {
 	display: flex;

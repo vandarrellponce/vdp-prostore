@@ -25,6 +25,7 @@ const orderSchema = mongoose.Schema(
 			sitio: { type: String, required: true },
 			barangay: { type: String, required: true },
 			city: { type: String, required: true },
+			mobile: { type: String, required: true },
 		},
 		paymentResult: {
 			id: { type: String },
@@ -33,6 +34,7 @@ const orderSchema = mongoose.Schema(
 			email_address: { type: String },
 		},
 		paymentMethod: { type: String, required: true },
+		itemsPrice: { type: Number, required: true, default: 0 },
 		taxPrice: { type: Number, required: true, default: 0 },
 		shippingPrice: { type: Number, required: true, default: 0 },
 		totalPrice: { type: Number, required: true, default: 0 },

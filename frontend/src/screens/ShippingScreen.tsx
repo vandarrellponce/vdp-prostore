@@ -11,17 +11,25 @@ const ShippingScreen = ({ history }) => {
 	const [sitio, setSitio] = useState('')
 	const [barangay, setBaranggay] = useState('')
 	const [city, setCity] = useState('')
+	const [mobile, setMobile] = useState('')
 	const dispatch = useDispatch()
 	const { userInfo, authError, loading } = useSelector((state) => state.user)
 
 	// USE EFFECT
 	useEffect(() => {
 		if (userInfo?.shippingAddress) {
-			const { street, sitio, barangay, city } = userInfo.shippingAddress
+			const {
+				street,
+				sitio,
+				barangay,
+				city,
+				mobile,
+			} = userInfo.shippingAddress
 			setStreet(street)
 			setSitio(sitio)
 			setBaranggay(barangay)
 			setCity(city)
+			setMobile(mobile)
 		}
 	}, [userInfo])
 
@@ -35,6 +43,7 @@ const ShippingScreen = ({ history }) => {
 					sitio,
 					barangay,
 					city,
+					mobile,
 				},
 			})
 		).then(() => history.push('/payment'))
@@ -87,6 +96,17 @@ const ShippingScreen = ({ history }) => {
 						type="text"
 						value={city}
 						onChange={(e) => setCity(e.target.value)}
+						required
+					></Form.Control>
+				</Form.Group>
+
+				<Form.Group controlId="mobile">
+					<Form.Label id="mobile">Mobile Number</Form.Label>
+
+					<Form.Control
+						type="text"
+						value={mobile}
+						onChange={(e) => setMobile(e.target.value)}
 						required
 					></Form.Control>
 				</Form.Group>

@@ -31,7 +31,9 @@ export const createOrder = expressAsyncHandler(async (req, res) => {
 			totalPrice,
 			user: req.user._id,
 		})
-		const savedOrder = await order.save()
+		const savedOrder = await (await order.save())
+			.populate('user', 'name email')
+			.execPopulate()
 
 		res.status(201).send(savedOrder)
 	} catch (error) {

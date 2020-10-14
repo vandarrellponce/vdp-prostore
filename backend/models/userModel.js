@@ -40,6 +40,7 @@ const userSchema = mongoose.Schema(
 			sitio: { type: String },
 			barangay: { type: String },
 			city: { type: String },
+			mobile: { type: String },
 		},
 		isAdmin: {
 			type: Boolean,
