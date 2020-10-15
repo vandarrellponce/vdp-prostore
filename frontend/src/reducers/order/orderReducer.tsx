@@ -5,6 +5,10 @@ import {
 	ORDER_GET_FAIL,
 	ORDER_GET_REQUEST,
 	ORDER_GET_SUCCESS,
+	ORDER_PAY_FAIL,
+	ORDER_PAY_REQUEST,
+	ORDER_PAY_SUCCESS,
+	ORDER_PAY_RESET,
 } from '../../constants/orderConstants'
 
 const orderReducer = (
@@ -13,6 +17,7 @@ const orderReducer = (
 		loading: false,
 		createError: null,
 		getOrderError: null,
+		orderPayError: null,
 	},
 	action
 ) => {
@@ -59,6 +64,35 @@ const orderReducer = (
 				...state,
 				loading: false,
 				getOrderError: action.payload,
+			}
+		}
+
+		//PAY ORDER
+		case ORDER_PAY_REQUEST: {
+			return {
+				...state,
+				loading: true,
+			}
+		}
+		case ORDER_PAY_SUCCESS: {
+			return {
+				...state,
+				order: action.payload,
+				loading: false,
+			}
+		}
+		case ORDER_PAY_FAIL: {
+			return {
+				...state,
+				loading: false,
+				orderPayError: action.payload,
+			}
+		}
+		case ORDER_PAY_RESET: {
+			return {
+				order: null,
+				loading: false,
+				orderPayError: null,
 			}
 		}
 		default:

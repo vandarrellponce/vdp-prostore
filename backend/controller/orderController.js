@@ -64,7 +64,7 @@ export const getOrderById = expressAsyncHandler(async (req, res) => {
 })
 
 // @desc	Update order to paid
-// @route	PUT /api/orders/:orderId
+// @route	PUT /api/orders/:orderId/pay
 // @access	Private
 export const updateOrderToPaid = expressAsyncHandler(async (req, res) => {
 	try {
