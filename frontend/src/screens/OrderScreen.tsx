@@ -11,10 +11,15 @@ import Loader from '../components/Loader/Loader'
 import { Link } from 'react-router-dom'
 import Message from '../components/Message/Message'
 import getOrder from '../actions/order/getOrder'
+import Axios from 'axios'
+import { PayPalButton } from 'react-paypal-button-v2'
+import payOrder from '../actions/order/payOrder'
+import Paypal from '../components/Paypal'
 
 const OrderScreen = ({ match }) => {
+	const [sdkReady, setSdkReady] = useState(false)
 	const { userInfo } = useSelector((state) => state.user)
-	const { order, loading, getOrderError } = useSelector(
+	const { order, loading, payLoading, getOrderError } = useSelector(
 		(state) => state.order
 	)
 	const orderId = match.params.orderId
@@ -23,17 +28,27 @@ const OrderScreen = ({ match }) => {
 	// USE EFFECT
 	useEffect(() => {
 		if (!order || order._id !== orderId) dispatch(getOrder(orderId))
-	}, [order, orderId])
+	}, [order])
 
 	function capitalize(s) {
 		return s[0].toUpperCase() + s.slice(1)
 	}
 
 	// HANDLERS
-	const paymentHandler = (e) => {
-		e.preventDefault()
-		console.log('payment')
+
+	const paymentSuccess = async (payment) => {
+		console.log(payment)
+		const paymentResult = {
+			id: payment.paymentID,
+			status: payment.paid ? 'Paid' : 'Not Paid',
+			email_address: payment.email,
+			update_time: Date.now().toString(),
+		}
+		dispatch(payOrder(orderId, paymentResult))
 	}
+	const paymentCancelled = (data) => {}
+	const paymentError = (error) => {}
+
 	if (loading) return <Loader />
 	if (getOrderError) return <Message children={getOrderError} />
 	if (!order) return <Loader />
@@ -69,19 +84,18 @@ const OrderScreen = ({ match }) => {
 								{capitalize(userInfo.shippingAddress.barangay)},{' '}
 								{capitalize(userInfo.shippingAddress.city)},
 							</p>
-							<p>
-								<strong>Delivery status: </strong>
-								{order.isDelivered ? (
-									<Message variant="succes">
-										Delivered on: {order.deliveredAt}
-									</Message>
-								) : (
-									<Message
-										children="For Delivery"
-										variant="danger"
-									/>
-								)}
-							</p>
+
+							<strong>Delivery status: </strong>
+							{order.isDelivered ? (
+								<Message variant="success">
+									Delivered on: {order.deliveredAt}
+								</Message>
+							) : (
+								<Message
+									children="For Delivery"
+									variant="danger"
+								/>
+							)}
 						</ListGroup.Item>
 						<ListGroup.Item>
 							<h3>PAYMENT METHOD</h3>
@@ -89,19 +103,18 @@ const OrderScreen = ({ match }) => {
 								<strong>Pay through: </strong>
 								{order.paymentMethod}
 							</p>
-							<p>
-								<strong>Payment status: </strong>
-								{order.isPaid ? (
-									<Message variant="succes">
-										Paid on: {order.paidAt}
-									</Message>
-								) : (
-									<Message
-										children="For Payment"
-										variant="danger"
-									/>
-								)}
-							</p>
+
+							<strong>Payment status: </strong>
+							{order.isPaid ? (
+								<Message variant="success">
+									Paid on: {order.paidAt}
+								</Message>
+							) : (
+								<Message
+									children="For Payment"
+									variant="danger"
+								/>
+							)}
 						</ListGroup.Item>
 						<ListGroup.Item>
 							<h3>ORDER ITEMS</h3>
@@ -159,6 +172,17 @@ const OrderScreen = ({ match }) => {
 									<Col>₱{order.totalPrice}</Col>
 								</Row>
 							</ListGroup.Item>
+							{!order.isPaid && (
+								<ListGroup.Item>
+									{payLoading && <Loader />}
+									<Paypal
+										paymentSuccess={paymentSuccess}
+										paymentCancelled={paymentCancelled}
+										paymentError={paymentError}
+										total={order.totalPrice}
+									/>
+								</ListGroup.Item>
+							)}
 						</ListGroup>
 					</Card>
 				</Col>

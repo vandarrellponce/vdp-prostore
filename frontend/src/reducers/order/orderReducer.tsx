@@ -15,6 +15,7 @@ const orderReducer = (
 	state = {
 		order: null,
 		loading: false,
+		payLoading: false,
 		createError: null,
 		getOrderError: null,
 		orderPayError: null,
@@ -71,27 +72,27 @@ const orderReducer = (
 		case ORDER_PAY_REQUEST: {
 			return {
 				...state,
-				loading: true,
+				payLoading: true,
 			}
 		}
 		case ORDER_PAY_SUCCESS: {
 			return {
 				...state,
 				order: action.payload,
-				loading: false,
+				payLoading: false,
 			}
 		}
 		case ORDER_PAY_FAIL: {
 			return {
 				...state,
-				loading: false,
+				payLoading: false,
 				orderPayError: action.payload,
 			}
 		}
 		case ORDER_PAY_RESET: {
 			return {
 				order: null,
-				loading: false,
+				payLoading: false,
 				orderPayError: null,
 			}
 		}

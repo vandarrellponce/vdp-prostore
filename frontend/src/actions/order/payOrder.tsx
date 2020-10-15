@@ -8,7 +8,6 @@ import {
 
 const payOrder = (orderId, paymentResult) => async (dispatch) => {
 	try {
-		dispatch({ type: ORDER_PAY_RESET })
 		dispatch({ type: ORDER_PAY_REQUEST })
 		const token = JSON.parse(localStorage.getItem('token'))
 		const config = {

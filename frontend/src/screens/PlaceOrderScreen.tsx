@@ -20,7 +20,7 @@ const PlaceOrderScreen = ({ history }) => {
 
 	//USE EFFECT
 	useEffect(() => {
-		if (order) history.push(`/orders/${order._id}`)
+		if (order) history.push(`/orders/${order._id}/pay`)
 	}, [order, history])
 
 	// CALCULATE PRICES

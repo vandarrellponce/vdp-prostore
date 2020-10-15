@@ -30,7 +30,10 @@ const App = () => {
 			<Header />
 			<main className="py-3">
 				<Container>
-					<Route path="/orders/:orderId" component={OrderScreen} />
+					<Route
+						path="/orders/:orderId/pay"
+						component={OrderScreen}
+					/>
 					<Route path="/placeorder" component={PlaceOrderScreen} />
 					<Route path="/payment" component={PaymentScreen} />
 					<Route path="/shipping" component={ShippingScreen} />
