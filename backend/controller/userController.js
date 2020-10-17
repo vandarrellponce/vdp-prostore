@@ -130,3 +130,42 @@ export const deleteUser = expressAsyncHandler(async (req, res) => {
 		throw new Error(error.message)
 	}
 })
+
+// @desc	Get User by ID
+// @route	GET /api/users/:id
+// @access	Private/Admin
+export const getUser = expressAsyncHandler(async (req, res) => {
+	try {
+		const id = req.params.id
+		const theUser = await User.findById(id)
+		res.send(theUser)
+	} catch (error) {
+		res.status(404)
+		throw new Error(error.message)
+	}
+})
+
+// @desc	Update User
+// @route	PUT /api/users/:id
+// @access	Private/Admin
+export const updateUser = expressAsyncHandler(async (req, res) => {
+	const updates = Object.keys(req.body)
+	const allowedUpdates = ['name', 'email', 'shippingAddress', 'isAdmin']
+	const isValidOperation = updates.every((update) =>
+		allowedUpdates.includes(update)
+	)
+
+	if (!isValidOperation)
+		return res
+			.status(400)
+			.send({ error: 'Updating invalid field is not allowed!' })
+	try {
+		const user = req.user
+		updates.forEach((update) => (user[update] = req.body[update]))
+		const savedUser = await user.save()
+		res.send(savedUser)
+	} catch (error) {
+		res.status(404)
+		throw new Error(error.message)
+	}
+})
