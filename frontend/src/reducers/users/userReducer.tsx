@@ -1,6 +1,9 @@
 import {
 	USER_AUTH_FAIL,
 	USER_AUTH_SUCCESS,
+	USER_LIST_FAIL,
+	USER_LIST_REQUEST,
+	USER_LIST_SUCCESS,
 	USER_LOGIN_FAIL,
 	USER_LOGIN_REQUEST,
 	USER_LOGIN_SUCCESS,
@@ -24,10 +27,35 @@ const userReducer = (
 		loginError: null,
 		registerError: null,
 		updateError: null,
+		userList: [],
+		userListLoading: null,
+		userListError: null,
 	},
 	action
 ) => {
 	switch (action.type) {
+		// USER LIST
+		case USER_LIST_REQUEST: {
+			return {
+				...state,
+				userListLoading: true,
+			}
+		}
+		case USER_LIST_SUCCESS: {
+			return {
+				...state,
+				userListLoading: false,
+				userList: action.payload,
+			}
+		}
+		case USER_LIST_FAIL: {
+			return {
+				...state,
+				userListLoading: false,
+				userListError: action.payload,
+			}
+		}
+
 		// USER_AUTH
 		case USER_AUTH_SUCCESS: {
 			return {

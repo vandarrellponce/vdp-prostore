@@ -11,15 +11,15 @@ import ProductDetail from './screens/ProductDetailScreen'
 import ProfileScreen from './screens/ProfileScreen'
 import RegisterScreen from './screens/RegisterScreen'
 import { useDispatch, useSelector } from 'react-redux'
-import Loader from './components/Loader/Loader'
+
 import { authUser } from './actions/users/loginUser'
 import ShippingScreen from './screens/ShippingScreen'
 import PaymentScreen from './screens/PaymentScreen'
 import PlaceOrderScreen from './screens/PlaceOrderScreen'
 import OrderScreen from './screens/OrderScreen'
+import UserListScreen from './screens/UserListScreen'
 
 const App = () => {
-	const { userInfo } = useSelector((state) => state.user)
 	const dispatch = useDispatch()
 	useEffect(() => {
 		dispatch(authUser())
@@ -34,6 +34,7 @@ const App = () => {
 						path="/orders/:orderId/pay"
 						component={OrderScreen}
 					/>
+					<Route path="/admin/userlist" component={UserListScreen} />
 					<Route path="/placeorder" component={PlaceOrderScreen} />
 					<Route path="/payment" component={PaymentScreen} />
 					<Route path="/shipping" component={ShippingScreen} />

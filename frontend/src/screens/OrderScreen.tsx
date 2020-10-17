@@ -1,21 +1,16 @@
-import React, { useEffect, useState } from 'react'
-import Button from 'react-bootstrap/Button'
+import React, { useEffect } from 'react'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import ListGroup from 'react-bootstrap/ListGroup'
 import Image from 'react-bootstrap/Image'
 import Card from 'react-bootstrap/Card'
 import { useDispatch, useSelector } from 'react-redux'
-
 import Loader from '../components/Loader/Loader'
 import { Link } from 'react-router-dom'
 import Message from '../components/Message/Message'
 import getOrder from '../actions/order/getOrder'
-import Axios from 'axios'
-import { PayPalButton } from 'react-paypal-button-v2'
 import payOrder from '../actions/order/payOrder'
 import Paypal from '../components/Paypal'
-import { ORDER_PAY_RESET } from '../constants/orderConstants'
 
 const OrderScreen = ({ match }) => {
 	const { userInfo } = useSelector((state) => state.user)
