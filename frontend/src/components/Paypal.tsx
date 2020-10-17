@@ -1,19 +1,15 @@
 import Axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import PaypalExpressBtn from 'react-paypal-express-checkout'
+import Loader from './Loader/Loader'
 
 const Paypal = (props) => {
 	const [clientId, setClientId] = useState('')
 
 	useEffect(() => {
-		const fetchPaypalClientId = async () => {
-			const clientId = await (
-				await Axios.get('http://localhost:5000/api/config/paypal')
-			).data
-			setClientId(clientId)
-		}
-
-		fetchPaypalClientId()
+		Axios.get('http://localhost:5000/api/config/paypal').then((res) => {
+			setClientId(res.data)
+		})
 	}, [])
 
 	const onSuccess = (payment) => {
@@ -37,11 +33,13 @@ const Paypal = (props) => {
 	let env = 'sandbox' // you can set here to 'production' for production
 	let currency = 'PHP' // or you can set this value from your props or state
 	let total = props.total
+	if (!clientId) return <Loader />
 
 	const client = {
 		sandbox: clientId,
 		production: 'YOUR-PRODUCTION-APP-ID',
 	}
+
 	return (
 		<PaypalExpressBtn
 			env={env}

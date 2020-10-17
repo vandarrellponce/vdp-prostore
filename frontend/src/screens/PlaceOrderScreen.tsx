@@ -11,6 +11,7 @@ import Loader from '../components/Loader/Loader'
 import { Link } from 'react-router-dom'
 import createOrder from '../actions/order/createOrder'
 import Message from '../components/Message/Message'
+import resetCart from '../actions/cart/resetCart'
 
 const PlaceOrderScreen = ({ history }) => {
 	const { cartItems, paymentMethod } = useSelector((state) => state.cart)
@@ -49,6 +50,7 @@ const PlaceOrderScreen = ({ history }) => {
 				shippingAddress: userInfo.shippingAddress,
 			})
 		)
+		dispatch(resetCart())
 		/* history.push(`/orders/${order._id}`) */
 	}
 

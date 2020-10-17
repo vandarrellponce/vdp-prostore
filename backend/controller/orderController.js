@@ -1,4 +1,5 @@
 import expressAsyncHandler from 'express-async-handler'
+import mongoose from 'mongoose'
 import Order from '../models/orderModel.js'
 
 // @desc	Create new order
@@ -47,6 +48,10 @@ export const createOrder = expressAsyncHandler(async (req, res) => {
 // @access	Private
 export const getOrderById = expressAsyncHandler(async (req, res) => {
 	try {
+		if (!mongoose.Types.ObjectId.isValid(req.params.orderId)) {
+			res.status(400)
+			throw new Error('Invalid ID.')
+		}
 		const orderId = req.params.orderId
 		const order = await Order.findById(orderId).populate(
 			'user',
@@ -84,6 +89,21 @@ export const updateOrderToPaid = expressAsyncHandler(async (req, res) => {
 		}
 		const updatedOrder = await order.save()
 		res.send(updatedOrder)
+	} catch (error) {
+		res.status(401)
+		throw new Error(error.message)
+	}
+})
+
+// @desc	Get orders of current user
+// @route	PUT /api/orders/myorders
+// @access	Private
+export const getUserOrders = expressAsyncHandler(async (req, res) => {
+	try {
+		const orders = await Order.find({
+			user: req.user._id,
+		})
+		res.send(orders)
 	} catch (error) {
 		res.status(401)
 		throw new Error(error.message)

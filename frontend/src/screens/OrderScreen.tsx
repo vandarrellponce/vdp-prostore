@@ -15,9 +15,9 @@ import Axios from 'axios'
 import { PayPalButton } from 'react-paypal-button-v2'
 import payOrder from '../actions/order/payOrder'
 import Paypal from '../components/Paypal'
+import { ORDER_PAY_RESET } from '../constants/orderConstants'
 
 const OrderScreen = ({ match }) => {
-	const [sdkReady, setSdkReady] = useState(false)
 	const { userInfo } = useSelector((state) => state.user)
 	const { order, loading, payLoading, getOrderError } = useSelector(
 		(state) => state.order
@@ -28,7 +28,7 @@ const OrderScreen = ({ match }) => {
 	// USE EFFECT
 	useEffect(() => {
 		if (!order || order._id !== orderId) dispatch(getOrder(orderId))
-	}, [order])
+	}, [order, orderId])
 
 	function capitalize(s) {
 		return s[0].toUpperCase() + s.slice(1)
