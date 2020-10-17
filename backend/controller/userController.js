@@ -107,11 +107,24 @@ export const updateUserProfile = expressAsyncHandler(async (req, res) => {
 // @desc	get all users
 // @route	GET/api/users
 // @access	Private/Admin
-
 export const getUsers = expressAsyncHandler(async (req, res) => {
 	try {
 		const users = await User.find({})
 		res.send(users)
+	} catch (error) {
+		res.status(404)
+		throw new Error(error.message)
+	}
+})
+
+// @desc	Delete User by ID
+// @route	DELETE /api/users/:id
+// @access	Private/Admin
+export const deleteUser = expressAsyncHandler(async (req, res) => {
+	try {
+		const id = req.params.id
+		await User.findOneAndDelete({ _id: id })
+		res.send({ message: 'User removed' })
 	} catch (error) {
 		res.status(404)
 		throw new Error(error.message)

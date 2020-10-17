@@ -16,6 +16,9 @@ import {
 	USER_UPDATE_REQUEST,
 	USER_UPDATE_RESET,
 	USER_UPDATE_SUCCESS,
+	USER_DELETE_SUCCESS,
+	USER_DELETE_REQUEST,
+	USER_DELETE_FAIL,
 } from '../../constants/userConstants'
 
 const userReducer = (
@@ -30,10 +33,35 @@ const userReducer = (
 		userList: [],
 		userListLoading: null,
 		userListError: null,
+		userDeleteResponse: null,
+		userDeleteLoading: false,
+		userDeleteError: null,
 	},
 	action
 ) => {
 	switch (action.type) {
+		// USER DELETE
+		case USER_DELETE_REQUEST: {
+			return {
+				...state,
+				userDeleteLoading: true,
+			}
+		}
+		case USER_DELETE_SUCCESS: {
+			return {
+				...state,
+				userDeleteLoading: false,
+				userDeleteResponse: action.payload,
+			}
+		}
+		case USER_DELETE_FAIL: {
+			return {
+				...state,
+				userDeleteLoading: false,
+				userDeleteError: action.payload,
+			}
+		}
+
 		// USER LIST
 		case USER_LIST_REQUEST: {
 			return {

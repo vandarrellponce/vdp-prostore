@@ -3,6 +3,7 @@ const router = express.Router()
 import {
 	authUser,
 	createUser,
+	deleteUser,
 	getUserProfile,
 	getUsers,
 	logoutAllUserSession,
@@ -12,6 +13,7 @@ import {
 import auth from '../middlewares/authMiddleware.js'
 import admin from '../middlewares/adminMiddleware.js'
 
+router.route('/:id').delete(auth, admin, deleteUser)
 router.post('/login', authUser)
 router.post('/register', createUser)
 router.get('/logout', auth, logoutUser)
