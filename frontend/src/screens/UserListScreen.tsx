@@ -7,15 +7,16 @@ import Loader from '../components/Loader/Loader'
 import { LinkContainer } from 'react-router-bootstrap'
 import getUserList from '../actions/users/getUserList'
 
-const UserListScreen = () => {
-	const { userList, userListLoading, userListError } = useSelector(
+const UserListScreen = ({ history }) => {
+	const { userInfo, userList, userListLoading, userListError } = useSelector(
 		(state) => state.user
 	)
 	const dispatch = useDispatch()
 
 	// USE EFFECT
 	useEffect(() => {
-		dispatch(getUserList())
+		if (userInfo && userInfo.isAdmin) dispatch(getUserList())
+		else history.push('/')
 	}, [dispatch])
 
 	// HANDLERS
