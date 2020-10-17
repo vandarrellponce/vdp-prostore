@@ -19,6 +19,7 @@ const Header = () => {
 	const logoutHandler = (e) => {
 		e.preventDefault()
 		dispatch(logoutUser())
+		dispatch({ type: 'ORDERS_BYUSER_RESET' })
 	}
 
 	return (

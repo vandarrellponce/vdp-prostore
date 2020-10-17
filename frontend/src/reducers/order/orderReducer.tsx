@@ -127,6 +127,14 @@ const orderReducer = (
 				userOrdersError: action.payload,
 			}
 		}
+		case 'ORDERS_BYUSER_RESET': {
+			return {
+				...state,
+				userOrdersLoading: false,
+				userOrders: [],
+				userOrdersError: null,
+			}
+		}
 		default:
 			return state
 	}

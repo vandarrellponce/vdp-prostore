@@ -103,3 +103,17 @@ export const updateUserProfile = expressAsyncHandler(async (req, res) => {
 		throw new Error(error.message)
 	}
 })
+
+// @desc	get all users
+// @route	GET/api/users
+// @access	Private/Admin
+
+export const getUsers = expressAsyncHandler(async (req, res) => {
+	try {
+		const users = await User.find({})
+		res.send(users)
+	} catch (error) {
+		res.status(404)
+		throw new Error(error.message)
+	}
+})
