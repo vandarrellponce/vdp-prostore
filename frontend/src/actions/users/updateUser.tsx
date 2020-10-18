@@ -1,9 +1,7 @@
 import Axios from 'axios'
 import {
-	USER_LOGIN_SUCCESS,
 	USER_UPDATE_FAIL,
 	USER_UPDATE_REQUEST,
-	USER_UPDATE_RESET,
 	USER_UPDATE_SUCCESS,
 } from '../../constants/userConstants'
 

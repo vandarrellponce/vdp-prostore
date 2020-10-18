@@ -13,7 +13,7 @@ const ShippingScreen = ({ history }) => {
 	const [city, setCity] = useState('')
 	const [mobile, setMobile] = useState('')
 	const dispatch = useDispatch()
-	const { userInfo, authError, loading } = useSelector((state) => state.user)
+	const { userInfo } = useSelector((state) => state.user)
 
 	// USE EFFECT
 	useEffect(() => {

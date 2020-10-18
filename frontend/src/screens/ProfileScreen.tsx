@@ -15,7 +15,7 @@ import { ORDER_PAY_RESET } from '../constants/orderConstants'
 const ProfileScreen = (props) => {
 	const [name, setName] = useState('')
 	/* const [email, setEmail] = useState('') */
-	const [isChangePassword, setIsChangePassword] = useState(true)
+	const [isChangePassword] = useState(true)
 	const [password, setPassword] = useState('')
 	const [rePassword, setRePassword] = useState('')
 	const [formError, setFormError] = useState(null)
@@ -37,7 +37,7 @@ const ProfileScreen = (props) => {
 		if (!userOrders?.length) {
 			dispatch(getUserOrders())
 		}
-	}, [userInfo, dispatch])
+	}, [userInfo, dispatch, userOrders])
 
 	// HANDLERS
 	const submitHandler = (e) => {

@@ -1,4 +1,3 @@
-import Axios from 'axios'
 import React, { useEffect } from 'react'
 import Col from 'react-bootstrap/esm/Col'
 import Row from 'react-bootstrap/esm/Row'

@@ -11,10 +11,7 @@ export const logoutUser = () => async (dispatch, getState) => {
 			},
 		}
 		localStorage.removeItem('userInfo')
-		const res = await Axios.get(
-			'http://localhost:5000/api/users/logout',
-			config
-		)
+		await Axios.get('http://localhost:5000/api/users/logout', config)
 		dispatch({ type: USER_LOGOUT })
 	} catch (error) {
 		dispatch({

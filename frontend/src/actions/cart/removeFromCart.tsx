@@ -1,4 +1,3 @@
-import Axios from 'axios'
 import { CART_REMOVE_ITEM } from '../../constants/cartConstants'
 
 const removeFromCart = (id) => async (dispatch, getState) => {

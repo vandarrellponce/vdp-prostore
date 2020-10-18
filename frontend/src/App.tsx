@@ -10,7 +10,7 @@ import LoginScreen from './screens/LoginScreen'
 import ProductDetail from './screens/ProductDetailScreen'
 import ProfileScreen from './screens/ProfileScreen'
 import RegisterScreen from './screens/RegisterScreen'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 
 import { authUser } from './actions/users/loginUser'
 import ShippingScreen from './screens/ShippingScreen'
@@ -23,7 +23,7 @@ const App = () => {
 	const dispatch = useDispatch()
 	useEffect(() => {
 		dispatch(authUser())
-	}, [])
+	}, [dispatch])
 
 	return (
 		<BrowserRouter>

@@ -12,7 +12,6 @@ const UserListScreen = ({ history }) => {
 	const {
 		userInfo,
 		userDeleteResponse,
-		userDeleteError,
 		userList,
 		userListLoading,
 		userListError,
@@ -23,7 +22,7 @@ const UserListScreen = ({ history }) => {
 	useEffect(() => {
 		dispatch(getUserList())
 		if (userInfo && !userInfo.isAdmin) history.push('/')
-	}, [dispatch, userDeleteResponse])
+	}, [dispatch, userDeleteResponse, userInfo, history])
 
 	// HANDLERS
 	const deleteHandler = (id) => {
@@ -76,7 +75,7 @@ const UserListScreen = ({ history }) => {
 									<td>
 										<div>
 											<LinkContainer
-												to={`/user/${user._id}/edit`}
+												to={`/admin/user/${user._id}/edit`}
 											>
 												<Button
 													variant="info"
