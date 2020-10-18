@@ -1,4 +1,5 @@
 import express from 'express'
+import { deleteProduct } from '../controller/productController.js'
 import {
 	deleteUser,
 	getUser,
@@ -13,5 +14,7 @@ router
 	.delete(auth, admin, deleteUser)
 	.get(auth, admin, getUser)
 	.put(auth, admin, updateUser)
+
+router.route('/products/:id').delete(auth, admin, deleteProduct)
 
 export default router

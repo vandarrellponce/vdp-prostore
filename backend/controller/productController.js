@@ -18,3 +18,14 @@ export const getProductById = expressAsyncHandler(async (req, res) => {
 	if (!product) throw new Error('Product not found')
 	res.send(product)
 })
+
+// @desc	Delete product by id
+// @route	DELETE /api/admin/products/:id
+// @access	Private/Admin
+export const deleteProduct = expressAsyncHandler(async (req, res) => {
+	const deletedProduct = await Product.findOneAndDelete({
+		_id: req.params.id,
+	})
+	if (!deletedProduct) throw new Error('No such product id found')
+	res.send(deletedProduct)
+})

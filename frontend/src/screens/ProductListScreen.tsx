@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import Button from 'react-bootstrap/Button'
 import Table from 'react-bootstrap/Table'
 import Row from 'react-bootstrap/Row'
@@ -8,10 +8,13 @@ import Message from '../components/Message/Message'
 import Loader from '../components/Loader/Loader'
 import { LinkContainer } from 'react-router-bootstrap'
 import getProductList from '../actions/products/productListActions'
+import Axios from 'axios'
+import { getConfig } from '../utils/utils'
 
 const ProductListScreen = ({ history, match }) => {
+	const [deleteError, setDeleteError] = useState('')
 	const { userInfo } = useSelector((state) => state.user)
-	const { userDeleteResponse, products, loading, error } = useSelector(
+	const { products, loading, error } = useSelector(
 		(state) => state.productList
 	)
 	const dispatch = useDispatch()
@@ -23,13 +26,24 @@ const ProductListScreen = ({ history, match }) => {
 	}, [dispatch, userInfo, history])
 
 	// HANDLERS
-	const deleteHandler = (id) => {}
+	const deleteHandler = async (id) => {
+		try {
+			if (window.confirm('Are you sure to delete this product?')) {
+				const config = getConfig()
+				await Axios.delete(`/api/admin/products/${id}`, config)
+				dispatch(getProductList())
+			}
+		} catch (error) {
+			setDeleteError(error.message)
+		}
+	}
 	const createProductHandler = (e) => {}
-	console.log(userInfo)
+
 	if (!userInfo)
 		return (
 			<Message>Please Log in as Admin, Or go back to home page</Message>
 		)
+	if (deleteError) return <Message children={deleteError} variant="warning" />
 	return (
 		<div>
 			<Row className="align-items-center">

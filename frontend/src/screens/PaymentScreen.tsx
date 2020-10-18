@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import FormContainer from '../components/FormContainer/FormContainer'
 import CheckoutSteps from '../components/CheckoutSteps.tsx/CheckoutSteps'
 import savePaymentMethod from '../actions/cart/savePaymentMethod'
+import { ORDER_PAY_RESET } from '../constants/orderConstants'
 
 const PaymentScreen = ({ history }) => {
 	const [paymentMethod, setPaymentMethod] = useState('')
@@ -13,7 +14,9 @@ const PaymentScreen = ({ history }) => {
 	const { userInfo } = useSelector((state) => state.user)
 
 	// USE EFFECT
-	useEffect(() => {}, [userInfo])
+	useEffect(() => {
+		dispatch({ type: ORDER_PAY_RESET })
+	}, [])
 
 	// HANDLERS
 	const submitHandler = (e) => {
