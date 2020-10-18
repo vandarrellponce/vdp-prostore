@@ -14,9 +14,7 @@ import { getConfig } from '../utils/utils'
 const ProductListScreen = ({ history, match }) => {
 	const [deleteError, setDeleteError] = useState('')
 	const { userInfo } = useSelector((state) => state.user)
-	const { products, loading, error } = useSelector(
-		(state) => state.productList
-	)
+	const { products, loading, error } = useSelector((state) => state.productList)
 	const dispatch = useDispatch()
 
 	// USE EFFECT
@@ -37,12 +35,12 @@ const ProductListScreen = ({ history, match }) => {
 			setDeleteError(error.message)
 		}
 	}
-	const createProductHandler = (e) => {}
+	const createProductHandler = (e) => {
+		history.push(`/api/admin/products/dummyProductId/edit`)
+	}
 
 	if (!userInfo)
-		return (
-			<Message>Please Log in as Admin, Or go back to home page</Message>
-		)
+		return <Message>Please Log in as Admin, Or go back to home page</Message>
 	if (deleteError) return <Message children={deleteError} variant="warning" />
 	return (
 		<div>
@@ -85,13 +83,8 @@ const ProductListScreen = ({ history, match }) => {
 										<td>{product.category}</td>
 										<td>{product.brand}</td>
 										<td>
-											<LinkContainer
-												to={`/admin/products/${product._id}/edit`}
-											>
-												<Button
-													variant="info"
-													className="btn-sm"
-												>
+											<LinkContainer to={`/admin/products/${product._id}/edit`}>
+												<Button variant="info" className="btn-sm">
 													<i className="fas fa-edit"></i>
 												</Button>
 											</LinkContainer>
@@ -99,9 +92,7 @@ const ProductListScreen = ({ history, match }) => {
 											<Button
 												variant="danger"
 												className="btn-sm"
-												onClick={() =>
-													deleteHandler(product._id)
-												}
+												onClick={() => deleteHandler(product._id)}
 											>
 												<i className="fas fa-trash"></i>
 											</Button>

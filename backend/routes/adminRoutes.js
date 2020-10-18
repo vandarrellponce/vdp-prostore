@@ -1,10 +1,12 @@
 import express from 'express'
-import { deleteProduct } from '../controller/productController.js'
+import {
+	createProduct,
+	deleteProduct,
+} from '../controller/productController.js'
 import {
 	deleteUser,
 	getUser,
 	updateUser,
-	createProduct,
 } from '../controller/userController.js'
 import admin from '../middlewares/adminMiddleware.js'
 import auth from '../middlewares/authMiddleware.js'
