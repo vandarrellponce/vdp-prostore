@@ -6,7 +6,7 @@ import {
 
 const productDetailsReducer = (
 	state = {
-		product: {},
+		product: null,
 		loading: false,
 		error: null,
 	},

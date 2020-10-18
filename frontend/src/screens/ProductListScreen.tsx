@@ -36,7 +36,7 @@ const ProductListScreen = ({ history, match }) => {
 		}
 	}
 	const createProductHandler = (e) => {
-		history.push(`/api/admin/products/dummyProductId/edit`)
+		history.push(`/admin/products/createProduct/edit`)
 	}
 
 	if (!userInfo)

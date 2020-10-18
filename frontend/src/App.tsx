@@ -20,6 +20,7 @@ import OrderScreen from './screens/OrderScreen'
 import UserListScreen from './screens/UserListScreen'
 import UserEditScreen from './screens/UserEditScreen'
 import ProductListScreen from './screens/ProductListScreen'
+import ProductEditScreen from './screens/ProductEditScreen'
 
 const App = () => {
 	const dispatch = useDispatch()
@@ -33,17 +34,12 @@ const App = () => {
 			<Header />
 			<main className="py-3">
 				<Container>
+					<Route path="/orders/:orderId/pay" component={OrderScreen} />
+					<Route path="/admin/users/:id/edit" component={UserEditScreen} />
+					<Route path="/admin/productlist" component={ProductListScreen} />
 					<Route
-						path="/orders/:orderId/pay"
-						component={OrderScreen}
-					/>
-					<Route
-						path="/admin/users/:id/edit"
-						component={UserEditScreen}
-					/>
-					<Route
-						path="/admin/productlist"
-						component={ProductListScreen}
+						path="/admin/products/:id/edit"
+						component={ProductEditScreen}
 					/>
 					<Route path="/admin/userlist" component={UserListScreen} />
 					<Route path="/placeorder" component={PlaceOrderScreen} />

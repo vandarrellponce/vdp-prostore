@@ -22,11 +22,6 @@ const ProductDetail = (props) => {
 		return state.productDetails
 	})
 	const dispatch = useDispatch()
-	const qtyValues = [...Array(product.countInStock)].map((x, i) => (
-		<option key={i + 1} value={i + 1}>
-			{i + 1}
-		</option>
-	))
 
 	// USE EFFECTS
 	useEffect(() => {
@@ -41,6 +36,12 @@ const ProductDetail = (props) => {
 				children={<h5>`Error loading Product Details - (${error})`</h5>}
 			/>
 		)
+	if (!product) return <Loader />
+	const qtyValues = [...Array(product.countInStock)].map((x, i) => (
+		<option key={i + 1} value={i + 1}>
+			{i + 1}
+		</option>
+	))
 
 	// HANDLERS
 	const addToCartHandler = (e) => {
@@ -96,9 +97,7 @@ const ProductDetail = (props) => {
 								<Row>
 									<Col>Status:</Col>
 									<Col>
-										{product.countInStock > 0
-											? 'In Stock'
-											: 'Out of Stock'}
+										{product.countInStock > 0 ? 'In Stock' : 'Out of Stock'}
 									</Col>
 								</Row>
 							</ListGroup.Item>
@@ -110,11 +109,7 @@ const ProductDetail = (props) => {
 											<Form.Control
 												as="select"
 												value={qty}
-												onChange={(e) =>
-													setQty(
-														Number(e.target.value)
-													)
-												}
+												onChange={(e) => setQty(Number(e.target.value))}
 											>
 												{qtyValues}
 											</Form.Control>
