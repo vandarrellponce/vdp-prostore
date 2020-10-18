@@ -5,7 +5,7 @@ import {
 	USER_DETAILS_SUCCESS,
 } from '../../constants/userConstants'
 
-export const getUserDetails = (id) => async (dispatch, getState) => {
+export const getUserDetails = (id) => async (dispatch) => {
 	try {
 		dispatch({ type: USER_DETAILS_REQUEST })
 		const config = {
@@ -16,7 +16,7 @@ export const getUserDetails = (id) => async (dispatch, getState) => {
 			},
 		}
 		const res = await Axios.get(
-			`http://localhost:5000/api/users/${id}`,
+			`http://localhost:5000/api/admin/users/${id}`,
 			config
 		)
 		dispatch({ type: USER_DETAILS_SUCCESS, payload: res.data })

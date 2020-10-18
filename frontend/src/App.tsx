@@ -18,6 +18,7 @@ import PaymentScreen from './screens/PaymentScreen'
 import PlaceOrderScreen from './screens/PlaceOrderScreen'
 import OrderScreen from './screens/OrderScreen'
 import UserListScreen from './screens/UserListScreen'
+import UserEditScreen from './screens/UserEditScreen'
 
 const App = () => {
 	const dispatch = useDispatch()
@@ -33,6 +34,10 @@ const App = () => {
 					<Route
 						path="/orders/:orderId/pay"
 						component={OrderScreen}
+					/>
+					<Route
+						path="/admin/users/:id/edit"
+						component={UserEditScreen}
 					/>
 					<Route path="/admin/userlist" component={UserListScreen} />
 					<Route path="/placeorder" component={PlaceOrderScreen} />

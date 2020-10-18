@@ -3,7 +3,7 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import { useDispatch, useSelector } from 'react-redux'
 import FormContainer from '../components/FormContainer/FormContainer'
-import updateUser from '../actions/users/updateUser'
+import { updateUser } from '../actions/users/updateUser'
 import CheckoutSteps from '../components/CheckoutSteps.tsx/CheckoutSteps'
 
 const ShippingScreen = ({ history }) => {

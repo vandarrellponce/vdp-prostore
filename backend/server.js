@@ -6,6 +6,7 @@ import userRoutes from './routes/userRoutes.js'
 import orderRoutes from './routes/orderRoutes.js'
 import connectDB from './config/db.js'
 import errorHandler from './middlewares/errorHandler.js'
+import adminRoutes from './routes/adminRoutes.js'
 
 // APP CONFIG
 dotenv.config()
@@ -26,6 +27,7 @@ app.use('/api/orders', orderRoutes)
 app.get('/api/config/paypal', (req, res) =>
 	res.send(process.env.PAYPAL_CLIENT_ID)
 )
+app.use('/api/admin', adminRoutes)
 app.all('*', (req, res) =>
 	res.status(404).send({ message: `Not found - ${req.originalUrl}` })
 )

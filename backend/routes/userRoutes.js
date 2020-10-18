@@ -15,11 +15,6 @@ import {
 import auth from '../middlewares/authMiddleware.js'
 import admin from '../middlewares/adminMiddleware.js'
 
-router
-	.route('/:id')
-	.delete(auth, admin, deleteUser)
-	.get(auth, admin, getUser)
-	.put(auth, admin, updateUser)
 router.post('/login', authUser)
 router.post('/register', createUser)
 router.get('/logout', auth, logoutUser)

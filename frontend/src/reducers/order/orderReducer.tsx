@@ -22,7 +22,7 @@ const orderReducer = (
 		createError: null,
 		getOrderError: null,
 		orderPayError: null,
-		userOrders: [],
+		userOrders: null,
 		userOrdersLoading: null,
 		userOrdersError: null,
 	},

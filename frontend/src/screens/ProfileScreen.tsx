@@ -8,7 +8,7 @@ import { LinkContainer } from 'react-router-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message/Message'
 import Loader from '../components/Loader/Loader'
-import updateUser from '../actions/users/updateUser'
+import { updateUser } from '../actions/users/updateUser'
 import getUserOrders from '../actions/order/getUserOrdes'
 import { ORDER_PAY_RESET } from '../constants/orderConstants'
 
@@ -30,14 +30,12 @@ const ProfileScreen = (props) => {
 
 	// USE EFFECT
 	useEffect(() => {
-		dispatch({ type: ORDER_PAY_RESET })
 		if (userInfo) {
 			setName(userInfo.name)
 		}
-		if (!userOrders?.length) {
-			dispatch(getUserOrders())
-		}
-	}, [userInfo, dispatch, userOrders])
+
+		dispatch(getUserOrders())
+	}, [userInfo, dispatch])
 
 	// HANDLERS
 	const submitHandler = (e) => {
@@ -144,58 +142,63 @@ const ProfileScreen = (props) => {
 									</tr>
 								</thead>
 								<tbody>
-									{userOrders.map((order) => (
-										<tr key={order._id}>
-											<td>{order._id}</td>
-											<td>
-												{order.createdAt.substring(
-													0,
-													10
-												)}
-											</td>
-											<td>{order.totalPrice}</td>
-											<td>
-												{order.isPaid ? (
-													order.paidAt.substring(
+									{userOrders &&
+										userOrders.map((order) => (
+											<tr key={order._id}>
+												<td>{order._id}</td>
+												<td>
+													{order.createdAt.substring(
 														0,
 														10
-													)
-												) : (
-													<i
-														className="fas fa-times"
-														style={{ color: 'red' }}
-													></i>
-												)}
-											</td>
-											<td>
-												{order.isDelivered ? (
-													order.deliveredAt.substring(
-														0,
-														10
-													)
-												) : (
-													<i
-														className="fas fa-times"
-														style={{ color: 'red' }}
-													></i>
-												)}
-											</td>
-											<td>
-												<div>
-													<LinkContainer
-														to={`/orders/${order._id}/pay`}
-													>
-														<Button
-															variant="secondary"
-															className="btn-sm"
+													)}
+												</td>
+												<td>{order.totalPrice}</td>
+												<td>
+													{order.isPaid ? (
+														order.paidAt.substring(
+															0,
+															10
+														)
+													) : (
+														<i
+															className="fas fa-times"
+															style={{
+																color: 'red',
+															}}
+														></i>
+													)}
+												</td>
+												<td>
+													{order.isDelivered ? (
+														order.deliveredAt.substring(
+															0,
+															10
+														)
+													) : (
+														<i
+															className="fas fa-times"
+															style={{
+																color: 'red',
+															}}
+														></i>
+													)}
+												</td>
+												<td>
+													<div>
+														<LinkContainer
+															to={`/orders/${order._id}/pay`}
 														>
-															Details
-														</Button>
-													</LinkContainer>
-												</div>
-											</td>
-										</tr>
-									))}
+															<Button
+																variant="secondary"
+																className="btn-sm"
+															>
+																Details
+															</Button>
+														</LinkContainer>
+													</div>
+												</td>
+											</tr>
+										))}
 								</tbody>
 							</Table>
 						)}

@@ -15,7 +15,10 @@ const deleteUser = (id) => async (dispatch) => {
 			},
 		}
 		const message = await (
-			await Axios.delete(`http://localhost:5000/api/users/${id}`, config)
+			await Axios.delete(
+				`http://localhost:5000/api/admin/users/${id}`,
+				config
+			)
 		).data
 		dispatch({ type: USER_DELETE_SUCCESS, payload: message })
 	} catch (error) {

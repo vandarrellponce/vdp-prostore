@@ -118,7 +118,7 @@ export const getUsers = expressAsyncHandler(async (req, res) => {
 })
 
 // @desc	Delete User by ID
-// @route	DELETE /api/users/:id
+// @route	DELETE /api/admin/users/:id
 // @access	Private/Admin
 export const deleteUser = expressAsyncHandler(async (req, res) => {
 	try {
@@ -132,7 +132,7 @@ export const deleteUser = expressAsyncHandler(async (req, res) => {
 })
 
 // @desc	Get User by ID
-// @route	GET /api/users/:id
+// @route	GET /api/admin/users/:id
 // @access	Private/Admin
 export const getUser = expressAsyncHandler(async (req, res) => {
 	try {
@@ -146,7 +146,7 @@ export const getUser = expressAsyncHandler(async (req, res) => {
 })
 
 // @desc	Update User
-// @route	PUT /api/users/:id
+// @route	PUT /api/admin/users/:id
 // @access	Private/Admin
 export const updateUser = expressAsyncHandler(async (req, res) => {
 	const updates = Object.keys(req.body)
@@ -160,7 +160,8 @@ export const updateUser = expressAsyncHandler(async (req, res) => {
 			.status(400)
 			.send({ error: 'Updating invalid field is not allowed!' })
 	try {
-		const user = req.user
+		const id = req.params.id
+		const user = await User.findById(id)
 		updates.forEach((update) => (user[update] = req.body[update]))
 		const savedUser = await user.save()
 		res.send(savedUser)
