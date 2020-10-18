@@ -29,6 +29,10 @@ const UserListScreen = ({ history }) => {
 		if (window.confirm('Are you sure to delete the user?'))
 			dispatch(deleteUser(id))
 	}
+	if (!userInfo)
+		return (
+			<Message>Please Log in as Admin, Or go back to home page</Message>
+		)
 
 	return (
 		<div>

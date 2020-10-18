@@ -10,13 +10,10 @@ import { LinkContainer } from 'react-router-bootstrap'
 import getProductList from '../actions/products/productListActions'
 
 const ProductListScreen = ({ history, match }) => {
-	const {
-		userInfo,
-		userDeleteResponse,
-		products,
-		loading,
-		error,
-	} = useSelector((state) => state.productList)
+	const { userInfo } = useSelector((state) => state.user)
+	const { userDeleteResponse, products, loading, error } = useSelector(
+		(state) => state.productList
+	)
 	const dispatch = useDispatch()
 
 	// USE EFFECT
@@ -28,7 +25,11 @@ const ProductListScreen = ({ history, match }) => {
 	// HANDLERS
 	const deleteHandler = (id) => {}
 	const createProductHandler = (e) => {}
-
+	console.log(userInfo)
+	if (!userInfo)
+		return (
+			<Message>Please Log in as Admin, Or go back to home page</Message>
+		)
 	return (
 		<div>
 			<Row className="align-items-center">
