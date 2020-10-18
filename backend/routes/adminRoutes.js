@@ -4,6 +4,7 @@ import {
 	deleteUser,
 	getUser,
 	updateUser,
+	createProduct,
 } from '../controller/userController.js'
 import admin from '../middlewares/adminMiddleware.js'
 import auth from '../middlewares/authMiddleware.js'
@@ -15,6 +16,10 @@ router
 	.get(auth, admin, getUser)
 	.put(auth, admin, updateUser)
 
-router.route('/products/:id').delete(auth, admin, deleteProduct)
+router.route('/products').post(auth, admin, createProduct)
+router
+	.route('/products/:id')
+	.delete(auth, admin, deleteProduct)
+	.put(auth, admin, updateUser)
 
 export default router
