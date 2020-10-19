@@ -19,6 +19,7 @@ const ProductEditScreen = ({ match, history }) => {
 		image: '',
 	})
 	const [isCreateProduct, setIsCreateProduct] = useState(true)
+	const [uploading, setUploading] = useState(false)
 	const [loading, setLoading] = useState(false)
 	const [error, setError] = useState(null)
 	const { userInfo } = useSelector((state) => state.user)
@@ -36,7 +37,7 @@ const ProductEditScreen = ({ match, history }) => {
 					setLoading(false)
 					setProduct(res.data)
 				})
-				.catch((e) =>
+				.catch((error) =>
 					setError(
 						error.response?.data?.message
 							? error.response.data.message
@@ -61,13 +62,14 @@ const ProductEditScreen = ({ match, history }) => {
 					setLoading(false)
 					setProduct(res.data)
 				})
-				.catch((error) =>
+				.catch((error) => {
+					setLoading(false)
 					setError(
 						error.response?.data?.message
 							? error.response.data.message
 							: error.message
 					)
-				)
+				})
 		}
 		if (!isCreateProduct) {
 			const updatedProduct = {
@@ -86,13 +88,44 @@ const ProductEditScreen = ({ match, history }) => {
 					setLoading(false)
 					setProduct(res.data)
 				})
-				.catch((error) =>
+				.catch((error) => {
+					setLoading(false)
 					setError(
 						error.response?.data?.message
 							? error.response.data.message
 							: error.message
 					)
-				)
+				})
+		}
+	}
+
+	const uploadFileHandler = async (e) => {
+		const file = e.target.files[0]
+		const formData = new FormData()
+		formData.append('image', file)
+
+		setUploading(true)
+
+		const config = {
+			headers: {
+				'Content-Type': 'multipart/form-data',
+				Authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`,
+			},
+		}
+
+		try {
+			const imageUrl = await (
+				await Axios.post('/api/uploads', formData, config)
+			).data
+			setProduct({ ...product, image: imageUrl })
+			setUploading(false)
+		} catch (error) {
+			setUploading(false)
+			setError(
+				error.response?.data?.message
+					? error.response.data.message
+					: error.message
+			)
 		}
 	}
 
@@ -144,6 +177,13 @@ const ProductEditScreen = ({ match, history }) => {
 								setProduct({ ...product, image: e.target.value })
 							}
 						></Form.Control>
+						<Form.File
+							id="image-file"
+							label="Choose File"
+							custom
+							onChange={uploadFileHandler}
+						></Form.File>
+						{uploading && <Loader />}
 					</Form.Group>
 
 					<Form.Group>
