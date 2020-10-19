@@ -1,46 +1,48 @@
 import React, { useEffect, useState } from 'react'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message/Message'
 import Loader from '../components/Loader/Loader'
 import FormContainer from '../components/FormContainer/FormContainer'
 import Axios from 'axios'
+import { getConfig } from '../utils/utils'
 
-const ProductEditScreen = ({ match, history, location }) => {
-	const [name, setName] = useState('')
-	const [price, setPrice] = useState('')
-	const [image, setImage] = useState('')
-	const [brand, setBrand] = useState('')
-	const [category, setCategory] = useState('')
-	const [countInStock, setCountInStock] = useState('')
-	const [description, setDescription] = useState('')
+const ProductEditScreen = ({ match, history }) => {
+	const [product, setProduct] = useState({
+		name: '',
+		category: '',
+		brand: '',
+		description: '',
+		price: '',
+		countInStock: '',
+		image: '',
+	})
 	const [isCreateProduct, setIsCreateProduct] = useState(true)
-
 	const [loading, setLoading] = useState(false)
 	const [error, setError] = useState(null)
+	const { userInfo } = useSelector((state) => state.user)
 
 	const dispatch = useDispatch()
+	const productId = match.params.id
 
 	//USE EFFECT
 	useEffect(() => {
-		const productId = match.params.id
 		if (productId !== 'createProduct') {
 			setIsCreateProduct(false)
 			setLoading(true)
 			Axios.get(`/api/products/${productId}`)
 				.then((res) => {
 					setLoading(false)
-					const product = res.data
-					setName(product.name)
-					setPrice(product.price)
-					setImage(product.image)
-					setBrand(product.brand)
-					setCategory(product.category)
-					setCountInStock(product.countInStock)
-					setDescription(product.description)
+					setProduct(res.data)
 				})
-				.catch((e) => setError(e.message))
+				.catch((e) =>
+					setError(
+						error.response?.data?.message
+							? error.response.data.message
+							: error.message
+					)
+				)
 		}
 	}, [dispatch, match])
 
@@ -48,8 +50,49 @@ const ProductEditScreen = ({ match, history, location }) => {
 	const submitHandler = (e) => {
 		e.preventDefault()
 		if (isCreateProduct) {
+			const newProduct = {
+				...product,
+				user: userInfo._id,
+			}
+
+			setLoading(true)
+			Axios.post('/api/admin/products', newProduct, getConfig())
+				.then((res) => {
+					setLoading(false)
+					setProduct(res.data)
+				})
+				.catch((error) =>
+					setError(
+						error.response?.data?.message
+							? error.response.data.message
+							: error.message
+					)
+				)
 		}
 		if (!isCreateProduct) {
+			const updatedProduct = {
+				name: product.name,
+				category: product.category,
+				brand: product.brand,
+				description: product.description,
+				price: product.price,
+				countInStock: product.countInStock,
+				image: product.image,
+			}
+			setLoading(true)
+
+			Axios.put(`/api/admin/products/${productId}`, updatedProduct, getConfig())
+				.then((res) => {
+					setLoading(false)
+					setProduct(res.data)
+				})
+				.catch((error) =>
+					setError(
+						error.response?.data?.message
+							? error.response.data.message
+							: error.message
+					)
+				)
 		}
 	}
 
@@ -73,9 +116,9 @@ const ProductEditScreen = ({ match, history, location }) => {
 						<Form.Label>Name</Form.Label>
 						<Form.Control
 							type="text"
-							value={name}
+							value={product.name}
 							placeholder="Enter name"
-							onChange={(e) => setName(e.target.value)}
+							onChange={(e) => setProduct({ ...product, name: e.target.value })}
 						></Form.Control>
 					</Form.Group>
 
@@ -83,9 +126,11 @@ const ProductEditScreen = ({ match, history, location }) => {
 						<Form.Label>Price</Form.Label>
 						<Form.Control
 							type="number"
-							value={price}
+							value={product.price}
 							placeholder="Enter price"
-							onChange={(e) => setPrice(e.target.value)}
+							onChange={(e) =>
+								setProduct({ ...product, price: e.target.value })
+							}
 						></Form.Control>
 					</Form.Group>
 
@@ -93,9 +138,11 @@ const ProductEditScreen = ({ match, history, location }) => {
 						<Form.Label>Image</Form.Label>
 						<Form.Control
 							type="text"
-							value={image}
+							value={product.image}
 							placeholder="Enter image url"
-							onChange={(e) => setImage(e.target.value)}
+							onChange={(e) =>
+								setProduct({ ...product, image: e.target.value })
+							}
 						></Form.Control>
 					</Form.Group>
 
@@ -103,9 +150,11 @@ const ProductEditScreen = ({ match, history, location }) => {
 						<Form.Label>Brand</Form.Label>
 						<Form.Control
 							type="text"
-							value={brand}
+							value={product.brand}
 							placeholder="Enter brand"
-							onChange={(e) => setBrand(e.target.value)}
+							onChange={(e) =>
+								setProduct({ ...product, brand: e.target.value })
+							}
 						></Form.Control>
 					</Form.Group>
 
@@ -113,9 +162,11 @@ const ProductEditScreen = ({ match, history, location }) => {
 						<Form.Label>Category</Form.Label>
 						<Form.Control
 							type="text"
-							value={category}
+							value={product.category}
 							placeholder="Enter category"
-							onChange={(e) => setCategory(e.target.value)}
+							onChange={(e) =>
+								setProduct({ ...product, category: e.target.value })
+							}
 						></Form.Control>
 					</Form.Group>
 
@@ -123,9 +174,11 @@ const ProductEditScreen = ({ match, history, location }) => {
 						<Form.Label>Count in Stock</Form.Label>
 						<Form.Control
 							type="number"
-							value={countInStock}
+							value={product.countInStock}
 							placeholder="Enter count in stock"
-							onChange={(e) => setCountInStock(e.target.value)}
+							onChange={(e) =>
+								setProduct({ ...product, countInStock: e.target.value })
+							}
 						></Form.Control>
 					</Form.Group>
 
@@ -133,9 +186,11 @@ const ProductEditScreen = ({ match, history, location }) => {
 						<Form.Label>Description</Form.Label>
 						<Form.Control
 							type="text"
-							value={description}
+							value={product.description}
 							placeholder="Enter description"
-							onChange={(e) => setDescription(e.target.value)}
+							onChange={(e) =>
+								setProduct({ ...product, description: e.target.value })
+							}
 						></Form.Control>
 					</Form.Group>
 

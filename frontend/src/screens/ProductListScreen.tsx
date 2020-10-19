@@ -32,7 +32,7 @@ const ProductListScreen = ({ history, match }) => {
 				dispatch(getProductList())
 			}
 		} catch (error) {
-			setDeleteError(error.message)
+			setDeleteError(error)
 		}
 	}
 	const createProductHandler = (e) => {

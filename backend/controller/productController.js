@@ -35,6 +35,7 @@ export const deleteProduct = expressAsyncHandler(async (req, res) => {
 // @access	Private/Admin
 export const updateProduct = expressAsyncHandler(async (req, res) => {
 	const updates = Object.keys(req.body)
+
 	const allowedUpdates = [
 		'name',
 		'category',
@@ -57,10 +58,11 @@ export const updateProduct = expressAsyncHandler(async (req, res) => {
 		const product = await Product.findById(id)
 		if (!product) throw new Error('Product not found')
 		updates.forEach((update) => (product[update] = req.body[update]))
-		const updatedProduct = await user.save()
+		const updatedProduct = await product.save()
 		res.send(updatedProduct)
 	} catch (error) {
 		res.status(404)
+
 		throw new Error(error.message)
 	}
 })

@@ -21,6 +21,7 @@ import UserListScreen from './screens/UserListScreen'
 import UserEditScreen from './screens/UserEditScreen'
 import ProductListScreen from './screens/ProductListScreen'
 import ProductEditScreen from './screens/ProductEditScreen'
+import Image from 'react-bootstrap/esm/Image'
 
 const App = () => {
 	const dispatch = useDispatch()
@@ -32,6 +33,7 @@ const App = () => {
 	return (
 		<BrowserRouter>
 			<Header />
+
 			<main className="py-3">
 				<Container>
 					<Route path="/orders/:orderId/pay" component={OrderScreen} />
