@@ -110,7 +110,7 @@ export const createReview = expressAsyncHandler(async (req, res) => {
 		product.reviews.reduce((acc, item) => acc + item.rating, 0) /
 		product.numReviews
 	const updatedProduct = await product.save()
-	res.status(201).send({ message: 'Review added' })
+	res.status(201).send(updatedProduct)
 
 	try {
 	} catch (error) {

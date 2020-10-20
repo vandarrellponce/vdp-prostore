@@ -13,11 +13,19 @@ import getProductDetails from '../actions/products/productDetailsAction'
 import Loader from '../components/Loader/Loader'
 import Message from '../components/Message/Message'
 import addToCart from '../actions/cart/addToCart'
+import Axios from 'axios'
+import { PRODUCT_DETAILS_SUCCESS } from '../constants/productConst'
+import { getConfig } from '../utils/utils'
 
 const ProductDetail = (props) => {
 	//	STATES
 	const productId = props.match.params.id
 	const [qty, setQty] = useState(1)
+	const [rating, setRating] = useState('')
+	const [comment, setComment] = useState('')
+	const [reviewError, setReviewError] = useState(null)
+	const [reviewLoading, setReviewLoading] = useState(false)
+	const { userInfo } = useSelector((state) => state.user)
 	const { product, loading, error } = useSelector((state) => {
 		return state.productDetails
 	})
@@ -51,6 +59,32 @@ const ProductDetail = (props) => {
 		/* props.history.push(`/cart/${product._id}?qty=${qty}`) */
 	}
 
+	const submitHandler = (e) => {
+		e.preventDefault()
+		const review = {
+			name: userInfo.name,
+			rating,
+			comment,
+		}
+		setReviewLoading(true)
+		Axios.post(`/api/products/${productId}/reviews`, review, getConfig())
+			.then((res) => {
+				dispatch({ type: PRODUCT_DETAILS_SUCCESS, payload: res.data })
+				setReviewLoading(false)
+				alert('Review Submitted')
+				setRating('')
+				setComment('')
+			})
+			.catch((error) => {
+				setReviewLoading(false)
+				setReviewError(
+					error.response?.data?.message
+						? error.response.data.message
+						: error.message
+				)
+			})
+	}
+
 	return (
 		<div>
 			<Link to="/">
@@ -66,7 +100,7 @@ const ProductDetail = (props) => {
 
 				<Col md={3}>
 					<ListGroup variant="flush">
-						<ListGroup.Item>
+						<ListGroup.Item variant="light">
 							<h3>{product.name}</h3>
 						</ListGroup.Item>
 
@@ -78,6 +112,7 @@ const ProductDetail = (props) => {
 						</ListGroup.Item>
 
 						<ListGroup.Item>Price: P{product.price}</ListGroup.Item>
+						<ListGroup.Item>Description: {product.description}</ListGroup.Item>
 					</ListGroup>
 				</Col>
 
@@ -129,6 +164,64 @@ const ProductDetail = (props) => {
 							</ListGroup.Item>
 						</ListGroup>
 					</Card>
+				</Col>
+			</Row>
+			<Row>
+				<Col md={6}>
+					<h2>REVIEWS</h2>
+					{product.reviews.length === 0 && <Message>No reviews yet</Message>}
+					<ListGroup variant="flush">
+						{product.reviews.map((review) => (
+							<ListGroup.Item key={review._id}>
+								<strong>{review.name}</strong>
+								<Rating value={review.rating} />
+								<p>{review.createdAt.substring(0, 10)}</p>
+								<p>{review.comment}</p>
+							</ListGroup.Item>
+						))}
+
+						<ListGroup.Item>
+							<h4>WRITE A REVIEW</h4>
+							{reviewError && (
+								<Message children={reviewError} variant="danger" />
+							)}
+							{reviewLoading && <Loader />}
+							{userInfo ? (
+								<Form onSubmit={submitHandler}>
+									<Form.Group>
+										<Form.Label>Rating</Form.Label>
+										<Form.Control
+											required
+											as="select"
+											value={rating}
+											onChange={(e) => setRating(e.target.value)}
+										>
+											<option value="">Select...</option>
+											<option value="1">1 - Poor</option>
+											<option value="2">2 - Fair</option>
+											<option value="3">3 - Good</option>
+											<option value="4">4 - Very Good</option>
+											<option value="5">5 - Excellent</option>
+										</Form.Control>
+									</Form.Group>
+									<Form.Group>
+										<Form.Label>Comment</Form.Label>
+										<Form.Control
+											required
+											as="textarea"
+											value={comment}
+											onChange={(e) => setComment(e.target.value)}
+										></Form.Control>
+									</Form.Group>
+									<Button type="submit" variant="info">
+										Submit
+									</Button>
+								</Form>
+							) : (
+								<Message children="Please log in to write a review" />
+							)}
+						</ListGroup.Item>
+					</ListGroup>
 				</Col>
 			</Row>
 		</div>
