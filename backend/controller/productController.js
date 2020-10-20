@@ -80,3 +80,42 @@ export const createProduct = expressAsyncHandler(async (req, res) => {
 		throw new Error(error.message)
 	}
 })
+
+// @desc	Create new product review
+// @route	POST /api/products/:id/reviews
+// @access	Private
+export const createReview = expressAsyncHandler(async (req, res) => {
+	const { rating, comment } = req.body
+
+	const product = await Product.findById(req.params.id)
+	if (!product) throw new Error('No product found')
+
+	// CHECK IF USER ALREADY REVIEWED THE PRODUCT
+	const alreadyReviewed = product.reviews.find(
+		(r) => r.user.toString() === req.user._id.toString()
+	)
+	if (alreadyReviewed) throw new Error('Product already reviewed')
+
+	// CREATE REVIEW OBJECT
+	const review = {
+		user: req.user._id,
+		name: req.user.name,
+		rating: Number(rating),
+		comment,
+	}
+
+	product.reviews = [...product.reviews, review]
+	product.numReviews = product.reviews.length
+	product.rating =
+		product.reviews.reduce((acc, item) => acc + item.rating, 0) /
+		product.numReviews
+	const updatedProduct = await product.save()
+	res.status(201).send({ message: 'Review added' })
+
+	try {
+	} catch (error) {
+		res.status(404)
+
+		throw new Error(error.message)
+	}
+})

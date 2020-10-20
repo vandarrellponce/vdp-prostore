@@ -9,12 +9,14 @@ import connectDB from './config/db.js'
 import errorHandler from './middlewares/errorHandler.js'
 import adminRoutes from './routes/adminRoutes.js'
 import uploadRoutes from './routes/uploadRoutes.js'
+import morgan from 'morgan'
 
 // APP CONFIG
 dotenv.config()
 const app = express()
 app.use(express.json())
 app.use(cors())
+if (process.env.NODE_ENV === 'development') app.use(morgan('dev'))
 
 // DATBASE CONNECTION
 await connectDB()
