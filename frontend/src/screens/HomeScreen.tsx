@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import Col from 'react-bootstrap/esm/Col'
 import Row from 'react-bootstrap/esm/Row'
 import Image from 'react-bootstrap/Image'
+import Carousel from 'react-bootstrap/Carousel'
 import Product from '../components/Product/Product'
 import { useSelector, useDispatch } from 'react-redux'
 import getProductList from '../actions/products/productListActions'
@@ -28,17 +29,45 @@ const Home = () => {
 	return (
 		<div>
 			{/* <h2 className="text-center">Latest Products</h2> */}
-			<Image
-				src="https://dkemhji6i1k0x.cloudfront.net/000_clients/84990/page/84990A4MpBhxj.jpg"
+
+			<Carousel className="home__banner">
+				<Carousel.Item>
+					<img
+						className="d-block w-100"
+						src="https://images-na.ssl-images-amazon.com/images/G/01/AmazonExports/Fuji/2020/October/Fuji_Tallhero_Dash_en_US_1x._CB418727898_.jpg"
+						alt="First slide"
+					/>
+					<Carousel.Caption>
+						<h3>First slide label</h3>
+					</Carousel.Caption>
+				</Carousel.Item>
+				<Carousel.Item>
+					<img
+						className="d-block w-100"
+						src="https://images-na.ssl-images-amazon.com/images/G/01/AmazonExports/Fuji/2020/May/Hero/Fuji_TallHero_Sports_en_US_1x._CB431860448_.jpg"
+						alt="Third slide"
+					/>
+					<Carousel.Caption>
+						<h3>Second slide label</h3>
+					</Carousel.Caption>
+				</Carousel.Item>
+				<Carousel.Item>
+					<img
+						className="d-block w-100"
+						src="https://images-na.ssl-images-amazon.com/images/G/01/AmazonExports/Events/2020/PrimeDay/Fuji_TallHero_NonPrime_v2_en_US_1x._CB403670067_.jpg"
+						alt="Third slide"
+					/>
+					<Carousel.Caption>
+						<h3>Third slide label</h3>
+						<p></p>
+					</Carousel.Caption>
+				</Carousel.Item>
+			</Carousel>
+			{/* <Image
+				src=""
 				alt="banner"
-				style={{
-					marginBottom: '-150px',
-					objectFit: 'contain',
-					width: '100%',
-					maskImage:
-						'linear-gradient(to bottom,rgba(0, 0, 0, 1),rgba(0, 0, 0, 0)',
-				}}
-			/>
+				className="home__banner"
+			/> */}
 
 			<Row>
 				{products.map((product, i) => (

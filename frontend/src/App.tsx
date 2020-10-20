@@ -11,7 +11,6 @@ import ProductDetail from './screens/ProductDetailScreen'
 import ProfileScreen from './screens/ProfileScreen'
 import RegisterScreen from './screens/RegisterScreen'
 import { useDispatch } from 'react-redux'
-
 import { authUser } from './actions/users/loginUser'
 import ShippingScreen from './screens/ShippingScreen'
 import PaymentScreen from './screens/PaymentScreen'
@@ -21,7 +20,7 @@ import UserListScreen from './screens/UserListScreen'
 import UserEditScreen from './screens/UserEditScreen'
 import ProductListScreen from './screens/ProductListScreen'
 import ProductEditScreen from './screens/ProductEditScreen'
-import Image from 'react-bootstrap/esm/Image'
+import OrderListScreen from './screens/OrderListScreen'
 
 const App = () => {
 	const dispatch = useDispatch()
@@ -38,11 +37,12 @@ const App = () => {
 				<Container>
 					<Route path="/orders/:orderId/pay" component={OrderScreen} />
 					<Route path="/admin/users/:id/edit" component={UserEditScreen} />
-					<Route path="/admin/productlist" component={ProductListScreen} />
 					<Route
 						path="/admin/products/:id/edit"
 						component={ProductEditScreen}
 					/>
+					<Route path="/admin/orderlist" component={OrderListScreen} />
+					<Route path="/admin/productlist" component={ProductListScreen} />
 					<Route path="/admin/userlist" component={UserListScreen} />
 					<Route path="/placeorder" component={PlaceOrderScreen} />
 					<Route path="/payment" component={PaymentScreen} />

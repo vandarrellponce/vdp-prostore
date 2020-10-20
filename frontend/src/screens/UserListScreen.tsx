@@ -30,9 +30,7 @@ const UserListScreen = ({ history }) => {
 			dispatch(deleteUser(id))
 	}
 	if (!userInfo)
-		return (
-			<Message>Please Log in as Admin, Or go back to home page</Message>
-		)
+		return <Message>Please Log in as Admin, Or go back to home page</Message>
 
 	return (
 		<div>
@@ -59,9 +57,7 @@ const UserListScreen = ({ history }) => {
 									<td>{user._id}</td>
 									<td>{user.name}</td>
 									<td>
-										<a href={`mailto:${user.email}`}>
-											{user.email}
-										</a>
+										<a href={`mailto:${user.email}`}>{user.email}</a>
 									</td>
 									<td>
 										{user.isAdmin ? (
@@ -70,21 +66,13 @@ const UserListScreen = ({ history }) => {
 												style={{ color: 'green' }}
 											></i>
 										) : (
-											<i
-												className="fas fa-times"
-												style={{ color: 'red' }}
-											></i>
+											<i className="fas fa-times" style={{ color: 'red' }}></i>
 										)}
 									</td>
 									<td>
 										<div>
-											<LinkContainer
-												to={`/admin/users/${user._id}/edit`}
-											>
-												<Button
-													variant="info"
-													className="btn-sm"
-												>
+											<LinkContainer to={`/admin/users/${user._id}/edit`}>
+												<Button variant="info" className="btn-sm">
 													<i className="fas fa-edit"></i>
 												</Button>
 											</LinkContainer>
@@ -92,9 +80,7 @@ const UserListScreen = ({ history }) => {
 											<Button
 												variant="danger"
 												className="btn-sm"
-												onClick={() =>
-													deleteHandler(user._id)
-												}
+												onClick={() => deleteHandler(user._id)}
 											>
 												<i className="fas fa-trash"></i>
 											</Button>

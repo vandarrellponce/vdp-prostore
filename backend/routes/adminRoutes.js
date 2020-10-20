@@ -1,4 +1,5 @@
 import express from 'express'
+import { getOrders } from '../controller/orderController.js'
 import {
 	createProduct,
 	deleteProduct,
@@ -12,6 +13,8 @@ import {
 import admin from '../middlewares/adminMiddleware.js'
 import auth from '../middlewares/authMiddleware.js'
 const router = express.Router()
+
+router.route('/orders').get(auth, admin, getOrders)
 router.route('/products').post(auth, admin, createProduct)
 router
 	.route('/users/:id')

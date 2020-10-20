@@ -50,6 +50,8 @@ const ProductEditScreen = ({ match, history }) => {
 	// HANDLERS
 	const submitHandler = (e) => {
 		e.preventDefault()
+
+		// IF CREATE NEW PRODUCT
 		if (isCreateProduct) {
 			const newProduct = {
 				...product,
@@ -60,7 +62,8 @@ const ProductEditScreen = ({ match, history }) => {
 			Axios.post('/api/admin/products', newProduct, getConfig())
 				.then((res) => {
 					setLoading(false)
-					setProduct(res.data)
+
+					history.push(`/admin/products/${res.data._id}/edit`)
 				})
 				.catch((error) => {
 					setLoading(false)
@@ -71,6 +74,7 @@ const ProductEditScreen = ({ match, history }) => {
 					)
 				})
 		}
+		// IF EDIT PRODUCT
 		if (!isCreateProduct) {
 			const updatedProduct = {
 				name: product.name,
