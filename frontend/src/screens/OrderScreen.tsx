@@ -11,8 +11,13 @@ import Message from '../components/Message/Message'
 import getOrder from '../actions/order/getOrder'
 import payOrder from '../actions/order/payOrder'
 import Paypal from '../components/Paypal'
+import Axios from 'axios'
+import { getConfig } from '../utils/utils'
+import { ORDER_GET_FAIL, ORDER_GET_SUCCESS } from '../constants/orderConstants'
+import Button from 'react-bootstrap/esm/Button'
+import { authUser } from '../actions/users/loginUser'
 
-const OrderScreen = ({ match }) => {
+const OrderScreen = ({ match, history }) => {
 	const { userInfo } = useSelector((state) => state.user)
 	const { order, loading, payLoading, getOrderError } = useSelector(
 		(state) => state.order
@@ -30,6 +35,21 @@ const OrderScreen = ({ match }) => {
 	}
 
 	// HANDLERS
+
+	const updateHandler = () => {
+		Axios.put(`/api/orders/${orderId}/deliver`, {}, getConfig())
+			.then((res) => {
+				dispatch(dispatch({ type: ORDER_GET_SUCCESS, payload: res.data }))
+			})
+			.catch((error) => {
+				dispatch({
+					type: ORDER_GET_FAIL,
+					payload: error.response?.data?.message
+						? error.response.data.message
+						: error.message,
+				})
+			})
+	}
 
 	const paymentSuccess = async (payment) => {
 		console.log(payment)
@@ -61,21 +81,15 @@ const OrderScreen = ({ match }) => {
 							</p>
 							<p>
 								<strong>Email: </strong>
-								<a href={`mailto:${order.user.email}`}>
-									{order.user.email}
-								</a>
+								<a href={`mailto:${order.user.email}`}>{order.user.email}</a>
 							</p>
 							<p>
-								<strong>
-									Mobile No: {order.shippingAddress.mobile}{' '}
-								</strong>
+								<strong>Mobile No: {order.shippingAddress.mobile} </strong>
 							</p>
 							<p>
 								<strong>Address: </strong>
-								{capitalize(
-									userInfo.shippingAddress.street
-								)}, {capitalize(userInfo.shippingAddress.sitio)}
-								,{' '}
+								{capitalize(userInfo.shippingAddress.street)},{' '}
+								{capitalize(userInfo.shippingAddress.sitio)},{' '}
 								{capitalize(userInfo.shippingAddress.barangay)},{' '}
 								{capitalize(userInfo.shippingAddress.city)},
 							</p>
@@ -86,10 +100,7 @@ const OrderScreen = ({ match }) => {
 									Delivered on: {order.deliveredAt}
 								</Message>
 							) : (
-								<Message
-									children="For Delivery"
-									variant="danger"
-								/>
+								<Message children="For Delivery" variant="danger" />
 							)}
 						</ListGroup.Item>
 						<ListGroup.Item>
@@ -101,14 +112,9 @@ const OrderScreen = ({ match }) => {
 
 							<strong>Payment status: </strong>
 							{order.isPaid ? (
-								<Message variant="success">
-									Paid on: {order.paidAt}
-								</Message>
+								<Message variant="success">Paid on: {order.paidAt}</Message>
 							) : (
-								<Message
-									children="For Payment"
-									variant="danger"
-								/>
+								<Message children="For Payment" variant="danger" />
 							)}
 						</ListGroup.Item>
 						<ListGroup.Item>
@@ -118,23 +124,15 @@ const OrderScreen = ({ match }) => {
 									<ListGroup.Item key={i}>
 										<Row>
 											<Col md={2}>
-												<Image
-													src={item.image}
-													alt={item.name}
-													fluid
-													rounded
-												/>
+												<Image src={item.image} alt={item.name} fluid rounded />
 											</Col>
 											<Col>
-												<Link
-													to={`/products/${item.product}`}
-												>
+												<Link to={`/products/${item.product}`}>
 													{item.name}
 												</Link>
 											</Col>
 											<Col md={4}>
-												{item.qty} x ₱{item.price} = ₱
-												{item.qty * item.price}
+												{item.qty} x ₱{item.price} = ₱{item.qty * item.price}
 											</Col>
 										</Row>
 									</ListGroup.Item>
@@ -178,6 +176,18 @@ const OrderScreen = ({ match }) => {
 									/>
 								</ListGroup.Item>
 							)}
+							{userInfo?.isAdmin && order.isPaid && !order.isDelivered ? (
+								<ListGroup.Item>
+									<Button
+										type="button"
+										className="btn btn-block"
+										variant="secondary"
+										onClick={updateHandler}
+									>
+										Mark Delivered
+									</Button>
+								</ListGroup.Item>
+							) : null}
 						</ListGroup>
 					</Card>
 				</Col>

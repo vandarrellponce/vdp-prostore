@@ -92,6 +92,30 @@ export const updateOrderToPaid = expressAsyncHandler(async (req, res) => {
 	}
 })
 
+// @desc	Update order to delivered
+// @route	PUT /api/orders/:orderId/deliver
+// @access	Private
+export const updateOrderToDelivered = expressAsyncHandler(async (req, res) => {
+	try {
+		const orderId = req.params.orderId
+		const order = await Order.findById(orderId)
+		if (!order) {
+			res.status(404)
+			throw new Error('No order information found')
+		}
+		order.isDelivered = true
+		order.deliveredAt = Date.now()
+
+		const updatedOrder = await (await order.save())
+			.populate('user', 'name email')
+			.execPopulate()
+		res.send(updatedOrder)
+	} catch (error) {
+		res.status(401)
+		throw new Error(error.message)
+	}
+})
+
 // @desc	Get orders of current user
 // @route	PUT /api/orders/myorders
 // @access	Private
