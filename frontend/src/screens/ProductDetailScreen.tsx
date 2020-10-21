@@ -16,6 +16,7 @@ import addToCart from '../actions/cart/addToCart'
 import Axios from 'axios'
 import { PRODUCT_DETAILS_SUCCESS } from '../constants/productConst'
 import { getConfig } from '../utils/utils'
+import { Helmet } from 'react-helmet'
 
 const ProductDetail = (props) => {
 	//	STATES
@@ -87,6 +88,10 @@ const ProductDetail = (props) => {
 
 	return (
 		<div>
+			<Helmet>
+				<title>Pro Store | {product.name}</title>
+				<meta name="description" content="We sell the best milk tea in town" />
+			</Helmet>
 			<Link to="/">
 				<Button className="btn my-3 btn-secondary" type="button">
 					Go Back

@@ -9,6 +9,7 @@ import Message from '../components/Message/Message'
 import Loader from '../components/Loader/Loader'
 import FormContainer from '../components/FormContainer/FormContainer'
 import registerUser from '../actions/users/registerUser'
+import { Helmet } from 'react-helmet'
 
 const RegisterScreen = (props) => {
 	const [name, setName] = useState('')
@@ -49,8 +50,7 @@ const RegisterScreen = (props) => {
 		}
 		if (password === '') {
 			setFormError('Please fill up the required fields')
-			document.getElementById('password').textContent =
-				'* Password is required'
+			document.getElementById('password').textContent = '* Password is required'
 			formPassed = false
 		} else {
 			document.getElementById('password').textContent = 'Password'
@@ -62,8 +62,7 @@ const RegisterScreen = (props) => {
 				'* Password is required'
 			formPassed = false
 		} else {
-			document.getElementById('rePassword').textContent =
-				'Re-type Password'
+			document.getElementById('rePassword').textContent = 'Re-type Password'
 			formPassed = true
 		}
 		if (password !== rePassword) {
@@ -79,6 +78,10 @@ const RegisterScreen = (props) => {
 
 	return (
 		<FormContainer>
+			<Helmet>
+				<title>Pro Store | Register</title>
+				<meta name="description" content="We sell the best milk tea in town" />
+			</Helmet>
 			<h1>Creat Account</h1>
 			{error && <Message children={error} variant="info" />}
 			{formError && <Message children={formError} variant="danger" />}

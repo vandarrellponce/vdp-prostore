@@ -6,6 +6,7 @@ import FormContainer from '../components/FormContainer/FormContainer'
 import CheckoutSteps from '../components/CheckoutSteps.tsx/CheckoutSteps'
 import savePaymentMethod from '../actions/cart/savePaymentMethod'
 import { ORDER_PAY_RESET } from '../constants/orderConstants'
+import { Helmet } from 'react-helmet'
 
 const PaymentScreen = ({ history }) => {
 	const [paymentMethod, setPaymentMethod] = useState('')
@@ -26,6 +27,10 @@ const PaymentScreen = ({ history }) => {
 
 	return (
 		<FormContainer>
+			<Helmet>
+				<title>Pro Store | Payment Options</title>
+				<meta name="description" content="We sell the best milk tea in town" />
+			</Helmet>
 			<CheckoutSteps step1 step2 step3 />
 			<h1 style={{ marginBottom: '30px' }}>Payment Method</h1>
 			<Form onSubmit={submitHandler}>

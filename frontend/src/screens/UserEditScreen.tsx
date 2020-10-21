@@ -8,6 +8,7 @@ import FormContainer from '../components/FormContainer/FormContainer'
 import getUserDetails from '../actions/users/getUserDetails'
 import { USER_DETAILS_SUCCESS } from '../constants/userConstants'
 import { updateUserByAdmin } from '../actions/users/updateUser'
+import { Helmet } from 'react-helmet'
 
 const UserEditScreen = ({ match, history, location }) => {
 	const [name, setName] = useState('')
@@ -40,6 +41,10 @@ const UserEditScreen = ({ match, history, location }) => {
 
 	return (
 		<div>
+			<Helmet>
+				<title>Pro Store | Edit User </title>
+				<meta name="description" content="We sell the best milk tea in town" />
+			</Helmet>
 			<Button className="btn btn-light my-3" onClick={handleBack}>
 				Go Back
 			</Button>

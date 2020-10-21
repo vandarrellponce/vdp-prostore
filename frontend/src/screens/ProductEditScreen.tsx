@@ -7,6 +7,7 @@ import Loader from '../components/Loader/Loader'
 import FormContainer from '../components/FormContainer/FormContainer'
 import Axios from 'axios'
 import { getConfig } from '../utils/utils'
+import { Helmet } from 'react-helmet'
 
 const ProductEditScreen = ({ match, history }) => {
 	const [product, setProduct] = useState({
@@ -140,6 +141,10 @@ const ProductEditScreen = ({ match, history }) => {
 
 	return (
 		<div>
+			<Helmet>
+				<title>Pro Store | Edit Product</title>
+				<meta name="description" content="We sell the best milk tea in town" />
+			</Helmet>
 			<Button className="btn btn-light my-3" onClick={handleBack}>
 				Go Back
 			</Button>

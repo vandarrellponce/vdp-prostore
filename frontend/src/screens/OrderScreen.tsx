@@ -15,6 +15,7 @@ import Axios from 'axios'
 import { getConfig } from '../utils/utils'
 import { ORDER_GET_FAIL, ORDER_GET_SUCCESS } from '../constants/orderConstants'
 import Button from 'react-bootstrap/esm/Button'
+import { Helmet } from 'react-helmet'
 
 const OrderScreen = ({ match, history }) => {
 	const { userInfo } = useSelector((state) => state.user)
@@ -69,6 +70,10 @@ const OrderScreen = ({ match, history }) => {
 
 	return (
 		<div>
+			<Helmet>
+				<title>Pro Store | Order Status</title>
+				<meta name="description" content="We sell the best milk tea in town" />
+			</Helmet>
 			<h1>ORDER {orderId.toUpperCase()}</h1>
 			<Row>
 				<Col md={8}>

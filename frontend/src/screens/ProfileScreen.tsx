@@ -10,6 +10,7 @@ import Message from '../components/Message/Message'
 import Loader from '../components/Loader/Loader'
 import { updateUser } from '../actions/users/updateUser'
 import getUserOrders from '../actions/order/getUserOrdes'
+import { Helmet } from 'react-helmet'
 
 const ProfileScreen = (props) => {
 	const [name, setName] = useState('')
@@ -55,6 +56,10 @@ const ProfileScreen = (props) => {
 	if (loading) return <Loader />
 	return (
 		<Row>
+			<Helmet>
+				<title>Pro Store | Profile</title>
+				<meta name="description" content="We sell the best milk tea in town" />
+			</Helmet>
 			<Col md={3}>
 				{/* 	{success && (
 					<Message

@@ -10,6 +10,7 @@ import { LinkContainer } from 'react-router-bootstrap'
 import Axios from 'axios'
 import { getConfig } from '../utils/utils'
 import Paginate from '../components/Paginate'
+import { Helmet } from 'react-helmet'
 
 const ProductListScreen = ({ history }) => {
 	const [loading, setLoading] = useState(false)
@@ -76,6 +77,10 @@ const ProductListScreen = ({ history }) => {
 	if (deleteError) return <Message children={deleteError} variant="warning" />
 	return (
 		<div>
+			<Helmet>
+				<title>Pro Store | Product List</title>
+				<meta name="description" content="We sell the best milk tea in town" />
+			</Helmet>
 			<Row className="align-items-center">
 				<Col>
 					<h1>Products</h1>

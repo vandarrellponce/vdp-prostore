@@ -7,6 +7,7 @@ import Loader from '../components/Loader/Loader'
 import { LinkContainer } from 'react-router-bootstrap'
 import Axios from 'axios'
 import { getConfig } from '../utils/utils'
+import { Helmet } from 'react-helmet'
 
 const UserListScreen = ({ history }) => {
 	const [orders, setOrders] = useState([])
@@ -41,6 +42,10 @@ const UserListScreen = ({ history }) => {
 
 	return (
 		<div>
+			<Helmet>
+				<title>Pro Store | Order List</title>
+				<meta name="description" content="We sell the best milk tea in town" />
+			</Helmet>
 			<h1>ORDERS</h1>
 			{loading ? (
 				<Loader />

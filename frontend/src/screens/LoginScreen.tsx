@@ -9,6 +9,7 @@ import Message from '../components/Message/Message'
 import Loader from '../components/Loader/Loader'
 import { loginUser } from '../actions/users/loginUser'
 import FormContainer from '../components/FormContainer/FormContainer'
+import { Helmet } from 'react-helmet'
 
 const LoginScreen = (props) => {
 	const [email, setEmail] = useState('')
@@ -34,8 +35,7 @@ const LoginScreen = (props) => {
 		}
 		if (password === '') {
 			setFormError('Please fill up the required fields')
-			document.getElementById('password').textContent =
-				'* Password is required'
+			document.getElementById('password').textContent = '* Password is required'
 			formPassed = false
 		} else {
 			document.getElementById('password').textContent = 'Password'
@@ -49,6 +49,10 @@ const LoginScreen = (props) => {
 	if (userInfo) props.history.push(redirect)
 	return (
 		<FormContainer>
+			<Helmet>
+				<title>Pro Store | Login</title>
+				<meta name="description" content="We sell the best milk tea in town" />
+			</Helmet>
 			<h1>Sign In</h1>
 			{loginError && <Message children={loginError} variant="info" />}
 			{formError && <Message children={formError} variant="danger" />}

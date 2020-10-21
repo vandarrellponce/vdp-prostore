@@ -13,6 +13,7 @@ import { Link } from 'react-router-dom'
 import createOrder from '../actions/order/createOrder'
 import Message from '../components/Message/Message'
 import resetCart from '../actions/cart/resetCart'
+import { Helmet } from 'react-helmet'
 
 const PlaceOrderScreen = ({ history }) => {
 	const { cartItems, paymentMethod } = useSelector((state) => state.cart)
@@ -61,6 +62,10 @@ const PlaceOrderScreen = ({ history }) => {
 	if (loading) return <Loader />
 	return (
 		<div>
+			<Helmet>
+				<title>Pro Store | Order Summary</title>
+				<meta name="description" content="We sell the best milk tea in town" />
+			</Helmet>
 			<CheckoutSteps step1 step2 step3 step4 />
 
 			<Row>

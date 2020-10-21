@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import FormContainer from '../components/FormContainer/FormContainer'
 import { updateUser } from '../actions/users/updateUser'
 import CheckoutSteps from '../components/CheckoutSteps.tsx/CheckoutSteps'
+import { Helmet } from 'react-helmet'
 
 const ShippingScreen = ({ history }) => {
 	const [street, setStreet] = useState('')
@@ -18,13 +19,7 @@ const ShippingScreen = ({ history }) => {
 	// USE EFFECT
 	useEffect(() => {
 		if (userInfo?.shippingAddress) {
-			const {
-				street,
-				sitio,
-				barangay,
-				city,
-				mobile,
-			} = userInfo.shippingAddress
+			const { street, sitio, barangay, city, mobile } = userInfo.shippingAddress
 			setStreet(street)
 			setSitio(sitio)
 			setBaranggay(barangay)
@@ -51,13 +46,15 @@ const ShippingScreen = ({ history }) => {
 
 	return (
 		<FormContainer>
+			<Helmet>
+				<title>Pro Store | Shipping</title>
+				<meta name="description" content="We sell the best milk tea in town" />
+			</Helmet>
 			<CheckoutSteps step1 step2 />
 			<h1>Shipping Address</h1>
 			<Form onSubmit={submitHandler}>
 				<Form.Group controlId="name">
-					<Form.Label id="street">
-						Street / Compound / Residence
-					</Form.Label>
+					<Form.Label id="street">Street / Compound / Residence</Form.Label>
 
 					<Form.Control
 						type="text"

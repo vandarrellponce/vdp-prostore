@@ -22,9 +22,9 @@ h1 {
 	margin: 0.1rem;
 }
 .home__banner {
-	margin-bottom: -300px;
+	margin-bottom: -200px;
 	object-fit: contain;
 	width: 100%;
 	mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
-	z-index: -1;
+	/* z-index: -1; */
 }

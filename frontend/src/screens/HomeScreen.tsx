@@ -8,6 +8,8 @@ import Message from '../components/Message/Message'
 import Paginate from '../components/Paginate'
 import { getConfig } from '../utils/utils'
 import Axios from 'axios'
+import { Link } from 'react-router-dom'
+import { Helmet } from 'react-helmet'
 
 const Home = ({ match }) => {
 	// STATES
@@ -63,38 +65,48 @@ const Home = ({ match }) => {
 	return (
 		<div>
 			{/* <h2 className="text-center">Latest Products</h2> */}
+			<Helmet>
+				<title>Pro Store | Home</title>
+				<meta name="description" content="We sell the best milk tea in town" />
+			</Helmet>
 
-			<Carousel className="home__banner">
+			<Carousel pause="hover" className="home__banner">
 				<Carousel.Item>
-					<img
-						className="d-block w-100"
-						src="https://images-na.ssl-images-amazon.com/images/G/01/AmazonExports/Fuji/2020/October/Fuji_Tallhero_Dash_en_US_1x._CB418727898_.jpg"
-						alt="First slide"
-					/>
+					<Link to="/">
+						<img
+							className="d-block w-100"
+							src="https://images-na.ssl-images-amazon.com/images/G/01/AmazonExports/Fuji/2020/October/Fuji_Tallhero_Dash_en_US_1x._CB418727898_.jpg"
+							alt="First slide"
+						/>
+					</Link>
 					<Carousel.Caption>
 						<h3>First slide label</h3>
 					</Carousel.Caption>
 				</Carousel.Item>
 				<Carousel.Item>
-					<img
-						className="d-block w-100"
-						src="https://images-na.ssl-images-amazon.com/images/G/01/AmazonExports/Fuji/2020/May/Hero/Fuji_TallHero_Sports_en_US_1x._CB431860448_.jpg"
-						alt="Third slide"
-					/>
-					<Carousel.Caption>
-						<h3>Second slide label</h3>
-					</Carousel.Caption>
+					<Link to="/">
+						<img
+							className="d-block w-100"
+							src="https://images-na.ssl-images-amazon.com/images/G/01/AmazonExports/Fuji/2020/May/Hero/Fuji_TallHero_Sports_en_US_1x._CB431860448_.jpg"
+							alt="Third slide"
+						/>
+						<Carousel.Caption>
+							<h3>Second slide label</h3>
+						</Carousel.Caption>
+					</Link>
 				</Carousel.Item>
 				<Carousel.Item>
-					<img
-						className="d-block w-100"
-						src="https://images-na.ssl-images-amazon.com/images/G/01/AmazonExports/Events/2020/PrimeDay/Fuji_TallHero_NonPrime_v2_en_US_1x._CB403670067_.jpg"
-						alt="Third slide"
-					/>
-					<Carousel.Caption>
-						<h3>Third slide label</h3>
-						<p></p>
-					</Carousel.Caption>
+					<Link to="/">
+						<img
+							className="d-block w-100"
+							src="https://images-na.ssl-images-amazon.com/images/G/01/AmazonExports/Events/2020/PrimeDay/Fuji_TallHero_NonPrime_v2_en_US_1x._CB403670067_.jpg"
+							alt="Third slide"
+						/>
+						<Carousel.Caption>
+							<h3>Third slide label</h3>
+							<p></p>
+						</Carousel.Caption>
+					</Link>
 				</Carousel.Item>
 			</Carousel>
 			{/* <Image
