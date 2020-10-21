@@ -8,17 +8,21 @@ import { useSelector, useDispatch } from 'react-redux'
 import getProductList from '../actions/products/productListActions'
 import Loader from '../components/Loader/Loader'
 import Message from '../components/Message/Message'
+import Paginate from '../components/Paginate'
 
 const Home = ({ match }) => {
 	// STATES
 	const keyword = match.params.keyword
-	const { products, loading, error } = useSelector((state) => state.productList)
+	const pageNumber = match.params.pageNumber || 1
+	const { products, loading, error, page, totalPages } = useSelector(
+		(state) => state.productList
+	)
 	const dispatch = useDispatch()
 
 	// USE EFFECT
 	useEffect(() => {
-		dispatch(getProductList(keyword))
-	}, [dispatch, keyword])
+		dispatch(getProductList(keyword, pageNumber))
+	}, [dispatch, keyword, pageNumber])
 
 	// CHECKER
 	if (loading) return <Loader />
@@ -80,6 +84,11 @@ const Home = ({ match }) => {
 					</Col>
 				))}
 			</Row>
+			<Paginate
+				pages={totalPages}
+				page={page}
+				keyword={keyword ? keyword : ''}
+			/>
 		</div>
 	)
 }

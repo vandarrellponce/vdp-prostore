@@ -27,7 +27,9 @@ const productListReducer = (
 		case PRODUCT_LIST_SUCCESS: {
 			return {
 				...state,
-				products: action.payload,
+				products: action.payload.products,
+				totalPages: action.payload.totalPages,
+				page: action.payload.page,
 				loading: false,
 			}
 		}
