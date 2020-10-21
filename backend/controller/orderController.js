@@ -126,7 +126,7 @@ export const getUserOrders = expressAsyncHandler(async (req, res) => {
 	try {
 		const orders = await Order.find({
 			user: req.user._id,
-		})
+		}).sort({ createdAt: -1 })
 		res.send(orders)
 	} catch (error) {
 		res.status(401)
@@ -139,7 +139,9 @@ export const getUserOrders = expressAsyncHandler(async (req, res) => {
 // @access	Private
 export const getOrders = expressAsyncHandler(async (req, res) => {
 	try {
-		const orders = await Order.find({}).populate('user', 'id name')
+		const orders = await Order.find({})
+			.sort({ createdAt: -1 })
+			.populate('user', 'id name')
 		res.send(orders)
 	} catch (error) {
 		res.status(401)
