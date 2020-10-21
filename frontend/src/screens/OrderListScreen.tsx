@@ -51,22 +51,36 @@ const UserListScreen = ({ history }) => {
 					<thead>
 						<tr>
 							<th>ID</th>
-							<th>CUSTOMER NAME</th>
+							<th>CLIENT NAME</th>
 							<th>DATE</th>
 							<th>TOTAL</th>
+							<th>COH</th>
+							{/* 	<th>CHANGE</th> */}
 							<th>PAID</th>
 							<th>DELIVERED</th>
-							<th></th>
+							<th>ACTIONS</th>
 						</tr>
 					</thead>
 					<tbody>
 						{orders &&
 							orders.map((order) => (
 								<tr key={order._id}>
-									<td>{order._id}</td>
+									<td
+										style={{
+											wordWrap: 'break-word',
+											minWidth: '100px',
+											maxWidth: '100px',
+											/* overflow: 'hidden', */
+										}}
+									>
+										{order._id}
+									</td>
 									<td>{order.user.name}</td>
 									<td>{order.createdAt.substring(0, 10)}</td>
 									<td>₱{order.totalPrice}</td>
+									<td>₱{order.cashOnHand}</td>
+									{/* <td>₱{order.change}</td> */}
+
 									<td>
 										{order.isPaid ? (
 											order.paidAt.substring(0, 10)

@@ -8,6 +8,7 @@ import Order from '../models/orderModel.js'
 export const createOrder = expressAsyncHandler(async (req, res) => {
 	try {
 		const {
+			cashOnHand,
 			orderItems,
 			shippingAddress,
 			paymentMethod,
@@ -23,6 +24,8 @@ export const createOrder = expressAsyncHandler(async (req, res) => {
 		}
 
 		const order = new Order({
+			change: cashOnHand - totalPrice,
+			cashOnHand,
 			orderItems,
 			shippingAddress,
 			paymentMethod,

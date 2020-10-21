@@ -101,7 +101,7 @@ const ProductDetail = (props) => {
 				<Col md={3}>
 					<ListGroup variant="flush">
 						<ListGroup.Item variant="light">
-							<h3>{product.name}</h3>
+							<h5>{product.name}</h5>
 						</ListGroup.Item>
 
 						<ListGroup.Item>
@@ -111,8 +111,19 @@ const ProductDetail = (props) => {
 							></Rating>
 						</ListGroup.Item>
 
-						<ListGroup.Item>Price: P{product.price}</ListGroup.Item>
-						<ListGroup.Item>Description: {product.description}</ListGroup.Item>
+						<ListGroup.Item>
+							<strong> Brand:</strong>
+							<br /> {product.brand}
+						</ListGroup.Item>
+						<ListGroup.Item>
+							<strong> Category:</strong>
+							<br /> {product.category}
+						</ListGroup.Item>
+						<ListGroup.Item>
+							<strong>Item Description:</strong>
+							<br />
+							{product.description}
+						</ListGroup.Item>
 					</ListGroup>
 				</Col>
 

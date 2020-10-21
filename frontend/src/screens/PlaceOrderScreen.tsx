@@ -1,7 +1,8 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import Button from 'react-bootstrap/Button'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
+import Form from 'react-bootstrap/Form'
 import ListGroup from 'react-bootstrap/ListGroup'
 import Image from 'react-bootstrap/Image'
 import Card from 'react-bootstrap/Card'
@@ -18,6 +19,7 @@ const PlaceOrderScreen = ({ history }) => {
 	const { cartItems, paymentMethod } = useSelector((state) => state.cart)
 	const { userInfo } = useSelector((state) => state.user)
 	const { order, loading, createError } = useSelector((state) => state.order)
+	const [cashOnHand, setCashOnHand] = useState('')
 	const dispatch = useDispatch()
 
 	//USE EFFECT
@@ -42,6 +44,7 @@ const PlaceOrderScreen = ({ history }) => {
 		e.preventDefault()
 		await dispatch(
 			createOrder({
+				cashOnHand,
 				paymentMethod,
 				itemsPrice,
 				shippingPrice,
@@ -68,10 +71,8 @@ const PlaceOrderScreen = ({ history }) => {
 							<h3>SHIPPING</h3>
 							<p>
 								<strong>Address: </strong>
-								{capitalize(
-									userInfo.shippingAddress.street
-								)}, {capitalize(userInfo.shippingAddress.sitio)}
-								,{' '}
+								{capitalize(userInfo.shippingAddress.street)},{' '}
+								{capitalize(userInfo.shippingAddress.sitio)},{' '}
 								{capitalize(userInfo.shippingAddress.barangay)},{' '}
 								{capitalize(userInfo.shippingAddress.city)},
 							</p>
@@ -90,23 +91,15 @@ const PlaceOrderScreen = ({ history }) => {
 									<ListGroup.Item key={i}>
 										<Row>
 											<Col md={2}>
-												<Image
-													src={item.image}
-													alt={item.name}
-													fluid
-													rounded
-												/>
+												<Image src={item.image} alt={item.name} fluid rounded />
 											</Col>
 											<Col>
-												<Link
-													to={`/products/${item.product}`}
-												>
+												<Link to={`/products/${item.product}`}>
 													{item.name}
 												</Link>
 											</Col>
 											<Col md={4}>
-												{item.qty} x ₱{item.price} = ₱
-												{item.qty * item.price}
+												{item.qty} x ₱{item.price} = ₱{item.qty * item.price}
 											</Col>
 										</Row>
 									</ListGroup.Item>
@@ -119,7 +112,7 @@ const PlaceOrderScreen = ({ history }) => {
 					<Card>
 						<ListGroup variant="flush">
 							<ListGroup.Item>
-								<h2>Order Summary</h2>
+								<h4>ORDER SUMMARY</h4>
 							</ListGroup.Item>
 							<ListGroup.Item>
 								<Row>
@@ -139,14 +132,23 @@ const PlaceOrderScreen = ({ history }) => {
 									<Col>₱{totalPrice}</Col>
 								</Row>
 							</ListGroup.Item>
+
 							<ListGroup.Item>
-								<Button
-									type="button"
-									className="btn-block"
-									onClick={placeOrderHandler}
-								>
-									Place Order
-								</Button>
+								<Form onSubmit={placeOrderHandler}>
+									<Form.Group>
+										<Form.Control
+											as="input"
+											type="number"
+											value={cashOnHand}
+											required
+											placeholder="Amount of cash on hand"
+											onChange={(e) => setCashOnHand(e.target.value)}
+										></Form.Control>
+									</Form.Group>
+									<Button type="submit" className="btn-block">
+										Place Order
+									</Button>
+								</Form>
 							</ListGroup.Item>
 						</ListGroup>
 					</Card>
@@ -159,24 +161,19 @@ const PlaceOrderScreen = ({ history }) => {
 
 							<ListGroup.Item variant="danger">
 								<p>
-									{' '}
-									Once order is placed, We will call you
-									(mobile no. 09177102741) to verify your
-									order, address, and delivery charge. Please
-									keep your line open. Thank you.
+									{`Once order is placed, Please keep your line open
+								(MOBILE NO. ${userInfo.shippingAddress.mobile}) for the verification of your delivery 
+								address and order. Thank you :) `}
 								</p>
 							</ListGroup.Item>
 							<ListGroup.Item>
 								{createError && (
-									<Message
-										children={createError}
-										variant="danger"
-									/>
+									<Message children={createError} variant="danger" />
 								)}
 							</ListGroup.Item>
-							<ListGroup.Item variant="info">
+							{/* <ListGroup.Item variant="info">
 								<strong>Status: Not yet verified</strong>
-							</ListGroup.Item>
+							</ListGroup.Item> */}
 						</ListGroup>
 					</Card>
 				</Col>
