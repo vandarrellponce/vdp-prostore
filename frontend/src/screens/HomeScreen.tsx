@@ -37,6 +37,7 @@ const Home = ({ match }) => {
 	// USE EFFECT
 	useEffect(() => {
 		getProducts({ pageSize, page })
+		/* eslint-disable */
 	}, [keyword, page, pageSize])
 
 	// HANDLERS

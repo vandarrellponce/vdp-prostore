@@ -45,7 +45,7 @@ const ProductEditScreen = ({ match, history }) => {
 					)
 				)
 		}
-	}, [dispatch, match])
+	}, [dispatch, match, productId])
 
 	// HANDLERS
 	const submitHandler = (e) => {

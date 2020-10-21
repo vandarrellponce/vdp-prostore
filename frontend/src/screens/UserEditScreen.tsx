@@ -6,7 +6,6 @@ import Message from '../components/Message/Message'
 import Loader from '../components/Loader/Loader'
 import FormContainer from '../components/FormContainer/FormContainer'
 import getUserDetails from '../actions/users/getUserDetails'
-import { Link } from 'react-router-dom'
 import { USER_DETAILS_SUCCESS } from '../constants/userConstants'
 import { updateUserByAdmin } from '../actions/users/updateUser'
 

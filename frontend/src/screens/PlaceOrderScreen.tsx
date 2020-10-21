@@ -13,7 +13,6 @@ import { Link } from 'react-router-dom'
 import createOrder from '../actions/order/createOrder'
 import Message from '../components/Message/Message'
 import resetCart from '../actions/cart/resetCart'
-import { ORDER_PAY_RESET } from '../constants/orderConstants'
 
 const PlaceOrderScreen = ({ history }) => {
 	const { cartItems, paymentMethod } = useSelector((state) => state.cart)

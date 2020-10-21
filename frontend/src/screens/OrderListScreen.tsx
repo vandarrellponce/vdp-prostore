@@ -35,7 +35,7 @@ const UserListScreen = ({ history }) => {
 	}, [dispatch, userInfo, history])
 
 	// HANDLERS
-	const deleteHandler = (id) => {}
+	/* const deleteHandler = (id) => {} */
 	if (!userInfo)
 		return <Message>Please Log in as Admin, Or go back to home page</Message>
 

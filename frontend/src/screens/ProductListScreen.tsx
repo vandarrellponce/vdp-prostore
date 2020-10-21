@@ -44,7 +44,7 @@ const ProductListScreen = ({ history }) => {
 		}
 		getProducts(options)
 		if (userInfo && !userInfo.isAdmin) history.push('/')
-	}, [userInfo, history])
+	}, [userInfo, history, pageSize, page])
 
 	// HANDLERS
 	const deleteHandler = async (id) => {

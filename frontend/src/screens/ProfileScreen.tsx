@@ -10,7 +10,6 @@ import Message from '../components/Message/Message'
 import Loader from '../components/Loader/Loader'
 import { updateUser } from '../actions/users/updateUser'
 import getUserOrders from '../actions/order/getUserOrdes'
-import { ORDER_PAY_RESET } from '../constants/orderConstants'
 
 const ProfileScreen = (props) => {
 	const [name, setName] = useState('')
@@ -41,8 +40,7 @@ const ProfileScreen = (props) => {
 	const submitHandler = (e) => {
 		e.preventDefault()
 
-		if (password !== rePassword)
-			return setFormError('Password does not match')
+		if (password !== rePassword) return setFormError('Password does not match')
 		dispatch(
 			updateUser({
 				name,
@@ -105,9 +103,7 @@ const ProfileScreen = (props) => {
 					</Form.Group>
 
 					<Form.Group controlId="confirmPassword">
-						<Form.Label id="rePassword">
-							Re-type Password
-						</Form.Label>
+						<Form.Label id="rePassword">Re-type Password</Form.Label>
 						<Form.Control
 							type="password"
 							value={rePassword}
@@ -146,19 +142,11 @@ const ProfileScreen = (props) => {
 										userOrders.map((order) => (
 											<tr key={order._id}>
 												<td>{order._id}</td>
-												<td>
-													{order.createdAt.substring(
-														0,
-														10
-													)}
-												</td>
+												<td>{order.createdAt.substring(0, 10)}</td>
 												<td>{order.totalPrice}</td>
 												<td>
 													{order.isPaid ? (
-														order.paidAt.substring(
-															0,
-															10
-														)
+														order.paidAt.substring(0, 10)
 													) : (
 														<i
 															className="fas fa-times"
@@ -170,10 +158,7 @@ const ProfileScreen = (props) => {
 												</td>
 												<td>
 													{order.isDelivered ? (
-														order.deliveredAt.substring(
-															0,
-															10
-														)
+														order.deliveredAt.substring(0, 10)
 													) : (
 														<i
 															className="fas fa-times"
@@ -185,13 +170,8 @@ const ProfileScreen = (props) => {
 												</td>
 												<td>
 													<div>
-														<LinkContainer
-															to={`/orders/${order._id}/pay`}
-														>
-															<Button
-																variant="secondary"
-																className="btn-sm"
-															>
+														<LinkContainer to={`/orders/${order._id}/pay`}>
+															<Button variant="secondary" className="btn-sm">
 																Details
 															</Button>
 														</LinkContainer>

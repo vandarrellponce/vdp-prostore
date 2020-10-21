@@ -1,28 +1,6 @@
 import expressAsyncHandler from 'express-async-handler'
 import Product from '../models/productModel.js'
 
-// @desc	Fetch all Products
-// @route	GET /api/products?search=keyword
-// @access	Public
-export const getProducts = expressAsyncHandler(async (req, res) => {
-	const pageSize = Number(req.query.pageSize) || 4
-	const page = Number(req.query.pageNumber) || 1
-	const keyword = req.query.keyword
-		? {
-				name: {
-					$regex: req.query.keyword,
-					$options: 'i',
-				},
-		  }
-		: {}
-	const count = await Product.countDocuments({ ...keyword })
-	const products = await Product.find({ ...keyword })
-		.limit(pageSize)
-		.skip(pageSize * (page - 1))
-
-	res.send({ products, page, totalPages: Math.ceil(count / pageSize) })
-})
-
 // @desc	Fetch all Products with query
 // @route	POST /api/products?keyword=keyword
 // @access	Public

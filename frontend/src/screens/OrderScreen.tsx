@@ -15,7 +15,6 @@ import Axios from 'axios'
 import { getConfig } from '../utils/utils'
 import { ORDER_GET_FAIL, ORDER_GET_SUCCESS } from '../constants/orderConstants'
 import Button from 'react-bootstrap/esm/Button'
-import { authUser } from '../actions/users/loginUser'
 
 const OrderScreen = ({ match, history }) => {
 	const { userInfo } = useSelector((state) => state.user)

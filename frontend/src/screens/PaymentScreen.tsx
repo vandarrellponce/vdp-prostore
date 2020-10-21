@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import FormContainer from '../components/FormContainer/FormContainer'
 import CheckoutSteps from '../components/CheckoutSteps.tsx/CheckoutSteps'
 import savePaymentMethod from '../actions/cart/savePaymentMethod'
@@ -11,12 +11,11 @@ const PaymentScreen = ({ history }) => {
 	const [paymentMethod, setPaymentMethod] = useState('')
 
 	const dispatch = useDispatch()
-	const { userInfo } = useSelector((state) => state.user)
 
 	// USE EFFECT
 	useEffect(() => {
 		dispatch({ type: ORDER_PAY_RESET })
-	}, [])
+	}, [dispatch])
 
 	// HANDLERS
 	const submitHandler = (e) => {
