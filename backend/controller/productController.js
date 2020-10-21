@@ -5,9 +5,31 @@ import Product from '../models/productModel.js'
 // @route	GET /api/products?search=keyword
 // @access	Public
 export const getProducts = expressAsyncHandler(async (req, res) => {
-	const pageSize = 8
+	const pageSize = Number(req.query.pageSize) || 8
 	const page = Number(req.query.pageNumber) || 1
 	const keyword = req.query.keyword
+		? {
+				name: {
+					$regex: req.query.keyword,
+					$options: 'i',
+				},
+		  }
+		: {}
+	const count = await Product.countDocuments({ ...keyword })
+	const products = await Product.find({ ...keyword })
+		.limit(pageSize)
+		.skip(pageSize * (page - 1))
+
+	res.send({ products, page, totalPages: Math.ceil(count / pageSize) })
+})
+
+// @desc	Fetch all Products with query
+// @route	POST /api/products?search=keyword
+// @access	Public
+export const getProducts2 = expressAsyncHandler(async (req, res) => {
+	const pageSize = req.body.pageSize || 4
+	const page = req.body.page || 1
+	const keyword = req.body.keyword
 		? {
 				name: {
 					$regex: req.query.keyword,
