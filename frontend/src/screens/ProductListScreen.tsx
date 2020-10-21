@@ -3,30 +3,48 @@ import Button from 'react-bootstrap/Button'
 import Table from 'react-bootstrap/Table'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import Message from '../components/Message/Message'
 import Loader from '../components/Loader/Loader'
 import { LinkContainer } from 'react-router-bootstrap'
-import getProductList from '../actions/products/productListActions'
 import Axios from 'axios'
 import { getConfig } from '../utils/utils'
 import Paginate from '../components/Paginate'
 
-const ProductListScreen = ({ history, match }) => {
-	const pageNumber = match.params.pageNumber || 1
+const ProductListScreen = ({ history }) => {
+	const [loading, setLoading] = useState(false)
+	const [error] = useState(null)
+	const [products, setProducts] = useState([])
+
+	const [pageSize] = useState(12)
+	const [page, setPage] = useState(1)
+	const [totalPages, setTotalPages] = useState(null)
 
 	const [deleteError, setDeleteError] = useState('')
 	const { userInfo } = useSelector((state) => state.user)
-	const { products, loading, error, totalPages, page } = useSelector(
-		(state) => state.productList
-	)
-	const dispatch = useDispatch()
 
+	const getProducts = (options) => {
+		setLoading(true)
+		Axios.post(`/api/products`, options, getConfig())
+			.then((res) => {
+				setProducts(res.data.products)
+				setTotalPages(res.data.totalPages)
+				setLoading(false)
+			})
+			.catch((e) => {
+				setLoading(false)
+				console.log(e)
+			})
+	}
 	// USE EFFECT
 	useEffect(() => {
-		dispatch(getProductList('', pageNumber))
+		const options = {
+			pageSize,
+			page,
+		}
+		getProducts(options)
 		if (userInfo && !userInfo.isAdmin) history.push('/')
-	}, [dispatch, userInfo, history, pageNumber])
+	}, [userInfo, history])
 
 	// HANDLERS
 	const deleteHandler = async (id) => {
@@ -34,7 +52,7 @@ const ProductListScreen = ({ history, match }) => {
 			if (window.confirm('Are you sure to delete this product?')) {
 				const config = getConfig()
 				await Axios.delete(`/api/admin/products/${id}`, config)
-				dispatch(getProductList())
+				getProducts({ pageSize, page })
 			}
 		} catch (error) {
 			setDeleteError(error)
@@ -42,6 +60,15 @@ const ProductListScreen = ({ history, match }) => {
 	}
 	const createProductHandler = (e) => {
 		history.push(`/admin/products/createProduct/edit`)
+	}
+
+	const handleSetPage = (page) => {
+		setPage(page)
+		const options = {
+			pageSize,
+			page,
+		}
+		getProducts(options)
 	}
 
 	if (!userInfo)
@@ -110,7 +137,11 @@ const ProductListScreen = ({ history, match }) => {
 								})}
 						</tbody>
 					</Table>
-					<Paginate pages={totalPages} page={page} isAdmin={true} />
+					<Paginate
+						page={page}
+						totalPages={totalPages}
+						setPage={handleSetPage}
+					/>
 				</div>
 			)}
 		</div>

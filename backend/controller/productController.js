@@ -5,7 +5,7 @@ import Product from '../models/productModel.js'
 // @route	GET /api/products?search=keyword
 // @access	Public
 export const getProducts = expressAsyncHandler(async (req, res) => {
-	const pageSize = Number(req.query.pageSize) || 8
+	const pageSize = Number(req.query.pageSize) || 4
 	const page = Number(req.query.pageNumber) || 1
 	const keyword = req.query.keyword
 		? {
@@ -24,12 +24,12 @@ export const getProducts = expressAsyncHandler(async (req, res) => {
 })
 
 // @desc	Fetch all Products with query
-// @route	POST /api/products?search=keyword
+// @route	POST /api/products?keyword=keyword
 // @access	Public
-export const getProducts2 = expressAsyncHandler(async (req, res) => {
+export const getProductsWithOptions = expressAsyncHandler(async (req, res) => {
 	const pageSize = req.body.pageSize || 4
 	const page = req.body.page || 1
-	const keyword = req.body.keyword
+	const keyword = req.query.keyword
 		? {
 				name: {
 					$regex: req.query.keyword,

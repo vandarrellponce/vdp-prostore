@@ -1,28 +1,53 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import Col from 'react-bootstrap/esm/Col'
 import Row from 'react-bootstrap/esm/Row'
-import Image from 'react-bootstrap/Image'
 import Carousel from 'react-bootstrap/Carousel'
 import Product from '../components/Product/Product'
-import { useSelector, useDispatch } from 'react-redux'
-import getProductList from '../actions/products/productListActions'
 import Loader from '../components/Loader/Loader'
 import Message from '../components/Message/Message'
 import Paginate from '../components/Paginate'
+import { getConfig } from '../utils/utils'
+import Axios from 'axios'
 
 const Home = ({ match }) => {
 	// STATES
-	const keyword = match.params.keyword
-	const pageNumber = match.params.pageNumber || 1
-	const { products, loading, error, page, totalPages } = useSelector(
-		(state) => state.productList
-	)
-	const dispatch = useDispatch()
+	const [loading, setLoading] = useState(false)
+	const [error] = useState(null)
+	const [products, setProducts] = useState([])
+
+	const keyword = match.params.keyword || ''
+	const [pageSize] = useState(8)
+	const [page, setPage] = useState(1)
+	const [totalPages, setTotalPages] = useState(null)
+
+	const getProducts = (options) => {
+		setLoading(true)
+		Axios.post(`/api/products?keyword=${keyword}`, options, getConfig())
+			.then((res) => {
+				setProducts(res.data.products)
+				setTotalPages(res.data.totalPages)
+				setLoading(false)
+			})
+			.catch((e) => {
+				setLoading(false)
+				console.log(e)
+			})
+	}
 
 	// USE EFFECT
 	useEffect(() => {
-		dispatch(getProductList(keyword, pageNumber))
-	}, [dispatch, keyword, pageNumber])
+		getProducts({ pageSize, page })
+	}, [keyword, page, pageSize])
+
+	// HANDLERS
+	const handleSetPage = (page) => {
+		setPage(page)
+		const options = {
+			pageSize,
+			page,
+		}
+		getProducts(options)
+	}
 
 	// CHECKER
 	if (loading) return <Loader />
@@ -84,11 +109,7 @@ const Home = ({ match }) => {
 					</Col>
 				))}
 			</Row>
-			<Paginate
-				pages={totalPages}
-				page={page}
-				keyword={keyword ? keyword : ''}
-			/>
+			<Paginate setPage={handleSetPage} totalPages={totalPages} page={page} />
 		</div>
 	)
 }
