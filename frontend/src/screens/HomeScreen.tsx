@@ -9,14 +9,18 @@ import getProductList from '../actions/products/productListActions'
 import Loader from '../components/Loader/Loader'
 import Message from '../components/Message/Message'
 
-const Home = () => {
+const Home = ({ match }) => {
+	// STATES
+	const keyword = match.params.keyword
 	const { products, loading, error } = useSelector((state) => state.productList)
 	const dispatch = useDispatch()
 
+	// USE EFFECT
 	useEffect(() => {
-		dispatch(getProductList())
-	}, [dispatch])
+		dispatch(getProductList(keyword))
+	}, [dispatch, keyword])
 
+	// CHECKER
 	if (loading) return <Loader />
 	if (error)
 		return (
