@@ -24,6 +24,7 @@ router.get('/redirect', passport.authenticate('google'), async (req, res) => {
 				.cookie('x_token', token)
 				.status(200)
 				.redirect('http://localhost:3000/')
+			/* 	.redirect('/') */
 		}
 		// If does not exist, proceed on creating user
 		const newUser = await new User({

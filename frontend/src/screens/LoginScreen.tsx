@@ -50,15 +50,10 @@ const LoginScreen = (props) => {
 	}
 	if (userInfo) props.history.push(redirect)
 
-	const handleGoogleSubmit = (e) => {
-		Axios.get('http://localhost:5000/auth/google')
-			.then((res) => console.log(res))
-			.catch((e) => console.log(e))
-	}
-
 	return (
 		<FormContainer>
 			<a href="http://localhost:5000/auth/google">
+				{/* <a href="/auth/google"> */}
 				<GoogleButton
 					type="dark"
 					style={{ width: '100%', marginTop: '70px', marginBottom: '100px' }}
