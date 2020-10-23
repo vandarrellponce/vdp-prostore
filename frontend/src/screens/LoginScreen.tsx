@@ -10,6 +10,8 @@ import Loader from '../components/Loader/Loader'
 import { loginUser } from '../actions/users/loginUser'
 import FormContainer from '../components/FormContainer/FormContainer'
 import { Helmet } from 'react-helmet'
+import GoogleButton from 'react-google-button'
+import Axios from 'axios'
 
 const LoginScreen = (props) => {
 	const [email, setEmail] = useState('')
@@ -47,13 +49,26 @@ const LoginScreen = (props) => {
 		}
 	}
 	if (userInfo) props.history.push(redirect)
+
+	const handleGoogleSubmit = (e) => {
+		Axios.get('http://localhost:5000/auth/google')
+			.then((res) => console.log(res))
+			.catch((e) => console.log(e))
+	}
+
 	return (
 		<FormContainer>
+			<a href="http://localhost:5000/auth/google">
+				<GoogleButton
+					type="dark"
+					style={{ width: '100%', marginTop: '70px', marginBottom: '100px' }}
+				/>
+			</a>
 			<Helmet>
 				<title>Pro Store | Login</title>
 				<meta name="description" content="We sell the best milk tea in town" />
 			</Helmet>
-			<h1>Sign In</h1>
+			<h4>ADMIN LOGIN</h4>
 			{loginError && <Message children={loginError} variant="info" />}
 			{formError && <Message children={formError} variant="danger" />}
 			{loading && <Loader />}
@@ -81,12 +96,14 @@ const LoginScreen = (props) => {
 					Submit
 				</Button>
 			</Form>
-			<Row className="py-3">
+			<br />
+
+			{/* 	<Row className="py-3">
 				<Col>
 					New Customer?{' '}
 					<Link to={`/register?redirect=${redirect}`}>Register</Link>
 				</Col>
-			</Row>
+			</Row> */}
 		</FormContainer>
 	)
 }

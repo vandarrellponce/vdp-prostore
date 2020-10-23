@@ -9,9 +9,7 @@ const getProductDetails = (productId) => async (dispatch) => {
 	try {
 		dispatch({ type: PRODUCT_DETAILS_REQUEST })
 
-		const { data } = await Axios.get(
-			`http://localhost:5000/api/products/${productId}`
-		)
+		const { data } = await Axios.get(`/api/products/${productId}`)
 
 		dispatch({ type: PRODUCT_DETAILS_SUCCESS, payload: data })
 	} catch (error) {

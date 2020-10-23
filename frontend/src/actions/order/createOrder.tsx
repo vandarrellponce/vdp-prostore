@@ -14,11 +14,7 @@ const createOrder = (order) => async (dispatch) => {
 				Authorization: `Bearer ${token}`,
 			},
 		}
-		const { data } = await Axios.post(
-			'http://localhost:5000/api/orders',
-			order,
-			config
-		)
+		const { data } = await Axios.post('/api/orders', order, config)
 
 		dispatch({ type: ORDER_CREATE_SUCCESS, payload: data })
 	} catch (error) {

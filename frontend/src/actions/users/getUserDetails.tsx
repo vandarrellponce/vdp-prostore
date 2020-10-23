@@ -10,15 +10,10 @@ export const getUserDetails = (id) => async (dispatch) => {
 		dispatch({ type: USER_DETAILS_REQUEST })
 		const config = {
 			headers: {
-				Authorization: `Bearer ${JSON.parse(
-					localStorage.getItem('token')
-				)}`,
+				Authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`,
 			},
 		}
-		const res = await Axios.get(
-			`http://localhost:5000/api/admin/users/${id}`,
-			config
-		)
+		const res = await Axios.get(`/api/admin/users/${id}`, config)
 		dispatch({ type: USER_DETAILS_SUCCESS, payload: res.data })
 	} catch (error) {
 		dispatch({

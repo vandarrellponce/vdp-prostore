@@ -18,7 +18,7 @@ const Header = () => {
 	const logoutHandler = (e) => {
 		e.preventDefault()
 		dispatch(logoutUser())
-		window.location.reload()
+		/* window.location.reload() */
 	}
 
 	return (

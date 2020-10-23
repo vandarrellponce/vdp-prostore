@@ -16,11 +16,7 @@ const payOrder = (orderId, paymentResult) => async (dispatch) => {
 		}
 
 		const updatedOrder = await (
-			await Axios.put(
-				`http://localhost:5000/api/orders/${orderId}/pay`,
-				paymentResult,
-				config
-			)
+			await Axios.put(`/api/orders/${orderId}/pay`, paymentResult, config)
 		).data
 		dispatch({ type: ORDER_PAY_SUCCESS, payload: updatedOrder })
 	} catch (error) {

@@ -14,6 +14,7 @@ import {
 } from '../controller/userController.js'
 import auth from '../middlewares/authMiddleware.js'
 import admin from '../middlewares/adminMiddleware.js'
+import passport from 'passport'
 
 router.post('/login', authUser)
 router.post('/register', createUser)

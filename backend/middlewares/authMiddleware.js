@@ -5,7 +5,9 @@ import User from '../models/userModel.js'
 const auth = expressAsyncHandler(async (req, res, next) => {
 	try {
 		// Retrieve token from the header
-		const token = req.headers.authorization.replace('Bearer ', '')
+		/* 	let token = req.headers.authorization.replace('Bearer ', '') */
+		const token = req.cookies.x_token
+		console.log(token)
 
 		// Protection if no token provided
 		if (!token) throw new Error('Not authorized - No token provided')
@@ -25,6 +27,7 @@ const auth = expressAsyncHandler(async (req, res, next) => {
 		req.user = user
 		next()
 	} catch (error) {
+		console.log(error.message)
 		res.status(401)
 		throw new Error('Please authenticate to proceed')
 	}

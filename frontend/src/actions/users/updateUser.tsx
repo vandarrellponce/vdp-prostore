@@ -13,17 +13,11 @@ export const updateUser = (updatedUser) => async (dispatch) => {
 		dispatch({ type: USER_UPDATE_REQUEST })
 		const config = {
 			headers: {
-				Authorization: `Bearer ${JSON.parse(
-					localStorage.getItem('token')
-				)}`,
+				Authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`,
 			},
 		}
 		const user = await (
-			await Axios.put(
-				`http://localhost:5000/api/users/profile`,
-				updatedUser,
-				config
-			)
+			await Axios.put(`/api/users/profile`, updatedUser, config)
 		).data
 
 		dispatch({ type: USER_UPDATE_SUCCESS, payload: user })
@@ -42,9 +36,7 @@ export const updateUserByAdmin = (updatedUser, id) => async (dispatch) => {
 		dispatch({ type: USER_DETAILS_REQUEST })
 		const config = {
 			headers: {
-				Authorization: `Bearer ${JSON.parse(
-					localStorage.getItem('token')
-				)}`,
+				Authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`,
 			},
 		}
 		const user = await (

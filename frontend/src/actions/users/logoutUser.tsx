@@ -5,13 +5,11 @@ export const logoutUser = () => async (dispatch, getState) => {
 	try {
 		const config = {
 			headers: {
-				Authorization: `Bearer ${JSON.parse(
-					localStorage.getItem('token')
-				)}`,
+				Authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`,
 			},
 		}
 		localStorage.removeItem('userInfo')
-		await Axios.get('http://localhost:5000/api/users/logout', config)
+		await Axios.get('/api/users/logout', config)
 		dispatch({ type: USER_LOGOUT })
 	} catch (error) {
 		dispatch({

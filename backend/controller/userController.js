@@ -6,12 +6,9 @@ import User from '../models/userModel.js'
 // @access	Public
 export const authUser = expressAsyncHandler(async (req, res) => {
 	try {
-		const user = await User.findByCredentials(
-			req.body.email,
-			req.body.password
-		)
+		const user = await User.findByCredentials(req.body.email, req.body.password)
 		const token = await user.generateAuthToken()
-		res.status(200).send({ user, token })
+		res.cookie('x_token', token).status(200).send({ user, token })
 	} catch (error) {
 		res.status(401)
 		throw new Error(error.message)
@@ -31,7 +28,7 @@ export const createUser = expressAsyncHandler(async (req, res) => {
 		// If does not exist, proceed on creating user
 		const newUser = await new User(req.body).save()
 		const token = await newUser.generateAuthToken()
-		res.status(201).send({ user: newUser, token })
+		res.cookie('x_token', token).status(201).send({ user: newUser, token })
 	} catch (error) {
 		res.status(404)
 		throw new Error(error.message)

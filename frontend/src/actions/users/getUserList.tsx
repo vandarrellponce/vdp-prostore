@@ -14,9 +14,7 @@ const getUserList = () => async (dispatch) => {
 				Authorization: `Bearer ${token}`,
 			},
 		}
-		const userList = await (
-			await Axios.get('http://localhost:5000/api/users', config)
-		).data
+		const userList = await (await Axios.get('/api/users', config)).data
 		dispatch({ type: USER_LIST_SUCCESS, payload: userList })
 	} catch (error) {
 		dispatch({

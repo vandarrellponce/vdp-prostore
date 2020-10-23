@@ -14,9 +14,8 @@ const getUserOrders = () => async (dispatch) => {
 				Authorization: `Bearer ${token}`,
 			},
 		}
-		const userOrders = await (
-			await Axios.get('http://localhost:5000/api/orders/myorders', config)
-		).data
+		const userOrders = await (await Axios.get('/api/orders/myorders', config))
+			.data
 		dispatch({ type: ORDERS_BYUSER_SUCCESS, payload: userOrders })
 	} catch (error) {
 		dispatch({

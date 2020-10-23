@@ -10,16 +10,17 @@ import {
 export const authUser = () => async (dispatch) => {
 	try {
 		const config = {
-			headers: {
-				Authorization: `Bearer ${JSON.parse(
-					localStorage.getItem('token')
-				)}`,
+			/* 	headers: {
+				Authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`,
+			}, */
+			/* headers: {
+				Accept: 'application/json',
+				'Content-Type': 'application/json',
+				credentials: 'include',
 			},
+			withCredentials: true, */
 		}
-		const { data } = await Axios.get(
-			'http://localhost:5000/api/users/profile',
-			config
-		)
+		const { data } = await Axios.get('/api/users/profile', config)
 
 		dispatch({ type: USER_AUTH_SUCCESS, payload: data })
 	} catch (error) {
@@ -37,12 +38,12 @@ export const loginUser = (email, password) => async (dispatch) => {
 		dispatch({ type: USER_LOGIN_REQUEST })
 
 		const { user, token } = await (
-			await Axios.post('http://localhost:5000/api/users/login', {
+			await Axios.post('/api/users/login', {
 				email,
 				password,
 			})
 		).data
-		localStorage.setItem('token', JSON.stringify(token))
+		/* localStorage.setItem('token', JSON.stringify(token)) */
 		dispatch({ type: USER_LOGIN_SUCCESS, payload: user })
 	} catch (error) {
 		dispatch({

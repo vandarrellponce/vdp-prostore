@@ -18,20 +18,17 @@ const userSchema = mongoose.Schema(
 			lowercase: true,
 			unique: true,
 			validate(value) {
-				if (!validator.isEmail(value))
-					throw new Error('Invalid Email Format')
+				if (!validator.isEmail(value)) throw new Error('Invalid Email Format')
 			},
 		},
 		password: {
-			required: true,
+			/* required: true, */
 			type: String,
 			minlength: 6,
 			trim: true,
 			validate(value) {
 				if (value.toLowerCase().includes('password')) {
-					throw new Error(
-						'Password must not contain the word password'
-					)
+					throw new Error('Password must not contain the word password')
 				}
 			},
 		},

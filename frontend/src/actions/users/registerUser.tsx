@@ -9,7 +9,7 @@ const registerUser = (name, email, password) => async (dispatch) => {
 	try {
 		dispatch({ type: USER_REGISTER_REQUEST })
 		const { user, token } = await (
-			await Axios.post('http://localhost:5000/api/users/register', {
+			await Axios.post('/api/users/register', {
 				name,
 				email,
 				password,
