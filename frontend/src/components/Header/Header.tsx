@@ -35,9 +35,9 @@ const Header = () => {
 					<LinkContainer to="/">
 						<Navbar.Brand>
 							<Image
-								src="https://lh3.googleusercontent.com/pw/ACtC-3ecFrJF63hprSe5c9PmDeAG7R2ci5cYV-tbf9dvqG88wll2-uUnUlcaz2zta0L_--gDQtZ319jImS1U2KQRdBN8aPuQwQN7MjQJfUSQRV3f3I3NhPRVjU_KmF1DWDRQvoB_GfYG-bHMk4ypA-T1SyXQ=w1514-h913-no?authuser=0"
+								src="https://lh3.googleusercontent.com/NZn_LPR90sfkQsD1TYhsj0k_jhngmtzCkuRCgqtzpppwWOoD1ehQ7pAUundwL9atPczlq62Xc1gkO49CG4aTpuG3r2NeY77TNLdUHzd9au6o1GfajaebEg9kEtJrCRMCCkm523onmxb6fkNLEx1ZuHqUPLmx-xLzmU1hSRDI3p2TEdjrUH1hxUQRYnS0tA6qW2TvrPxSKakXVmwVWL78sFOFIEVJ1UjNBSGobuqvXrqR2AKJnKvt1YzUnd2XP2I1DcZj2ucsnYwCXsPm5VelIYEgWeLDeWMN5Op7Rv5OlrhTzl0al4PluPeEw9XNSnljjywoLaNhr3bVD2oQbCXvHe3euVLSA_AbNPIhBaqavaIaHiAQEdUVsYQCUDdKbnM25tWMBxMx4jjEB_h9fosR4MQWIqNbFryWvfTU4SbHb3FDNrpMQFlNFx9BH1UtqtqZZSAoshjJUCb_M-lLmiUQp8UnnzOflw5hc_Egqez8hMjkcZQN6j4eag6DHADYLaEkT-mj8PXiH-3NnJ1UjZsRhfhv7oRGgKCjUFMeIV1eA2iV6Uq4gxJbbVpIUFBg6gH0L3SCS-OsUuwxFYqY--2bdgapH1Tcz3YKUtFmGH0FxqLp3dX4GJs5JzNVr0yWt5hCnff6755hVLMaYZ25H9I-HfdNxG1zVMLEQo0UXgROCq9P7MOu6wf1YWwhofA4sg=w1920-h684-no?authuser=0"
 								alt="Kumbatea Logo"
-								style={{ height: '50px', width: '90px' }}
+								style={{ height: '50px', width: '100px' }}
 							/>
 						</Navbar.Brand>
 					</LinkContainer>
