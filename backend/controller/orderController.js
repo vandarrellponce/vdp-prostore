@@ -145,7 +145,7 @@ export const getOrders = expressAsyncHandler(async (req, res) => {
 			.limit(pageSize)
 			.skip(pageSize * (page - 1))
 			.sort({ createdAt: -1 })
-			.populate('user', 'id name')
+			.populate('user', '_id name')
 		const count = await Order.countDocuments({})
 		res.send({ orders, page, totalPages: Math.ceil(count / pageSize) })
 	} catch (error) {

@@ -6,7 +6,7 @@ import Message from '../components/Message/Message'
 import Loader from '../components/Loader/Loader'
 import { LinkContainer } from 'react-router-bootstrap'
 import Axios from 'axios'
-import { getConfig } from '../utils/utils'
+
 import { Helmet } from 'react-helmet'
 import Paginate from '../components/Paginate'
 
@@ -23,7 +23,7 @@ const UserListScreen = ({ history }) => {
 
 	const getOrders = (options) => {
 		setLoading(true)
-		Axios.post('/api/admin/orders', options, getConfig())
+		Axios.post('/api/admin/orders', options)
 			.then((res) => {
 				setOrders(res.data.orders)
 				setTotalPages(res.data.totalPages)
@@ -55,6 +55,7 @@ const UserListScreen = ({ history }) => {
 		}
 		getOrders(options)
 	}
+	if (!orders.length) return <Loader />
 	if (!userInfo)
 		return <Message>Please Log in as Admin, Or go back to home page</Message>
 
@@ -93,7 +94,7 @@ const UserListScreen = ({ history }) => {
 							</tr>
 						</thead>
 						<tbody>
-							{orders &&
+							{orders.length &&
 								orders.map((order) => (
 									<tr key={order._id}>
 										<td
@@ -106,7 +107,7 @@ const UserListScreen = ({ history }) => {
 										>
 											{order._id}
 										</td>
-										<td>{order.user.name}</td>
+										<td>{order.user?.name}</td>
 										<td>{order.createdAt.substring(0, 10)}</td>
 										<td>₱{order.totalPrice}</td>
 										<td>₱{order.cashOnHand}</td>
