@@ -20,11 +20,13 @@ router.get('/redirect', passport.authenticate('google'), async (req, res) => {
 		const user = await User.findOne({ email: req.user._json.email })
 		if (user) {
 			const token = await user.generateAuthToken()
-			return res
-				.cookie('x_token', token)
-				.status(200)
-				.redirect('http://localhost:3000/')
-			/* 	.redirect('/') */
+			return (
+				res
+					.cookie('x_token', token)
+					.status(200)
+					/* .redirect('http://localhost:3000/') */
+					.redirect('/')
+			)
 		}
 		// If does not exist, proceed on creating user
 		const newUser = await new User({

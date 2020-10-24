@@ -32,12 +32,11 @@ const LoginScreen = (props) => {
 	return (
 		<div className="py-3">
 			<FormContainer>
-				<a
+				{/* <a
 					href="http://localhost:5000/auth/google"
 					style={{ textDecoration: 'none' }}
-				>
-					{/* <a href="/auth/google" 
-				style={{ textDecoration: 'none' }}> */}
+				> */}
+				<a href="/auth/google" style={{ textDecoration: 'none' }}>
 					<GoogleButton
 						type="dark"
 						style={{ width: '100%', marginTop: '30px', marginBottom: '30px' }}

@@ -32,7 +32,6 @@ await connectDB()
 app.get('/api', (req, res) => {
 	res.send('API is running')
 })
-
 app.use('/auth/google/', googleAuthRoutes)
 app.use('/api/products', productRoutes)
 app.use('/api/users', userRoutes)
