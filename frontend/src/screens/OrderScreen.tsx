@@ -36,7 +36,7 @@ const OrderScreen = ({ match, history }) => {
 
 	// HANDLERS
 
-	const updateHandler = () => {
+	const updateDeliveryHandler = () => {
 		Axios.put(`/api/orders/${orderId}/deliver`, {}, getConfig())
 			.then((res) => {
 				dispatch(dispatch({ type: ORDER_GET_SUCCESS, payload: res.data }))
@@ -48,6 +48,17 @@ const OrderScreen = ({ match, history }) => {
 						? error.response.data.message
 						: error.message,
 				})
+			})
+	}
+
+	const updatePaymentHandler = (e) => {
+		e.preventDefault()
+		Axios.put(`/api/orders/${orderId}/pay`)
+			.then((res) => {
+				dispatch(getOrder(orderId))
+			})
+			.catch((error) => {
+				console.log(error)
 			})
 	}
 
@@ -67,6 +78,8 @@ const OrderScreen = ({ match, history }) => {
 	if (loading) return <Loader />
 	if (getOrderError) return <Message children={getOrderError} />
 	if (!order) return <Loader />
+	if (!userInfo)
+		return <Message>Please Log in as Admin, Or go back to home page</Message>
 
 	return (
 		<div>
@@ -172,12 +185,20 @@ const OrderScreen = ({ match, history }) => {
 							{!order.isPaid && (
 								<ListGroup.Item>
 									{payLoading && <Loader />}
-									<Paypal
+									{/* <Paypal
 										paymentSuccess={paymentSuccess}
 										paymentCancelled={paymentCancelled}
 										paymentError={paymentError}
 										total={order.totalPrice}
-									/>
+									/> */}
+									<Button
+										type="button"
+										className="btn btn-block"
+										variant="secondary"
+										onClick={updatePaymentHandler}
+									>
+										Mark Paid
+									</Button>
 								</ListGroup.Item>
 							)}
 							{userInfo?.isAdmin && order.isPaid && !order.isDelivered ? (
@@ -186,12 +207,31 @@ const OrderScreen = ({ match, history }) => {
 										type="button"
 										className="btn btn-block"
 										variant="secondary"
-										onClick={updateHandler}
+										onClick={updateDeliveryHandler}
 									>
 										Mark Delivered
 									</Button>
 								</ListGroup.Item>
 							) : null}
+						</ListGroup>
+					</Card>
+					<Card className="mt-5">
+						<ListGroup variant="flush">
+							<ListGroup.Item variant="danger">
+								<h4>NOTICE FOR CASH ON DELIVERY</h4>
+							</ListGroup.Item>
+
+							<ListGroup.Item variant="danger">
+								<p>
+									{`Once order is placed, Please keep your line open
+								(MOBILE NO. ${order.shippingAddress.mobile}) for the verification of your delivery 
+								address and order. Thank you :) `}
+								</p>
+							</ListGroup.Item>
+
+							{/* <ListGroup.Item variant="info">
+								<strong>Status: Not yet verified</strong>
+							</ListGroup.Item> */}
 						</ListGroup>
 					</Card>
 				</Col>
