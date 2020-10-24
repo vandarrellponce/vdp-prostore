@@ -121,7 +121,7 @@ const Home = ({ match }) => {
 
 			<Row>
 				{products.map((product, i) => (
-					<Col key={i} xs={6} sm={6} md={6} lg={4} xl={3}>
+					<Col key={i} xs={6} sm={6} md={6} lg={4} xl={3} className="px-1">
 						<Product product={product} />
 					</Col>
 				))}
