@@ -32,8 +32,9 @@ const PlaceOrderScreen = ({ history }) => {
 		(acc, item) => acc + item.price * item.qty,
 		0
 	)
-	const shippingPrice = 100
-	const taxPrice = Number((0.12 * itemsPrice).toFixed(2))
+	const shippingPrice = 0
+	/* const taxPrice = Number((0.12 * itemsPrice).toFixed(2)) */
+	const taxPrice = 0
 	const totalPrice = Math.floor(itemsPrice + shippingPrice + taxPrice)
 
 	// FUNCTIONS AND HANDLERS
@@ -61,7 +62,7 @@ const PlaceOrderScreen = ({ history }) => {
 	if (!userInfo) return <Message children="Please log in to continue" />
 	if (loading) return <Loader />
 	return (
-		<div>
+		<div className="py-3">
 			<Helmet>
 				<title>Pro Store | Order Summary</title>
 				<meta name="description" content="We sell the best milk tea in town" />
@@ -72,7 +73,7 @@ const PlaceOrderScreen = ({ history }) => {
 				<Col md={8}>
 					<ListGroup variant="flush">
 						<ListGroup.Item>
-							<h3>SHIPPING</h3>
+							<h3>DELIVERY ADDRESS</h3>
 							<p>
 								<strong>Address: </strong>
 								{capitalize(userInfo.shippingAddress.street)},{' '}
@@ -80,6 +81,11 @@ const PlaceOrderScreen = ({ history }) => {
 								{capitalize(userInfo.shippingAddress.barangay)},{' '}
 								{capitalize(userInfo.shippingAddress.city)},
 							</p>
+							<p>
+								{' '}
+								<strong>Mobile: </strong>
+								{userInfo.shippingAddress.mobile}
+							</p>{' '}
 						</ListGroup.Item>
 						<ListGroup.Item>
 							<h3>PAYMENT METHOD</h3>
@@ -124,13 +130,13 @@ const PlaceOrderScreen = ({ history }) => {
 									<Col>₱{itemsPrice}</Col>
 								</Row>
 								<Row>
-									<Col>Shipping</Col>
+									<Col>Delivery Charge</Col>
 									<Col>₱{shippingPrice}</Col>
 								</Row>
-								<Row>
+								{/* <Row>
 									<Col>Tax</Col>
 									<Col>₱{taxPrice}</Col>
-								</Row>
+								</Row> */}
 								<Row>
 									<Col>Total</Col>
 									<Col>₱{totalPrice}</Col>
@@ -156,25 +162,55 @@ const PlaceOrderScreen = ({ history }) => {
 							</ListGroup.Item>
 						</ListGroup>
 					</Card>
-
 					<Card className="mt-5">
 						<ListGroup variant="flush">
 							<ListGroup.Item variant="danger">
-								<h4>NOTICE FOR CASH ON DELIVERY</h4>
+								<h5>NOTE FOR DELIVERY CHARGE</h5>
 							</ListGroup.Item>
 
 							<ListGroup.Item variant="danger">
 								<p>
-									{`Once order is placed, Please keep your line open
-								(MOBILE NO. ${userInfo.shippingAddress.mobile}) for the verification of your delivery 
-								address and order. Thank you :) `}
+									<span>
+										Orders outside Liloan, may have an additional delivery
+										charge. We will call you to let you know about it and for
+										you to confirm. Please keep your line open. Thanks! 😊😊😊
+									</span>
 								</p>
 							</ListGroup.Item>
-							<ListGroup.Item>
-								{createError && (
+							{createError && (
+								<ListGroup.Item>
 									<Message children={createError} variant="danger" />
-								)}
+								</ListGroup.Item>
+							)}
+
+							{/* <ListGroup.Item variant="info">
+								<strong>Status: Not yet verified</strong>
+							</ListGroup.Item> */}
+						</ListGroup>
+					</Card>
+
+					<Card className="mt-5">
+						<ListGroup variant="flush">
+							<ListGroup.Item variant="danger">
+								<h5>NOTE FOR CASH ON DELIVERY</h5>
 							</ListGroup.Item>
+
+							<ListGroup.Item variant="danger">
+								<p>
+									<span>
+										{`Once order is placed, Please keep your line open
+								(MOBILE NO. ${userInfo.shippingAddress.mobile}) for the verification of your delivery 
+								address and order. Thank you 😊😊😊
+								`}
+									</span>
+								</p>
+							</ListGroup.Item>
+							{createError && (
+								<ListGroup.Item>
+									<Message children={createError} variant="danger" />
+								</ListGroup.Item>
+							)}
+
 							{/* <ListGroup.Item variant="info">
 								<strong>Status: Not yet verified</strong>
 							</ListGroup.Item> */}

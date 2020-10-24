@@ -79,7 +79,7 @@ const UserListScreen = ({ history }) => {
 		return <Message>Please Log in as Admin, Or go back to home page</Message>
 
 	return (
-		<div>
+		<div className="py-3">
 			<Helmet>
 				<title>Pro Store | User's List</title>
 				<meta name="description" content="We sell the best milk tea in town" />

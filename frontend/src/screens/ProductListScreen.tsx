@@ -81,7 +81,7 @@ const ProductListScreen = ({ history }) => {
 		return <Message>Please Log in as Admin, Or go back to home page</Message>
 	if (deleteError) return <Message children={deleteError} variant="warning" />
 	return (
-		<div>
+		<div className="py-3">
 			<Helmet>
 				<title>Pro Store | Product List</title>
 				<meta name="description" content="We sell the best milk tea in town" />

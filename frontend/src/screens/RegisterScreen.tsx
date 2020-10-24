@@ -77,66 +77,71 @@ const RegisterScreen = (props) => {
 	}
 
 	return (
-		<FormContainer>
-			<Helmet>
-				<title>Pro Store | Register</title>
-				<meta name="description" content="We sell the best milk tea in town" />
-			</Helmet>
-			<h1>Creat Account</h1>
-			{error && <Message children={error} variant="info" />}
-			{formError && <Message children={formError} variant="danger" />}
-			{loading && <Loader />}
-			<Form onSubmit={submitHandler}>
-				<Form.Group controlId="name">
-					<Form.Label id="name">Name</Form.Label>
-					<Form.Control
-						type="text"
-						value={name}
-						placeholder="Enter name"
-						onChange={(e) => setName(e.target.value)}
-					></Form.Control>
-				</Form.Group>
+		<div className="py-3">
+			<FormContainer>
+				<Helmet>
+					<title>Pro Store | Register</title>
+					<meta
+						name="description"
+						content="We sell the best milk tea in town"
+					/>
+				</Helmet>
+				<h1>Creat Account</h1>
+				{error && <Message children={error} variant="info" />}
+				{formError && <Message children={formError} variant="danger" />}
+				{loading && <Loader />}
+				<Form onSubmit={submitHandler}>
+					<Form.Group controlId="name">
+						<Form.Label id="name">Name</Form.Label>
+						<Form.Control
+							type="text"
+							value={name}
+							placeholder="Enter name"
+							onChange={(e) => setName(e.target.value)}
+						></Form.Control>
+					</Form.Group>
 
-				<Form.Group controlId="email">
-					<Form.Label id="email">Email Address</Form.Label>
-					<Form.Control
-						type="email"
-						value={email}
-						placeholder="Enter email"
-						onChange={(e) => setEmail(e.target.value)}
-					></Form.Control>
-				</Form.Group>
+					<Form.Group controlId="email">
+						<Form.Label id="email">Email Address</Form.Label>
+						<Form.Control
+							type="email"
+							value={email}
+							placeholder="Enter email"
+							onChange={(e) => setEmail(e.target.value)}
+						></Form.Control>
+					</Form.Group>
 
-				<Form.Group controlId="password">
-					<Form.Label id="password">Password</Form.Label>
-					<Form.Control
-						type="password"
-						value={password}
-						placeholder="Enter password"
-						onChange={(e) => setPassword(e.target.value)}
-					></Form.Control>
-				</Form.Group>
+					<Form.Group controlId="password">
+						<Form.Label id="password">Password</Form.Label>
+						<Form.Control
+							type="password"
+							value={password}
+							placeholder="Enter password"
+							onChange={(e) => setPassword(e.target.value)}
+						></Form.Control>
+					</Form.Group>
 
-				<Form.Group controlId="confirmPassword">
-					<Form.Label id="rePassword">Re-type Password</Form.Label>
-					<Form.Control
-						type="password"
-						value={rePassword}
-						placeholder="Re-enter password"
-						onChange={(e) => setRePassword(e.target.value)}
-					></Form.Control>
-				</Form.Group>
-				<Button type="submit" variant="secondary">
-					Submit
-				</Button>
-			</Form>
-			<Row className="py-3">
-				<Col>
-					Have already an account?{' '}
-					<Link to={`/login?redirect=${redirect}`}>Login</Link>
-				</Col>
-			</Row>
-		</FormContainer>
+					<Form.Group controlId="confirmPassword">
+						<Form.Label id="rePassword">Re-type Password</Form.Label>
+						<Form.Control
+							type="password"
+							value={rePassword}
+							placeholder="Re-enter password"
+							onChange={(e) => setRePassword(e.target.value)}
+						></Form.Control>
+					</Form.Group>
+					<Button type="submit" variant="secondary">
+						Submit
+					</Button>
+				</Form>
+				<Row className="py-3">
+					<Col>
+						Have already an account?{' '}
+						<Link to={`/login?redirect=${redirect}`}>Login</Link>
+					</Col>
+				</Row>
+			</FormContainer>
+		</div>
 	)
 }
 

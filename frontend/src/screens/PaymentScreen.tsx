@@ -26,46 +26,51 @@ const PaymentScreen = ({ history }) => {
 	}
 
 	return (
-		<FormContainer>
-			<Helmet>
-				<title>Pro Store | Payment Options</title>
-				<meta name="description" content="We sell the best milk tea in town" />
-			</Helmet>
-			<CheckoutSteps step1 step2 step3 />
-			<h1 style={{ marginBottom: '30px' }}>Payment Method</h1>
-			<Form onSubmit={submitHandler}>
-				<Form.Group>
-					<Form.Label as="legend">Select Method</Form.Label>
+		<div className="py-3">
+			<FormContainer>
+				<Helmet>
+					<title>Pro Store | Payment Options</title>
+					<meta
+						name="description"
+						content="We sell the best milk tea in town"
+					/>
+				</Helmet>
+				<CheckoutSteps step1 step2 step3 />
+				<h1 style={{ marginBottom: '30px' }}>Payment Method</h1>
+				<Form onSubmit={submitHandler}>
+					<Form.Group>
+						<Form.Label as="legend">Select Method</Form.Label>
 
-					<Form.Check
-						disabled
-						type="radio"
-						id="Paypal"
-						value="Paypal"
-						name="paymentMethod"
-						label="Paypal/Credit Card (Temporarily Unavailable)"
-						onChange={(e) => {
-							setPaymentMethod(e.target.value)
-						}}
-					></Form.Check>
+						<Form.Check
+							disabled
+							type="radio"
+							id="Paypal"
+							value="Paypal"
+							name="paymentMethod"
+							label="Paypal/Credit Card (Temporarily Unavailable)"
+							onChange={(e) => {
+								setPaymentMethod(e.target.value)
+							}}
+						></Form.Check>
 
-					<Form.Check
-						type="radio"
-						id="Cash on Delivery"
-						value="Cash on Delivery"
-						name="paymentMethod"
-						label="Cash on Delivery"
-						onChange={(e) => {
-							setPaymentMethod(e.target.value)
-						}}
-					></Form.Check>
-				</Form.Group>
+						<Form.Check
+							type="radio"
+							id="Cash on Delivery"
+							value="Cash on Delivery"
+							name="paymentMethod"
+							label="Cash on Delivery"
+							onChange={(e) => {
+								setPaymentMethod(e.target.value)
+							}}
+						></Form.Check>
+					</Form.Group>
 
-				<Button type="submit" variant="secondary">
-					Proceed
-				</Button>
-			</Form>
-		</FormContainer>
+					<Button type="submit" variant="secondary">
+						Proceed
+					</Button>
+				</Form>
+			</FormContainer>
+		</div>
 	)
 }
 

@@ -82,7 +82,7 @@ const OrderScreen = ({ match }) => {
 		return <Message>Please Log in as Admin, Or go back to home page</Message>
 
 	return (
-		<div>
+		<div className="py-3">
 			<Helmet>
 				<title>Pro Store | Order Status</title>
 				<meta name="description" content="We sell the best milk tea in town" />
@@ -92,7 +92,7 @@ const OrderScreen = ({ match }) => {
 				<Col md={8}>
 					<ListGroup variant="flush">
 						<ListGroup.Item>
-							<h3>SHIPPING</h3>
+							<h3>DELIVERY DETAILS</h3>
 							<p>
 								<strong>Name: </strong> {order.user.name}
 							</p>
@@ -170,13 +170,13 @@ const OrderScreen = ({ match }) => {
 									<Col>₱{order.itemsPrice}</Col>
 								</Row>
 								<Row>
-									<Col>Shipping</Col>
+									<Col>Delivery Charge</Col>
 									<Col>₱{order.shippingPrice}</Col>
 								</Row>
-								<Row>
+								{/* <Row>
 									<Col>Tax</Col>
 									<Col>₱{order.taxPrice}</Col>
-								</Row>
+								</Row> */}
 								<Row>
 									<Col>Total</Col>
 									<Col>₱{order.totalPrice}</Col>
@@ -218,14 +218,32 @@ const OrderScreen = ({ match }) => {
 					<Card className="mt-5">
 						<ListGroup variant="flush">
 							<ListGroup.Item variant="danger">
+								<h5>NOTE FOR DELIVERY CHARGE</h5>
+							</ListGroup.Item>
+
+							<ListGroup.Item variant="danger">
+								<p>
+									Orders outside Liloan, may have an additional delivery charge.
+									We will call you to let you know about it and for you to
+									confirm. Please keep your line open. Thanks!{' '}
+									<span>😊😊😊</span>
+								</p>
+							</ListGroup.Item>
+						</ListGroup>
+					</Card>
+					<Card className="mt-5">
+						<ListGroup variant="flush">
+							<ListGroup.Item variant="danger">
 								<h4>NOTICE FOR CASH ON DELIVERY</h4>
 							</ListGroup.Item>
 
 							<ListGroup.Item variant="danger">
 								<p>
-									{`Once order is placed, Please keep your line open
+									<span>
+										{`Once order is placed, Please keep your line open
 								(MOBILE NO. ${order.shippingAddress.mobile}) for the verification of your delivery 
-								address and order. Thank you :) `}
+								address and order. Thank you 😊😊😊 `}
+									</span>
 								</p>
 							</ListGroup.Item>
 

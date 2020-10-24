@@ -45,73 +45,78 @@ const ShippingScreen = ({ history }) => {
 	}
 
 	return (
-		<FormContainer>
-			<Helmet>
-				<title>Pro Store | Shipping</title>
-				<meta name="description" content="We sell the best milk tea in town" />
-			</Helmet>
-			<CheckoutSteps step1 step2 />
-			<h1>Shipping Address</h1>
-			<Form onSubmit={submitHandler}>
-				<Form.Group controlId="name">
-					<Form.Label id="street">Street / Compound / Residence</Form.Label>
+		<div className="py-3">
+			<FormContainer>
+				<Helmet>
+					<title>Pro Store | Shipping</title>
+					<meta
+						name="description"
+						content="We sell the best milk tea in town"
+					/>
+				</Helmet>
+				<CheckoutSteps step1 step2 />
+				<h1>Delivery Address</h1>
+				<Form onSubmit={submitHandler}>
+					<Form.Group controlId="name">
+						<Form.Label id="street">Street / Compound / Residence</Form.Label>
 
-					<Form.Control
-						type="text"
-						value={street}
-						onChange={(e) => setStreet(e.target.value)}
-						required
-					></Form.Control>
-				</Form.Group>
+						<Form.Control
+							type="text"
+							value={street}
+							onChange={(e) => setStreet(e.target.value)}
+							required
+						></Form.Control>
+					</Form.Group>
 
-				<Form.Group controlId="sitio">
-					<Form.Label id="sitio">Sitio</Form.Label>
+					<Form.Group controlId="sitio">
+						<Form.Label id="sitio">Sitio</Form.Label>
 
-					<Form.Control
-						type="text"
-						value={sitio}
-						onChange={(e) => setSitio(e.target.value)}
-						required
-					></Form.Control>
-				</Form.Group>
+						<Form.Control
+							type="text"
+							value={sitio}
+							onChange={(e) => setSitio(e.target.value)}
+							required
+						></Form.Control>
+					</Form.Group>
 
-				<Form.Group controlId="barangay">
-					<Form.Label id="barangay">Barangay</Form.Label>
+					<Form.Group controlId="barangay">
+						<Form.Label id="barangay">Barangay</Form.Label>
 
-					<Form.Control
-						type="text"
-						value={barangay}
-						onChange={(e) => setBaranggay(e.target.value)}
-						required
-					></Form.Control>
-				</Form.Group>
+						<Form.Control
+							type="text"
+							value={barangay}
+							onChange={(e) => setBaranggay(e.target.value)}
+							required
+						></Form.Control>
+					</Form.Group>
 
-				<Form.Group controlId="city">
-					<Form.Label id="barangay">City</Form.Label>
+					<Form.Group controlId="city">
+						<Form.Label id="barangay">City</Form.Label>
 
-					<Form.Control
-						type="text"
-						value={city}
-						onChange={(e) => setCity(e.target.value)}
-						required
-					></Form.Control>
-				</Form.Group>
+						<Form.Control
+							type="text"
+							value={city}
+							onChange={(e) => setCity(e.target.value)}
+							required
+						></Form.Control>
+					</Form.Group>
 
-				<Form.Group controlId="mobile">
-					<Form.Label id="mobile">Mobile Number</Form.Label>
+					<Form.Group controlId="mobile">
+						<Form.Label id="mobile">Mobile Number</Form.Label>
 
-					<Form.Control
-						type="text"
-						value={mobile}
-						onChange={(e) => setMobile(e.target.value)}
-						required
-					></Form.Control>
-				</Form.Group>
-				<Button type="submit" variant="secondary">
-					Proceed
-				</Button>
-			</Form>
-		</FormContainer>
+						<Form.Control
+							type="text"
+							value={mobile}
+							onChange={(e) => setMobile(e.target.value)}
+							required
+						></Form.Control>
+					</Form.Group>
+					<Button type="submit" variant="secondary">
+						Proceed
+					</Button>
+				</Form>
+			</FormContainer>
+		</div>
 	)
 }
 

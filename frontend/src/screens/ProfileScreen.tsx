@@ -55,7 +55,7 @@ const ProfileScreen = (props) => {
 	if (!userInfo) return <Loader />
 	if (loading) return <Loader />
 	return (
-		<Row>
+		<Row className="py-3">
 			<Helmet>
 				<title>Pro Store | Profile</title>
 				<meta name="description" content="We sell the best milk tea in town" />

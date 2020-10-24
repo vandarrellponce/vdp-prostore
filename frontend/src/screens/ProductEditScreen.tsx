@@ -140,7 +140,7 @@ const ProductEditScreen = ({ match, history }) => {
 	}
 
 	return (
-		<div>
+		<div className="py-3">
 			<Helmet>
 				<title>Pro Store | Edit Product</title>
 				<meta name="description" content="We sell the best milk tea in town" />

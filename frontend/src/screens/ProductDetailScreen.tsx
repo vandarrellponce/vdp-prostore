@@ -87,7 +87,7 @@ const ProductDetail = (props) => {
 	}
 
 	return (
-		<div>
+		<div className="py-3">
 			<Helmet>
 				<title>Pro Store | {product.name}</title>
 				<meta name="description" content="We sell the best milk tea in town" />
