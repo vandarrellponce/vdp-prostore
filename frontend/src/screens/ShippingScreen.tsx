@@ -48,7 +48,7 @@ const ShippingScreen = ({ history }) => {
 		<div className="py-3">
 			<FormContainer>
 				<Helmet>
-					<title>Pro Store | Shipping</title>
+					<title>Kumbatea! | Shipping</title>
 					<meta
 						name="description"
 						content="We sell the best milk tea in town"

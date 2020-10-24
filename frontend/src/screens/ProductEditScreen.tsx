@@ -142,7 +142,7 @@ const ProductEditScreen = ({ match, history }) => {
 	return (
 		<div className="py-3">
 			<Helmet>
-				<title>Pro Store | Edit Product</title>
+				<title>Kumbatea! | Edit Product</title>
 				<meta name="description" content="We sell the best milk tea in town" />
 			</Helmet>
 			<Button className="btn btn-light my-3" onClick={handleBack}>

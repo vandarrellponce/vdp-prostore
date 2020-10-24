@@ -83,7 +83,7 @@ const ProductListScreen = ({ history }) => {
 	return (
 		<div className="py-3">
 			<Helmet>
-				<title>Pro Store | Product List</title>
+				<title>Kumbatea! | Product List</title>
 				<meta name="description" content="We sell the best milk tea in town" />
 			</Helmet>
 			<Row className="align-items-center">

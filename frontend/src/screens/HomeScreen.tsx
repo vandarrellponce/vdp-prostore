@@ -66,7 +66,7 @@ const Home = ({ match }) => {
 		<div>
 			{/* <h2 className="text-center">Latest Products</h2> */}
 			<Helmet>
-				<title>Pro Store | Home</title>
+				<title>Kumbatea! | Home</title>
 				<meta name="description" content="We sell the best milk tea in town" />
 			</Helmet>
 

@@ -61,7 +61,7 @@ const UserListScreen = ({ history }) => {
 	return (
 		<div className="py-3">
 			<Helmet>
-				<title>Pro Store | Order List</title>
+				<title>Kumbatea! | Order List</title>
 				<meta name="description" content="We sell the best milk tea in town" />
 			</Helmet>
 			<h1>ORDERS</h1>

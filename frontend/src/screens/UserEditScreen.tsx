@@ -42,7 +42,7 @@ const UserEditScreen = ({ match, history, location }) => {
 	return (
 		<div className="py-3">
 			<Helmet>
-				<title>Pro Store | Edit User </title>
+				<title>Kumbatea! | Edit User </title>
 				<meta name="description" content="We sell the best milk tea in town" />
 			</Helmet>
 			<Button className="btn btn-light my-3" onClick={handleBack}>

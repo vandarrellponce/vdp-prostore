@@ -64,7 +64,7 @@ const PlaceOrderScreen = ({ history }) => {
 	return (
 		<div className="py-3">
 			<Helmet>
-				<title>Pro Store | Order Summary</title>
+				<title>Kumbatea! | Order Summary</title>
 				<meta name="description" content="We sell the best milk tea in town" />
 			</Helmet>
 			<CheckoutSteps step1 step2 step3 step4 />

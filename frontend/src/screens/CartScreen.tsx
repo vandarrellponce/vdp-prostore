@@ -38,7 +38,7 @@ const CartScreen = ({ match, location, history }) => {
 	return (
 		<div className="py-3">
 			<Helmet>
-				<title>Pro Store | My Cart</title>
+				<title>Kumbatea! | My Cart</title>
 				<meta name="description" content="We sell the best milk tea in town" />
 			</Helmet>
 			<Row>

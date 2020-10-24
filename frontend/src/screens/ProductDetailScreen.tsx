@@ -89,7 +89,7 @@ const ProductDetail = (props) => {
 	return (
 		<div className="py-3">
 			<Helmet>
-				<title>Pro Store | {product.name}</title>
+				<title>Kumbatea! | {product.name}</title>
 				<meta name="description" content="We sell the best milk tea in town" />
 			</Helmet>
 			<Link to="/">

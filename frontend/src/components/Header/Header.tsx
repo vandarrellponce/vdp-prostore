@@ -9,6 +9,7 @@ import { LinkContainer } from 'react-router-bootstrap'
 import { useSelector, useDispatch } from 'react-redux'
 import logoutUser from '../../actions/users/logoutUser'
 import SearchBox from '../SearchBox'
+import { Image } from 'react-bootstrap'
 
 const Header = () => {
 	const { userInfo } = useSelector((state) => state.user)
@@ -32,7 +33,13 @@ const Header = () => {
 			>
 				<Container>
 					<LinkContainer to="/">
-						<Navbar.Brand>Pro Store</Navbar.Brand>
+						<Navbar.Brand>
+							<Image
+								src="https://lh3.googleusercontent.com/pw/ACtC-3ecFrJF63hprSe5c9PmDeAG7R2ci5cYV-tbf9dvqG88wll2-uUnUlcaz2zta0L_--gDQtZ319jImS1U2KQRdBN8aPuQwQN7MjQJfUSQRV3f3I3NhPRVjU_KmF1DWDRQvoB_GfYG-bHMk4ypA-T1SyXQ=w1514-h913-no?authuser=0"
+								alt="Kumbatea Logo"
+								style={{ height: '50px', width: '90px' }}
+							/>
+						</Navbar.Brand>
 					</LinkContainer>
 
 					<Navbar.Toggle aria-controls="basic-navbar-nav" />

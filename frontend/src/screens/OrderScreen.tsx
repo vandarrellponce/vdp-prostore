@@ -84,7 +84,7 @@ const OrderScreen = ({ match }) => {
 	return (
 		<div className="py-3">
 			<Helmet>
-				<title>Pro Store | Order Status</title>
+				<title>Kumbatea! | Order Status</title>
 				<meta name="description" content="We sell the best milk tea in town" />
 			</Helmet>
 			<h1>ORDER {orderId.toUpperCase()}</h1>

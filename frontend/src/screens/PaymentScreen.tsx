@@ -29,7 +29,7 @@ const PaymentScreen = ({ history }) => {
 		<div className="py-3">
 			<FormContainer>
 				<Helmet>
-					<title>Pro Store | Payment Options</title>
+					<title>Kumbatea! | Payment Options</title>
 					<meta
 						name="description"
 						content="We sell the best milk tea in town"

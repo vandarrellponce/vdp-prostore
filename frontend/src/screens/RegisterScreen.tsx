@@ -80,7 +80,7 @@ const RegisterScreen = (props) => {
 		<div className="py-3">
 			<FormContainer>
 				<Helmet>
-					<title>Pro Store | Register</title>
+					<title>Kumbatea! | Register</title>
 					<meta
 						name="description"
 						content="We sell the best milk tea in town"

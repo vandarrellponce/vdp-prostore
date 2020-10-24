@@ -43,7 +43,7 @@ const LoginScreen = (props) => {
 					/>
 				</a>
 				<Helmet>
-					<title>Pro Store | Login</title>
+					<title>Kumbatea! | Login</title>
 					<meta
 						name="description"
 						content="We sell the best milk tea in town"

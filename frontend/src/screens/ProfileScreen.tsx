@@ -57,7 +57,7 @@ const ProfileScreen = (props) => {
 	return (
 		<Row className="py-3">
 			<Helmet>
-				<title>Pro Store | Profile</title>
+				<title>Kumbatea! | Profile</title>
 				<meta name="description" content="We sell the best milk tea in town" />
 			</Helmet>
 			<Col md={3}>
