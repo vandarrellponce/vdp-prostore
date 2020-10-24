@@ -138,11 +138,16 @@ export const getUserOrders = expressAsyncHandler(async (req, res) => {
 // @route	GET /api/admin/orders/
 // @access	Private
 export const getOrders = expressAsyncHandler(async (req, res) => {
+	const pageSize = req.body.pageSize || 8
+	const page = req.body.page || 1
 	try {
 		const orders = await Order.find({})
+			.limit(pageSize)
+			.skip(pageSize * (page - 1))
 			.sort({ createdAt: -1 })
 			.populate('user', 'id name')
-		res.send(orders)
+		const count = await Order.countDocuments({})
+		res.send({ orders, page, totalPages: Math.ceil(count / pageSize) })
 	} catch (error) {
 		res.status(401)
 		throw new Error(error.message)

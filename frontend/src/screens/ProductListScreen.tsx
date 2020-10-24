@@ -14,10 +14,10 @@ import { Helmet } from 'react-helmet'
 
 const ProductListScreen = ({ history }) => {
 	const [loading, setLoading] = useState(false)
-	const [error] = useState(null)
+	const [error, setError] = useState(null)
 	const [products, setProducts] = useState([])
 
-	const [pageSize] = useState(12)
+	const [pageSize] = useState(8)
 	const [page, setPage] = useState(1)
 	const [totalPages, setTotalPages] = useState(null)
 
@@ -34,7 +34,11 @@ const ProductListScreen = ({ history }) => {
 			})
 			.catch((e) => {
 				setLoading(false)
-				console.log(e)
+				setError(
+					error.response?.data?.message
+						? error.response.data.message
+						: error.message
+				)
 			})
 	}
 	// USE EFFECT
@@ -98,7 +102,14 @@ const ProductListScreen = ({ history }) => {
 			) : error ? (
 				<Message children={error} variant="danger" />
 			) : (
-				<div>
+				<div
+					style={{
+						display: 'flex',
+						flexDirection: 'column',
+						alignItems: 'center',
+						justifyContent: 'center',
+					}}
+				>
 					<Table striped hover responsive className="table-sm">
 						<thead>
 							<tr>

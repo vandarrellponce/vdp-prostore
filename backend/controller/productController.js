@@ -5,7 +5,7 @@ import Product from '../models/productModel.js'
 // @route	POST /api/products?keyword=keyword
 // @access	Public
 export const getProductsWithOptions = expressAsyncHandler(async (req, res) => {
-	const pageSize = req.body.pageSize || 4
+	const pageSize = req.body.pageSize || 8
 	const page = req.body.page || 1
 	const keyword = req.query.keyword
 		? {
@@ -19,6 +19,7 @@ export const getProductsWithOptions = expressAsyncHandler(async (req, res) => {
 	const products = await Product.find({ ...keyword })
 		.limit(pageSize)
 		.skip(pageSize * (page - 1))
+		.sort({ createdAt: -1 })
 
 	res.send({ products, page, totalPages: Math.ceil(count / pageSize) })
 })

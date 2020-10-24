@@ -102,12 +102,18 @@ export const updateUserProfile = expressAsyncHandler(async (req, res) => {
 })
 
 // @desc	get all users
-// @route	GET/api/users
+// @route	POST /api/users
 // @access	Private/Admin
 export const getUsers = expressAsyncHandler(async (req, res) => {
+	const pageSize = req.body.pageSize || 8
+	const page = req.body.page || 1
 	try {
 		const users = await User.find({})
-		res.send(users)
+			.limit(pageSize)
+			.skip(pageSize * (page - 1))
+			.sort({ createdAt: -1 })
+		const count = await User.countDocuments({})
+		res.send({ users, page, totalPages: Math.ceil(count / pageSize) })
 	} catch (error) {
 		res.status(404)
 		throw new Error(error.message)

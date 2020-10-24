@@ -14,7 +14,7 @@ import admin from '../middlewares/adminMiddleware.js'
 import auth from '../middlewares/authMiddleware.js'
 const router = express.Router()
 
-router.route('/orders').get(auth, admin, getOrders)
+router.route('/orders').post(auth, admin, getOrders)
 router.route('/products').post(auth, admin, createProduct)
 router
 	.route('/users/:id')

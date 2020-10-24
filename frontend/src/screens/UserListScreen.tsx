@@ -1,35 +1,79 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import Button from 'react-bootstrap/Button'
 import Table from 'react-bootstrap/Table'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import Message from '../components/Message/Message'
 import Loader from '../components/Loader/Loader'
 import { LinkContainer } from 'react-router-bootstrap'
-import getUserList from '../actions/users/getUserList'
-import deleteUser from '../actions/users/deleteUser'
 import { Helmet } from 'react-helmet'
+import Axios from 'axios'
+import { getConfig } from '../utils/utils'
 
 const UserListScreen = ({ history }) => {
-	const {
-		userInfo,
-		userDeleteResponse,
-		userList,
-		userListLoading,
-		userListError,
-	} = useSelector((state) => state.user)
-	const dispatch = useDispatch()
+	const [loading, setLoading] = useState(false)
+	const [error, setError] = useState('')
+	const [users, setUsers] = useState([])
+
+	const [pageSize] = useState(8)
+	const [page, setPage] = useState(1)
+	const [totalPages, setTotalPages] = useState(null)
+
+	const [deleteUserError, setDeleteUserError] = useState(null)
+	const { userInfo } = useSelector((state) => state.user)
+
+	const getUsers = (option) => {
+		setLoading(true)
+		Axios.post('/api/users', option, getConfig())
+			.then((res) => {
+				setLoading(false)
+				setUsers(res.data.users)
+				setTotalPages(res.data.totalPages)
+			})
+			.catch((error) => {
+				setLoading(false)
+				setError(
+					error.response?.data?.message
+						? error.response.data.message
+						: error.message
+				)
+			})
+	}
 
 	// USE EFFECT
 	useEffect(() => {
-		dispatch(getUserList())
+		getUsers({ pageSize, page })
 		if (userInfo && !userInfo.isAdmin) history.push('/')
-	}, [dispatch, userDeleteResponse, userInfo, history])
+	}, [deleteUserError, userInfo, history])
 
 	// HANDLERS
 	const deleteHandler = (id) => {
-		if (window.confirm('Are you sure to delete the user?'))
-			dispatch(deleteUser(id))
+		if (window.confirm('Are you sure to delete the user?')) {
+			setLoading(true)
+			Axios.delete(`/api/users/${id}`, getConfig())
+				.then((res) => {
+					setLoading(false)
+					getUsers({ pageSize, page })
+				})
+				.catch((error) => {
+					setLoading(false)
+					setDeleteUserError(
+						error.response?.data?.message
+							? error.response.data.message
+							: error.message
+					)
+				})
+		}
 	}
+
+	const handleSetPage = (page) => {
+		setPage(page)
+		const options = {
+			pageSize,
+			page,
+		}
+		getUsers(options)
+	}
+
 	if (!userInfo)
 		return <Message>Please Log in as Admin, Or go back to home page</Message>
 
@@ -40,10 +84,10 @@ const UserListScreen = ({ history }) => {
 				<meta name="description" content="We sell the best milk tea in town" />
 			</Helmet>
 			<h1>Users</h1>
-			{userListLoading ? (
+			{loading ? (
 				<Loader />
-			) : userListError ? (
-				<Message children={userListError} variant="danger" />
+			) : error ? (
+				<Message children={error} variant="danger" />
 			) : (
 				<Table striped hover responsive className="table-sm">
 					<thead>
@@ -56,8 +100,8 @@ const UserListScreen = ({ history }) => {
 						</tr>
 					</thead>
 					<tbody>
-						{userList &&
-							userList.map((user) => (
+						{users &&
+							users.map((user) => (
 								<tr key={user._id}>
 									<td>{user._id}</td>
 									<td>{user.name}</td>
