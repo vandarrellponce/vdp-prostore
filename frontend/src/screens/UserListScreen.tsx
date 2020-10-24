@@ -50,7 +50,7 @@ const UserListScreen = ({ history }) => {
 	const deleteHandler = (id) => {
 		if (window.confirm('Are you sure to delete the user?')) {
 			setLoading(true)
-			Axios.delete(`/api/users/${id}`, getConfig())
+			Axios.delete(`/api/admin/users/${id}`, getConfig())
 				.then((res) => {
 					setLoading(false)
 					getUsers({ pageSize, page })
