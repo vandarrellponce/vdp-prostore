@@ -69,46 +69,50 @@ const Home = ({ match }) => {
 				<title>Kumbatea! | Home</title>
 				<meta name="description" content="We sell the best milk tea in town" />
 			</Helmet>
+			<Row>
+				<Col sm={12} md={12} lg={12} xl={12}>
+					<Carousel pause="hover" className="home__banner">
+						<Carousel.Item>
+							<Link to="/">
+								<img
+									className="d-block w-100"
+									src="https://images-na.ssl-images-amazon.com/images/G/01/AmazonExports/Fuji/2020/October/Fuji_Tallhero_Dash_en_US_1x._CB418727898_.jpg"
+									alt="First slide"
+								/>
+							</Link>
+							<Carousel.Caption>
+								<h3>First slide label</h3>
+							</Carousel.Caption>
+						</Carousel.Item>
+						<Carousel.Item>
+							<Link to="/">
+								<img
+									className="d-block w-100"
+									src="https://images-na.ssl-images-amazon.com/images/G/01/AmazonExports/Fuji/2020/May/Hero/Fuji_TallHero_Sports_en_US_1x._CB431860448_.jpg"
+									alt="Third slide"
+								/>
+								<Carousel.Caption>
+									<h3>Second slide label</h3>
+								</Carousel.Caption>
+							</Link>
+						</Carousel.Item>
+						<Carousel.Item>
+							<Link to="/">
+								<img
+									className="d-block w-100"
+									src="https://images-na.ssl-images-amazon.com/images/G/01/AmazonExports/Events/2020/PrimeDay/Fuji_TallHero_NonPrime_v2_en_US_1x._CB403670067_.jpg"
+									alt="Third slide"
+								/>
+								<Carousel.Caption>
+									<h3>Third slide label</h3>
+									<p></p>
+								</Carousel.Caption>
+							</Link>
+						</Carousel.Item>
+					</Carousel>
+				</Col>
+			</Row>
 
-			<Carousel pause="hover" className="home__banner">
-				<Carousel.Item>
-					<Link to="/">
-						<img
-							className="d-block w-100"
-							src="https://images-na.ssl-images-amazon.com/images/G/01/AmazonExports/Fuji/2020/October/Fuji_Tallhero_Dash_en_US_1x._CB418727898_.jpg"
-							alt="First slide"
-						/>
-					</Link>
-					<Carousel.Caption>
-						<h3>First slide label</h3>
-					</Carousel.Caption>
-				</Carousel.Item>
-				<Carousel.Item>
-					<Link to="/">
-						<img
-							className="d-block w-100"
-							src="https://images-na.ssl-images-amazon.com/images/G/01/AmazonExports/Fuji/2020/May/Hero/Fuji_TallHero_Sports_en_US_1x._CB431860448_.jpg"
-							alt="Third slide"
-						/>
-						<Carousel.Caption>
-							<h3>Second slide label</h3>
-						</Carousel.Caption>
-					</Link>
-				</Carousel.Item>
-				<Carousel.Item>
-					<Link to="/">
-						<img
-							className="d-block w-100"
-							src="https://images-na.ssl-images-amazon.com/images/G/01/AmazonExports/Events/2020/PrimeDay/Fuji_TallHero_NonPrime_v2_en_US_1x._CB403670067_.jpg"
-							alt="Third slide"
-						/>
-						<Carousel.Caption>
-							<h3>Third slide label</h3>
-							<p></p>
-						</Carousel.Caption>
-					</Link>
-				</Carousel.Item>
-			</Carousel>
 			{/* <Image
 				src=""
 				alt="banner"
@@ -117,7 +121,7 @@ const Home = ({ match }) => {
 
 			<Row>
 				{products.map((product, i) => (
-					<Col key={i} sm={12} md={6} lg={4} xl={3}>
+					<Col key={i} xs={6} sm={6} md={6} lg={4} xl={3}>
 						<Product product={product} />
 					</Col>
 				))}

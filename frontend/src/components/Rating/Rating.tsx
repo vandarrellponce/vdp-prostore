@@ -8,7 +8,7 @@ interface Props {
 
 const Rating: React.FC<Props> = ({ value, text, color }) => {
 	return (
-		<div>
+		<div style={{ fontSize: '10px' }}>
 			<div className="rating">
 				<span>
 					<i

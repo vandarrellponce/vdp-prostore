@@ -21,7 +21,7 @@ interface Props {
 const Product: React.FC<Props> = (props) => {
 	const { product } = props
 	return (
-		<Card className="my-3 p-3 rounded">
+		<Card className="my-3 p-3 rounded" style={{ fontSize: '15px' }}>
 			<Link to={`/products/${product._id}`}>
 				<Card.Img src={product.image} variant="top" />
 			</Link>
@@ -41,7 +41,7 @@ const Product: React.FC<Props> = (props) => {
 					/>
 				</Card.Text>
 
-				<Card.Text as="h3"> &#8369;{product.price}</Card.Text>
+				<Card.Text as="h6"> &#8369;{product.price}</Card.Text>
 			</Card.Body>
 		</Card>
 	)
