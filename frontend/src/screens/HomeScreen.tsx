@@ -63,7 +63,14 @@ const Home = ({ match }) => {
 		)
 
 	return (
-		<div>
+		<div
+			style={{
+				display: 'flex',
+				flexDirection: 'column',
+				alignItems: 'center',
+				justifyContent: 'center',
+			}}
+		>
 			{/* <h2 className="text-center">Latest Products</h2> */}
 			<Helmet>
 				<title>Kumbatea! | Home</title>
