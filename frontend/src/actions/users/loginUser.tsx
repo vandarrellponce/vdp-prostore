@@ -37,7 +37,7 @@ export const loginUser = (email, password) => async (dispatch) => {
 	try {
 		dispatch({ type: USER_LOGIN_REQUEST })
 
-		const { user, token } = await (
+		const { user } = await (
 			await Axios.post('/api/users/login', {
 				email,
 				password,

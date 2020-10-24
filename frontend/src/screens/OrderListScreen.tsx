@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Button from 'react-bootstrap/Button'
 import Table from 'react-bootstrap/Table'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import Message from '../components/Message/Message'
 import Loader from '../components/Loader/Loader'
 import { LinkContainer } from 'react-router-bootstrap'

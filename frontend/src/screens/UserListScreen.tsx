@@ -8,6 +8,7 @@ import { LinkContainer } from 'react-router-bootstrap'
 import { Helmet } from 'react-helmet'
 import Axios from 'axios'
 import { getConfig } from '../utils/utils'
+import Paginate from '../components/Paginate'
 
 const UserListScreen = ({ history }) => {
 	const [loading, setLoading] = useState(false)
@@ -43,7 +44,7 @@ const UserListScreen = ({ history }) => {
 	useEffect(() => {
 		getUsers({ pageSize, page })
 		if (userInfo && !userInfo.isAdmin) history.push('/')
-	}, [deleteUserError, userInfo, history])
+	}, [deleteUserError, userInfo, history, pageSize, page])
 
 	// HANDLERS
 	const deleteHandler = (id) => {
@@ -89,56 +90,73 @@ const UserListScreen = ({ history }) => {
 			) : error ? (
 				<Message children={error} variant="danger" />
 			) : (
-				<Table striped hover responsive className="table-sm">
-					<thead>
-						<tr>
-							<th>ID</th>
-							<th>NAME</th>
-							<th>EMAIL</th>
-							<th>ADMIN</th>
-							<th></th>
-						</tr>
-					</thead>
-					<tbody>
-						{users &&
-							users.map((user) => (
-								<tr key={user._id}>
-									<td>{user._id}</td>
-									<td>{user.name}</td>
-									<td>
-										<a href={`mailto:${user.email}`}>{user.email}</a>
-									</td>
-									<td>
-										{user.isAdmin ? (
-											<i
-												className="fas fa-check"
-												style={{ color: 'green' }}
-											></i>
-										) : (
-											<i className="fas fa-times" style={{ color: 'red' }}></i>
-										)}
-									</td>
-									<td>
-										<div>
-											<LinkContainer to={`/admin/users/${user._id}/edit`}>
-												<Button variant="info" className="btn-sm">
-													<i className="fas fa-edit"></i>
+				<div
+					style={{
+						display: 'flex',
+						flexDirection: 'column',
+						alignItems: 'center',
+						justifyContent: 'center',
+					}}
+				>
+					<Table striped hover responsive className="table-sm">
+						<thead>
+							<tr>
+								<th>ID</th>
+								<th>NAME</th>
+								<th>EMAIL</th>
+								<th>ADMIN</th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody>
+							{users &&
+								users.map((user) => (
+									<tr key={user._id}>
+										<td>{user._id}</td>
+										<td>{user.name}</td>
+										<td>
+											<a href={`mailto:${user.email}`}>{user.email}</a>
+										</td>
+										<td>
+											{user.isAdmin ? (
+												<i
+													className="fas fa-check"
+													style={{ color: 'green' }}
+												></i>
+											) : (
+												<i
+													className="fas fa-times"
+													style={{ color: 'red' }}
+												></i>
+											)}
+										</td>
+										<td>
+											<div>
+												<LinkContainer to={`/admin/users/${user._id}/edit`}>
+													<Button variant="info" className="btn-sm">
+														<i className="fas fa-edit"></i>
+													</Button>
+												</LinkContainer>
+												{'     '}
+												<Button
+													variant="danger"
+													className="btn-sm"
+													onClick={() => deleteHandler(user._id)}
+												>
+													<i className="fas fa-trash"></i>
 												</Button>
-											</LinkContainer>
-											{'     '}
-											<Button
-												variant="danger"
-												className="btn-sm"
-												onClick={() => deleteHandler(user._id)}
-											>
-												<i className="fas fa-trash"></i>
-											</Button>
-										</div>
-									</td>
-								</tr>
-							))}
-					</tbody>
-				</Table>
+											</div>
+										</td>
+									</tr>
+								))}
+						</tbody>
+					</Table>
+					<Paginate
+						totalPages={totalPages}
+						setPage={handleSetPage}
+						page={page}
+					/>
+				</div>
 			)}
 		</div>
 	)

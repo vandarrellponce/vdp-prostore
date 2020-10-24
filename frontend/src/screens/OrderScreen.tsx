@@ -9,15 +9,15 @@ import Loader from '../components/Loader/Loader'
 import { Link } from 'react-router-dom'
 import Message from '../components/Message/Message'
 import getOrder from '../actions/order/getOrder'
-import payOrder from '../actions/order/payOrder'
-import Paypal from '../components/Paypal'
+//import payOrder from '../actions/order/payOrder'
+//import Paypal from '../components/Paypal'
 import Axios from 'axios'
 import { getConfig } from '../utils/utils'
 import { ORDER_GET_FAIL, ORDER_GET_SUCCESS } from '../constants/orderConstants'
 import Button from 'react-bootstrap/esm/Button'
 import { Helmet } from 'react-helmet'
 
-const OrderScreen = ({ match, history }) => {
+const OrderScreen = ({ match }) => {
 	const { userInfo } = useSelector((state) => state.user)
 	const { order, loading, payLoading, getOrderError } = useSelector(
 		(state) => state.order
@@ -62,7 +62,7 @@ const OrderScreen = ({ match, history }) => {
 			})
 	}
 
-	const paymentSuccess = async (payment) => {
+	/* const paymentSuccess = async (payment) => {
 		console.log(payment)
 		const paymentResult = {
 			id: payment.paymentID,
@@ -73,7 +73,7 @@ const OrderScreen = ({ match, history }) => {
 		dispatch(payOrder(orderId, paymentResult))
 	}
 	const paymentCancelled = (data) => {}
-	const paymentError = (error) => {}
+	const paymentError = (error) => {} */
 
 	if (loading) return <Loader />
 	if (getOrderError) return <Message children={getOrderError} />

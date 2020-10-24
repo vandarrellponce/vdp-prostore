@@ -49,6 +49,7 @@ const ProductListScreen = ({ history }) => {
 		}
 		getProducts(options)
 		if (userInfo && !userInfo.isAdmin) history.push('/')
+		/*  eslint-disable */
 	}, [userInfo, history, pageSize, page])
 
 	// HANDLERS

@@ -8,7 +8,6 @@ import { loginUser } from '../actions/users/loginUser'
 import FormContainer from '../components/FormContainer/FormContainer'
 import { Helmet } from 'react-helmet'
 import GoogleButton from 'react-google-button'
-import Axios from 'axios'
 
 const LoginScreen = (props) => {
 	const [email, setEmail] = useState('')
