@@ -26,7 +26,7 @@ app.use(passport.initialize())
 if (process.env.NODE_ENV === 'development') app.use(morgan('dev'))
 
 // DATBASE CONNECTION
-await connectDB()
+connectDB()
 
 // ROUTES
 app.get('/api', (req, res) => {
