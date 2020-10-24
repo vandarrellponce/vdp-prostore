@@ -38,11 +38,12 @@ const PaymentScreen = ({ history }) => {
 					<Form.Label as="legend">Select Method</Form.Label>
 
 					<Form.Check
+						disabled
 						type="radio"
 						id="Paypal"
 						value="Paypal"
 						name="paymentMethod"
-						label="Paypal or Credit Card"
+						label="Paypal/Credit Card (Temporarily Unavailable)"
 						onChange={(e) => {
 							setPaymentMethod(e.target.value)
 						}}
