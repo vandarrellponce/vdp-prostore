@@ -34,7 +34,7 @@ router.get('/redirect', passport.authenticate('google'), async (req, res) => {
 			email: req.user._json.email,
 		}).save()
 		const token = await newUser.generateAuthToken()
-		res.cookie('x_token', token).status(201).send({ user: newUser, token })
+		res.cookie('x_token', token).status(201).redirect('/')
 	} catch (error) {
 		res.status(404)
 		throw new Error(error.message)
