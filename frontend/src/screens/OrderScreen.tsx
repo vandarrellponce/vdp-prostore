@@ -182,7 +182,7 @@ const OrderScreen = ({ match }) => {
 									<Col>₱{order.totalPrice}</Col>
 								</Row>
 							</ListGroup.Item>
-							{!order.isPaid && (
+							{userInfo?.isAdmin && !order.isPaid && (
 								<ListGroup.Item>
 									{payLoading && <Loader />}
 									{/* <Paypal
