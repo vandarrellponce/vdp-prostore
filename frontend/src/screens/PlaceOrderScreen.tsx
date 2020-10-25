@@ -14,6 +14,7 @@ import createOrder from '../actions/order/createOrder'
 import Message from '../components/Message/Message'
 import resetCart from '../actions/cart/resetCart'
 import { Helmet } from 'react-helmet'
+import './css/PlaceOrderScreen.css'
 
 const PlaceOrderScreen = ({ history }) => {
 	const { cartItems, paymentMethod } = useSelector((state) => state.cart)
@@ -70,9 +71,9 @@ const PlaceOrderScreen = ({ history }) => {
 			<CheckoutSteps step1 step2 step3 step4 />
 
 			<Row>
-				<Col md={8}>
+				<Col md={8} className="placeorder__col1">
 					<ListGroup variant="flush">
-						<ListGroup.Item>
+						<ListGroup.Item className="placeorder__col1__item">
 							<h3>DELIVERY ADDRESS</h3>
 							<p>
 								<strong>Address: </strong>
@@ -100,15 +101,15 @@ const PlaceOrderScreen = ({ history }) => {
 								{cartItems.map((item, i) => (
 									<ListGroup.Item key={i}>
 										<Row>
-											<Col md={2}>
+											<Col xs={2} md={2}>
 												<Image src={item.image} alt={item.name} fluid rounded />
 											</Col>
-											<Col>
+											<Col xs={4} md={4}>
 												<Link to={`/products/${item.product}`}>
 													{item.name}
 												</Link>
 											</Col>
-											<Col md={4}>
+											<Col xs={4} md={4}>
 												{item.qty} x ₱{item.price} = ₱{item.qty * item.price}
 											</Col>
 										</Row>
@@ -118,7 +119,7 @@ const PlaceOrderScreen = ({ history }) => {
 						</ListGroup.Item>
 					</ListGroup>
 				</Col>
-				<Col md={4}>
+				<Col md={4} className="placeorder__col2">
 					<Card>
 						<ListGroup variant="flush">
 							<ListGroup.Item>

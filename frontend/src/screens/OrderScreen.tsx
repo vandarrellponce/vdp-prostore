@@ -16,6 +16,7 @@ import { getConfig } from '../utils/utils'
 import { ORDER_GET_FAIL, ORDER_GET_SUCCESS } from '../constants/orderConstants'
 import Button from 'react-bootstrap/esm/Button'
 import { Helmet } from 'react-helmet'
+import './css/OrderScreen.css'
 
 const OrderScreen = ({ match }) => {
 	const { userInfo } = useSelector((state) => state.user)
@@ -91,7 +92,7 @@ const OrderScreen = ({ match }) => {
 			<Row>
 				<Col md={8}>
 					<ListGroup variant="flush">
-						<ListGroup.Item>
+						<ListGroup.Item className="orderscreen__col1__item1">
 							<h3>DELIVERY DETAILS</h3>
 							<p>
 								<strong>Name: </strong> {order.user.name}
@@ -120,7 +121,7 @@ const OrderScreen = ({ match }) => {
 								<Message children="For Delivery" variant="danger" />
 							)}
 						</ListGroup.Item>
-						<ListGroup.Item>
+						<ListGroup.Item className="orderscreen__col1__item1">
 							<h3>PAYMENT METHOD</h3>
 							<p>
 								<strong>Pay through: </strong>
@@ -134,21 +135,21 @@ const OrderScreen = ({ match }) => {
 								<Message children="For Payment" variant="danger" />
 							)}
 						</ListGroup.Item>
-						<ListGroup.Item>
+						<ListGroup.Item className="orderscreen__col1__item3">
 							<h3>ORDER ITEMS</h3>
 							<ListGroup variant="flush">
 								{order.orderItems.map((item, i) => (
 									<ListGroup.Item key={i}>
 										<Row>
-											<Col md={2}>
+											<Col xs={2} md={2}>
 												<Image src={item.image} alt={item.name} fluid rounded />
 											</Col>
-											<Col>
+											<Col xs={4} md={4}>
 												<Link to={`/products/${item.product}`}>
 													{item.name}
 												</Link>
 											</Col>
-											<Col md={4}>
+											<Col xs={4} md={4}>
 												{item.qty} x ₱{item.price} = ₱{item.qty * item.price}
 											</Col>
 										</Row>

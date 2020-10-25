@@ -17,6 +17,7 @@ import Axios from 'axios'
 import { PRODUCT_DETAILS_SUCCESS } from '../constants/productConst'
 import { getConfig } from '../utils/utils'
 import { Helmet } from 'react-helmet'
+import './css/ProductDetailScreen.css'
 
 const ProductDetail = (props) => {
 	//	STATES
@@ -87,44 +88,50 @@ const ProductDetail = (props) => {
 	}
 
 	return (
-		<div className="py-3">
+		<div className="py-3 productdetails__main">
 			<Helmet>
 				<title>Kumbatea! | {product.name}</title>
 				<meta name="description" content="We sell the best milk tea in town" />
 			</Helmet>
 			<Link to="/">
-				<Button className="btn my-3 btn-secondary" type="button">
+				<Button
+					className="btn btn-secondary productdetails__button"
+					type="button"
+				>
 					Go Back
 				</Button>
 			</Link>
 
 			<Row>
-				<Col md={6}>
+				<Col xs={6} sm={6} md={6} className="productdetails__col1">
 					<Image src={product.image} alt={product.name} fluid />
 				</Col>
 
-				<Col md={3}>
+				<Col xs={6} md={3} className="productdetails__col2">
 					<ListGroup variant="flush">
-						<ListGroup.Item variant="light">
-							<h5>{product.name}</h5>
+						<ListGroup.Item
+							variant="light"
+							className="productdetails__col2__items"
+						>
+							<strong>{product.name}</strong>
 						</ListGroup.Item>
 
-						<ListGroup.Item>
+						<ListGroup.Item className="productdetails__col2__items">
 							<Rating
 								value={product.rating}
 								text={`${product.numReviews} reviews`}
 							></Rating>
 						</ListGroup.Item>
 
-						<ListGroup.Item>
+						<ListGroup.Item className="productdetails__col2__items">
 							<strong> Brand:</strong>
 							<br /> {product.brand}
 						</ListGroup.Item>
-						<ListGroup.Item>
+						<ListGroup.Item className="productdetails__col2__items">
 							<strong> Category:</strong>
 							<br /> {product.category}
 						</ListGroup.Item>
-						<ListGroup.Item>
+						<ListGroup.Item className="productdetails__col2__items">
 							<strong>Item Description:</strong>
 							<br />
 							{product.description}
@@ -132,7 +139,7 @@ const ProductDetail = (props) => {
 					</ListGroup>
 				</Col>
 
-				<Col md={3}>
+				<Col md={3} className="productdetails__col3">
 					<Card>
 						<ListGroup variant="flush">
 							<ListGroup.Item>

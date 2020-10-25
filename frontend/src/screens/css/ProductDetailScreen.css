@@ -1,0 +1,45 @@
+/* For Mobile */
+@media screen and (max-width: 540px) {
+	.view {
+		width: 400px;
+	}
+	.productdetails__main {
+		padding-top: 3px;
+	}
+	.productdetails__button {
+		margin-top: 3px;
+		margin-bottom: 6px;
+	}
+
+	.productdetails__col1 {
+		padding-top: 5px;
+		padding-right: 5px;
+	}
+
+	.productdetails__col2 {
+		padding-top: 5px;
+		font-size: 13px;
+		padding-left: 5px;
+	}
+	.productdetails__col2__items {
+		padding-left: 1px;
+		padding-top: 5px;
+		padding-bottom: 5px;
+	}
+
+	.productdetails__col3 {
+		font-size: 13px;
+		padding-top: 10px;
+	}
+}
+
+/* For Tablets */
+@media screen and (min-width: 540px) and (max-width: 4080px) {
+	.view {
+		width: 600px;
+	}
+	.productdetails__button {
+		margin-top: 15px;
+		margin-bottom: 15px;
+	}
+}

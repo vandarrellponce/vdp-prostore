@@ -1,0 +1,29 @@
+@media screen and (max-width: 540px) {
+	.view {
+		width: 400px;
+	}
+
+	.orderscreen__col1__item1 {
+		padding-left: 5px;
+		padding-right: 5px;
+		font-size: 13px;
+	}
+
+	.orderscreen__col1__item2 {
+		padding-left: 5px;
+		padding-right: 5px;
+		font-size: 13px;
+	}
+	.orderscreen__col1__item3 {
+		padding-left: 5px;
+		padding-right: 5px;
+		font-size: 13px;
+	}
+}
+
+/* For Tablets */
+@media screen and (min-width: 540px) and (max-width: 4080px) {
+	.view {
+		width: 600px;
+	}
+}

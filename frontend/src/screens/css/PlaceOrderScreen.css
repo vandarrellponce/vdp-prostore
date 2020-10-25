@@ -1,0 +1,18 @@
+/* For Mobile */
+@media screen and (max-width: 540px) {
+	.view {
+		width: 400px;
+	}
+	.placeorder__col1 {
+		padding-left: 5px;
+		padding-right: 5px;
+		font-size: 13px;
+	}
+}
+
+/* For Tablets */
+@media screen and (min-width: 540px) and (max-width: 4080px) {
+	.view {
+		width: 600px;
+	}
+}

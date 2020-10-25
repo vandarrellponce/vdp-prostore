@@ -1,0 +1,41 @@
+/* For Mobile */
+@media screen and (max-width: 540px) {
+	.view {
+		width: 400px;
+	}
+	.cartscreen__main {
+		padding-top: 3px;
+	}
+
+	.cartscreen__col1 {
+		font-size: 13px;
+	}
+	.cartscreen__col1__item {
+		padding: 3px;
+		padding-top: 10px;
+		padding-bottom: 10px;
+		padding-left: 10px;
+	}
+	.cartscreen__col1__item__name {
+		padding-left: 3px;
+		padding-right: 3px;
+	}
+	.cartscreen__col1__item__select {
+		padding-left: 3px;
+		padding-right: 10px;
+	}
+	.cartscreen__col1__item__price {
+		padding-left: 3px;
+		padding-right: 3px;
+	}
+	.cartscreen__col1__item__button {
+		padding-left: 3px;
+	}
+}
+
+/* For Tablets */
+@media screen and (min-width: 540px) and (max-width: 4080px) {
+	.view {
+		width: 600px;
+	}
+}

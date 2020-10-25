@@ -12,6 +12,7 @@ import Form from 'react-bootstrap/Form'
 import addToCart from '../actions/cart/addToCart'
 import removeFromCart from '../actions/cart/removeFromCart'
 import { Helmet } from 'react-helmet'
+import './css/CartScreen.css'
 
 const CartScreen = ({ match, location, history }) => {
 	// STATES
@@ -36,13 +37,13 @@ const CartScreen = ({ match, location, history }) => {
 	}
 
 	return (
-		<div className="py-3">
+		<div className="py-3 cartscreen__main">
 			<Helmet>
 				<title>Kumbatea! | My Cart</title>
 				<meta name="description" content="We sell the best milk tea in town" />
 			</Helmet>
 			<Row>
-				<Col md={8}>
+				<Col xs={12} md={8} className="cartscreen__col1">
 					<h1>Shopping Cart</h1>
 					{cartItems.length === 0 ? (
 						<Message>
@@ -52,19 +53,33 @@ const CartScreen = ({ match, location, history }) => {
 					) : (
 						<ListGroup variant="flush">
 							{cartItems.map((item) => (
-								<ListGroup.Item key={item.product}>
+								<ListGroup.Item
+									key={item.product}
+									className="cartscreen__col1__item"
+								>
 									<Row>
-										<Col md={2}>
+										<Col xs={2} md={2}>
 											<Image src={item.image} alt={item.name} fluid rounded />
 										</Col>
-										<Col md={3}>
+										<Col xs={3} md={3} className="cartscreen__col1__item__name">
 											<Link to={`/products/${item.product}`}>{item.name}</Link>
 										</Col>
-										<Col md={2}>{item.price}</Col>
+										<Col
+											xs={2}
+											md={2}
+											className="cartscreen__col1__item__price"
+										>
+											₱{item.price}
+										</Col>
 
 										{/* CHANGE THE QUANTITY OF SELECTED PRODUCT */}
-										<Col md={2}>
+										<Col
+											xs={3}
+											md={2}
+											className="cartscreen__col1__item__select"
+										>
 											<Form.Control
+												style={{ cursor: 'pointer' }}
 												as="select"
 												value={item.qty}
 												onChange={(e) => {
@@ -82,7 +97,11 @@ const CartScreen = ({ match, location, history }) => {
 											</Form.Control>
 										</Col>
 
-										<Col md={2}>
+										<Col
+											xs={2}
+											md={2}
+											className="cartscreen__col1__item__button"
+										>
 											<Button
 												type="button"
 												variant="dark"
@@ -97,7 +116,7 @@ const CartScreen = ({ match, location, history }) => {
 						</ListGroup>
 					)}
 				</Col>
-				<Col md={4}>
+				<Col xs={12} md={4}>
 					<Card className="my-2">
 						<ListGroup variant="flush">
 							<ListGroup.Item>

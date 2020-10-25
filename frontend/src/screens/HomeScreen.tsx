@@ -10,6 +10,7 @@ import { getConfig } from '../utils/utils'
 import Axios from 'axios'
 import { Link } from 'react-router-dom'
 import { Helmet } from 'react-helmet'
+import './css/HomeScreen.css'
 
 const Home = ({ match }) => {
 	// STATES
@@ -63,14 +64,14 @@ const Home = ({ match }) => {
 		)
 
 	return (
-		<div className="py-3">
+		<div>
 			{/* <h2 className="text-center">Latest Products</h2> */}
 			<Helmet>
 				<title>Kumbatea! | Home</title>
 				<meta name="description" content="We sell the best milk tea in town" />
 			</Helmet>
 			<Row>
-				<Col sm={12} md={12} lg={12} xl={12}>
+				<Col sm={12} md={12} lg={12} xl={12} className="px-1">
 					<Carousel pause="hover" className="home__banner">
 						<Carousel.Item>
 							<Link to="/">
@@ -81,7 +82,7 @@ const Home = ({ match }) => {
 								/>
 							</Link>
 							<Carousel.Caption>
-								<h3>First slide label</h3>
+								<h3 style={{ color: 'black' }}> Welcome to Kumbatea!</h3>
 							</Carousel.Caption>
 						</Carousel.Item>
 						<Carousel.Item>
@@ -92,7 +93,7 @@ const Home = ({ match }) => {
 									alt="Third slide"
 								/>
 								<Carousel.Caption>
-									<h3>Second slide label</h3>
+									<h3>Keeps you up!</h3>
 								</Carousel.Caption>
 							</Link>
 						</Carousel.Item>
@@ -104,7 +105,7 @@ const Home = ({ match }) => {
 									alt="Third slide"
 								/>
 								<Carousel.Caption>
-									<h3>Third slide label</h3>
+									<h3 style={{ color: 'black' }}>On the go milk tea</h3>
 									<p></p>
 								</Carousel.Caption>
 							</Link>
