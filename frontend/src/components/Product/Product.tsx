@@ -3,7 +3,6 @@ import Card from 'react-bootstrap/Card'
 import Rating from '../Rating/Rating'
 import { Link } from 'react-router-dom'
 import './Product.css'
-import Loader from '../Loader/Loader'
 
 interface Props {
 	product: {
@@ -25,12 +24,12 @@ const Product: React.FC<Props> = (props) => {
 
 	return (
 		<div className="mycontainer">
-			<Card className="my-1 p-1 rounded card" style={{ fontSize: '15px' }}>
+			<Card className="my-1 p-1 rounded card product__card">
 				<Link to={`/products/${product._id}`}>
 					<Card.Img src={product.image} variant="top" />
 				</Link>
 
-				<Card.Body>
+				<Card.Body className="product__card__body">
 					<Link to={`/products/${product._id}`}>
 						<Card.Title as="div">
 							<strong>{product.name}</strong>

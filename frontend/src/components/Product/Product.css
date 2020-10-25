@@ -11,3 +11,23 @@
 	box-shadow: 0 30px 30px rgba(0, 0, 0, 0.2), 0px 0px 20px rgba(0, 0, 0, 0.2);
 	border-radius: 30px;
 }
+
+/* For Mobile */
+@media screen and (max-width: 540px) {
+	.view {
+		width: 400px;
+	}
+	.product__card {
+		font-size: 12px;
+	}
+	.product__card__body {
+		padding: 3px;
+	}
+}
+
+/* For Tablets */
+@media screen and (min-width: 540px) and (max-width: 4080px) {
+	.view {
+		width: 600px;
+	}
+}
