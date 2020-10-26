@@ -16,14 +16,8 @@ import './css/CartScreen.css'
 
 const CartScreen = ({ match, location, history }) => {
 	// STATES
-	const productId = match.params.id
-	const qty = location.search ? Number(location.search.split('=')[1]) : 1
 	const { cartItems } = useSelector((state) => state.cart)
 	const dispatch = useDispatch()
-
-	const [chippy, setChippy] = useState(0)
-	const [piatos, setPiatos] = useState(0)
-	const [vcut, setVcut] = useState(0)
 
 	// HANDLERS
 	const removeFromCartHandler = (id) => {
@@ -63,7 +57,7 @@ const CartScreen = ({ match, location, history }) => {
 										<Col xs={3} md={3} className="cartscreen__col1__item__name">
 											<Link to={`/products/${item.product}`}>
 												{item.name}
-												<h6>{item.size}</h6>
+												<span>{item.size}</span>
 											</Link>
 										</Col>
 										<Col

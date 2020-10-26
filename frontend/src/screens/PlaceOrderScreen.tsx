@@ -23,6 +23,10 @@ const PlaceOrderScreen = ({ history }) => {
 	const [cashOnHand, setCashOnHand] = useState('')
 	const dispatch = useDispatch()
 
+	const [chippy, setChippy] = useState(0)
+	const [piatos, setPiatos] = useState(0)
+	const [vcut, setVcut] = useState(0)
+
 	//USE EFFECT
 	useEffect(() => {
 		if (order) history.push(`/orders/${order._id}/pay`)
