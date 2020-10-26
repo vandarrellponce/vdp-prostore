@@ -1,4 +1,5 @@
 import React from 'react'
+import './Rating.css'
 
 interface Props {
 	value: number
@@ -8,7 +9,7 @@ interface Props {
 
 const Rating: React.FC<Props> = ({ value, text, color }) => {
 	return (
-		<div style={{ fontSize: '10px' }}>
+		<div className="rating__main">
 			<div className="rating">
 				<span>
 					<i

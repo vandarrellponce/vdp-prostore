@@ -174,6 +174,9 @@ const ProductEditScreen = ({ match, history }) => {
 								setProduct({ ...product, price: e.target.value })
 							}
 						></Form.Control>
+						<Button type="button" variant="secondary" size="sm">
+							Add Variation
+						</Button>
 					</Form.Group>
 
 					<Form.Group>
@@ -198,25 +201,30 @@ const ProductEditScreen = ({ match, history }) => {
 					<Form.Group>
 						<Form.Label>Brand</Form.Label>
 						<Form.Control
-							type="text"
+							as="select"
 							value={product.brand}
 							placeholder="Enter brand"
 							onChange={(e) =>
 								setProduct({ ...product, brand: e.target.value })
 							}
-						></Form.Control>
+						>
+							<option value="Kumbatea">Kumbatea</option>
+							<option value="Assorted">Assorted</option>
+						</Form.Control>
 					</Form.Group>
 
 					<Form.Group>
 						<Form.Label>Category</Form.Label>
 						<Form.Control
-							type="text"
 							value={product.category}
-							placeholder="Enter category"
+							as="select"
 							onChange={(e) =>
 								setProduct({ ...product, category: e.target.value })
 							}
-						></Form.Control>
+						>
+							<option value="Drinks">Drinks</option>
+							<option value="Chips">Chips</option>
+						</Form.Control>
 					</Form.Group>
 
 					<Form.Group>
@@ -243,7 +251,7 @@ const ProductEditScreen = ({ match, history }) => {
 						></Form.Control>
 					</Form.Group>
 
-					<Button type="submit" variant="secondary">
+					<Button type="submit" variant="secondary" size="sm">
 						Submit
 					</Button>
 				</Form>

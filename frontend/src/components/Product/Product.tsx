@@ -31,7 +31,7 @@ const Product: React.FC<Props> = (props) => {
 
 				<Card.Body className="product__card__body">
 					<Link to={`/products/${product._id}`}>
-						<Card.Title as="div">
+						<Card.Title as="div" className="product__card__title">
 							<strong>{product.name}</strong>
 						</Card.Title>
 					</Link>

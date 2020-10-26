@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message/Message'
@@ -21,10 +21,9 @@ const CartScreen = ({ match, location, history }) => {
 	const { cartItems } = useSelector((state) => state.cart)
 	const dispatch = useDispatch()
 
-	// USE EFFECT
-	useEffect(() => {
-		if (productId) dispatch(addToCart(productId, qty))
-	}, [dispatch, productId, qty])
+	const [chippy, setChippy] = useState(0)
+	const [piatos, setPiatos] = useState(0)
+	const [vcut, setVcut] = useState(0)
 
 	// HANDLERS
 	const removeFromCartHandler = (id) => {
@@ -62,14 +61,17 @@ const CartScreen = ({ match, location, history }) => {
 											<Image src={item.image} alt={item.name} fluid rounded />
 										</Col>
 										<Col xs={3} md={3} className="cartscreen__col1__item__name">
-											<Link to={`/products/${item.product}`}>{item.name}</Link>
+											<Link to={`/products/${item.product}`}>
+												{item.name}
+												<h6>{item.size}</h6>
+											</Link>
 										</Col>
 										<Col
 											xs={2}
 											md={2}
 											className="cartscreen__col1__item__price"
 										>
-											₱{item.price}
+											₱{item.price + item.sizePrice}
 										</Col>
 
 										{/* CHANGE THE QUANTITY OF SELECTED PRODUCT */}
@@ -79,12 +81,17 @@ const CartScreen = ({ match, location, history }) => {
 											className="cartscreen__col1__item__select"
 										>
 											<Form.Control
+												size="sm"
 												style={{ cursor: 'pointer' }}
 												as="select"
 												value={item.qty}
 												onChange={(e) => {
 													dispatch(
-														addToCart(item.product, Number(e.target.value))
+														addToCart(
+															item.product,
+															Number(e.target.value),
+															item.sizePrice
+														)
 													)
 													history.push('/cart')
 												}}
@@ -126,9 +133,14 @@ const CartScreen = ({ match, location, history }) => {
 								</h4>
 								₱
 								{cartItems
-									.reduce((acc, item) => acc + item.price * item.qty, 0)
+									.reduce(
+										(acc, item) =>
+											acc + (item.price + item.sizePrice) * item.qty,
+										0
+									)
 									.toFixed(2)}
 							</ListGroup.Item>
+
 							<ListGroup.Item>
 								<Button
 									type="button"

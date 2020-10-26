@@ -1,8 +1,8 @@
 .home__banner {
-	margin-bottom: -200px;
+	margin-bottom: -300px;
 	object-fit: contain;
 	width: 100%;
-	mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
+	mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.3));
 
 	/* z-index: -1; */
 }
@@ -13,10 +13,14 @@
 		width: 400px;
 	}
 	.home__banner {
-		margin-bottom: -30px;
+		margin-bottom: -60px;
 		object-fit: contain;
 		width: 100%;
-		mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
+		mask-image: linear-gradient(
+			to bottom,
+			rgba(0, 0, 0, 1),
+			rgba(0, 0, 0, 0.3)
+		);
 		/* z-index: -1; */
 	}
 }

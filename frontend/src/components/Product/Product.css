@@ -20,6 +20,10 @@
 	.product__card {
 		font-size: 12px;
 	}
+	.product__card__title {
+		font-size: 12px;
+	}
+
 	.product__card__body {
 		padding: 3px;
 	}

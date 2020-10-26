@@ -23,6 +23,8 @@ const ProductDetail = (props) => {
 	//	STATES
 	const productId = props.match.params.id
 	const [qty, setQty] = useState(1)
+	const [sizePrice, setSizePrice] = useState(0)
+
 	const [rating, setRating] = useState('')
 	const [comment, setComment] = useState('')
 	const [reviewError, setReviewError] = useState(null)
@@ -56,7 +58,8 @@ const ProductDetail = (props) => {
 	// HANDLERS
 	const addToCartHandler = (e) => {
 		e.preventDefault()
-		dispatch(addToCart(product._id, qty))
+		const totalPrice = (product.price + sizePrice) * qty
+		dispatch(addToCart(product._id, qty, sizePrice))
 		props.history.push('/cart')
 		/* props.history.push(`/cart/${product._id}?qty=${qty}`) */
 	}
@@ -146,7 +149,7 @@ const ProductDetail = (props) => {
 								<Row>
 									<Col>Price:</Col>
 									<Col>
-										<strong>P{product.price}</strong>
+										<strong>P{(product.price + sizePrice) * qty}</strong>
 									</Col>
 								</Row>
 							</ListGroup.Item>
@@ -159,12 +162,38 @@ const ProductDetail = (props) => {
 									</Col>
 								</Row>
 							</ListGroup.Item>
+							{product.category === 'Drinks' && (
+								<ListGroup.Item>
+									<Row>
+										<Col>Size:</Col>
+										<Col>
+											<Form.Control
+												size="sm"
+												as="select"
+												value={sizePrice}
+												onChange={(e) => {
+													setSizePrice(Number(e.target.value))
+												}}
+											>
+												<option id="regular" value={0}>
+													Regular
+												</option>
+												<option id="large" value={10}>
+													Large
+												</option>
+											</Form.Control>
+										</Col>
+									</Row>
+								</ListGroup.Item>
+							)}
+
 							{product.countInStock > 0 && (
 								<ListGroup.Item>
 									<Row>
 										<Col>Quantity:</Col>
 										<Col>
 											<Form.Control
+												size="sm"
 												as="select"
 												value={qty}
 												onChange={(e) => setQty(Number(e.target.value))}
@@ -175,6 +204,7 @@ const ProductDetail = (props) => {
 									</Row>
 								</ListGroup.Item>
 							)}
+
 							<ListGroup.Item>
 								<Button
 									className="btn-block btn-warning"
