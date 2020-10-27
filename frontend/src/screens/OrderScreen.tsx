@@ -150,7 +150,8 @@ const OrderScreen = ({ match }) => {
 												</Link>
 											</Col>
 											<Col xs={4} md={4}>
-												{item.qty} x ₱{item.price} = ₱{item.qty * item.price}
+												{item.qty} x ₱{item.price + item.sizePrice} = ₱
+												{item.qty * (item.price + item.sizePrice)}
 											</Col>
 										</Row>
 									</ListGroup.Item>

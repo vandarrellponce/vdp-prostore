@@ -58,7 +58,6 @@ const ProductDetail = (props) => {
 	// HANDLERS
 	const addToCartHandler = (e) => {
 		e.preventDefault()
-		const totalPrice = (product.price + sizePrice) * qty
 		dispatch(addToCart(product._id, qty, sizePrice))
 		props.history.push('/cart')
 		/* props.history.push(`/cart/${product._id}?qty=${qty}`) */
@@ -162,7 +161,7 @@ const ProductDetail = (props) => {
 									</Col>
 								</Row>
 							</ListGroup.Item>
-							{product.category === 'Drinks' && (
+							{product.sizes.length > 0 && (
 								<ListGroup.Item>
 									<Row>
 										<Col>Size:</Col>
@@ -170,17 +169,15 @@ const ProductDetail = (props) => {
 											<Form.Control
 												size="sm"
 												as="select"
-												value={sizePrice}
 												onChange={(e) => {
 													setSizePrice(Number(e.target.value))
 												}}
 											>
-												<option id="regular" value={0}>
-													Regular
-												</option>
-												<option id="large" value={10}>
-													Large
-												</option>
+												{product.sizes.map((size, i) => (
+													<option key={i} value={size.price}>
+														{size.name}
+													</option>
+												))}
 											</Form.Control>
 										</Col>
 									</Row>

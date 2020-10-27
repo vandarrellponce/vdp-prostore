@@ -8,17 +8,22 @@ import FormContainer from '../components/FormContainer/FormContainer'
 import Axios from 'axios'
 import { getConfig } from '../utils/utils'
 import { Helmet } from 'react-helmet'
+import { Col, Row } from 'react-bootstrap'
 
 const ProductEditScreen = ({ match, history }) => {
 	const [product, setProduct] = useState({
 		name: '',
-		category: '',
-		brand: '',
+		category: 'Drinks',
+		brand: 'Category',
 		description: '',
 		price: '',
 		countInStock: '',
 		image: '',
+		sizes: [],
+		addons: [],
 	})
+	const [sizeName, setSizeName] = useState('')
+	const [sizePrice, setSizePrice] = useState('')
 	const [isCreateProduct, setIsCreateProduct] = useState(true)
 	const [uploading, setUploading] = useState(false)
 	const [loading, setLoading] = useState(false)
@@ -85,6 +90,8 @@ const ProductEditScreen = ({ match, history }) => {
 				price: product.price,
 				countInStock: product.countInStock,
 				image: product.image,
+				sizes: product.sizes,
+				addons: product.addons,
 			}
 			setLoading(true)
 
@@ -148,40 +155,146 @@ const ProductEditScreen = ({ match, history }) => {
 			<Button className="btn btn-light my-3" onClick={handleBack}>
 				Go Back
 			</Button>
+			<h1>{isCreateProduct ? 'Create Product' : 'Edit Product'}</h1>
+			{error && <Message children={error} variant="info" />}
+			{loading && <Loader />}
+			<Row>
+				<Col md={4}>
+					<Form onSubmit={submitHandler}>
+						<Form.Group>
+							<Form.Label>Name</Form.Label>
+							<Form.Control
+								size="sm"
+								type="text"
+								value={product.name}
+								placeholder="Enter name"
+								onChange={(e) =>
+									setProduct({ ...product, name: e.target.value })
+								}
+							></Form.Control>
+						</Form.Group>
 
-			<FormContainer>
-				<h1>{isCreateProduct ? 'Create Product' : 'Edit Product'}</h1>
-				{error && <Message children={error} variant="info" />}
-				{loading && <Loader />}
-				<Form onSubmit={submitHandler}>
-					<Form.Group>
-						<Form.Label>Name</Form.Label>
-						<Form.Control
-							type="text"
-							value={product.name}
-							placeholder="Enter name"
-							onChange={(e) => setProduct({ ...product, name: e.target.value })}
-						></Form.Control>
-					</Form.Group>
-
-					<Form.Group>
-						<Form.Label>Price</Form.Label>
-						<Form.Control
-							type="number"
-							value={product.price}
-							placeholder="Enter price"
-							onChange={(e) =>
-								setProduct({ ...product, price: e.target.value })
-							}
-						></Form.Control>
-						<Button type="button" variant="secondary" size="sm">
-							Add Variation
-						</Button>
-					</Form.Group>
-
+						<Form.Group>
+							<Form.Label>Price</Form.Label>
+							<Form.Control
+								size="sm"
+								type="number"
+								value={product.price}
+								placeholder="Enter price"
+								onChange={(e) =>
+									setProduct({ ...product, price: e.target.value })
+								}
+							></Form.Control>
+						</Form.Group>
+						{product.sizes.length > 0 &&
+							product.sizes.map((size, i) => (
+								<Row key={i}>
+									<Col className="my-1" xs={5} md={5}>
+										<Form.Control
+											readOnly
+											size="sm"
+											type="text"
+											value={size.name}
+										></Form.Control>
+									</Col>
+									<Col className="my-1" xs={5} md={5}>
+										<Form.Control
+											readOnly
+											size="sm"
+											type="number"
+											value={size.price}
+										></Form.Control>
+									</Col>
+									<Col xs={2} md={2} className="my-1">
+										<Button
+											size="sm"
+											onClick={(e) => {
+												setProduct({
+													...product,
+													sizes: product.sizes.filter((s) => s !== size),
+												})
+											}}
+										>
+											<i className="fas fa-trash"></i>
+										</Button>
+									</Col>
+								</Row>
+							))}
+						<Form.Group>
+							<Form.Label>Sizes</Form.Label>
+							<Row>
+								<Col>
+									<Form.Control
+										size="sm"
+										type="text"
+										value={sizeName}
+										placeholder="Enter name"
+										onChange={(e) => setSizeName(e.target.value)}
+									></Form.Control>
+								</Col>
+								<Col>
+									<Form.Control
+										size="sm"
+										type="number"
+										value={sizePrice}
+										placeholder="Enter price"
+										onChange={(e) => setSizePrice(e.target.value)}
+									></Form.Control>
+								</Col>
+							</Row>
+							<Button
+								className="my-1"
+								size="sm"
+								onClick={(e) => {
+									setProduct({
+										...product,
+										sizes: [
+											...product.sizes,
+											{ name: sizeName, price: sizePrice },
+										],
+									})
+									setSizeName('')
+									setSizePrice('')
+								}}
+							>
+								Add
+							</Button>
+						</Form.Group>
+						{/* <Form.Group>
+						<Form.Label>Add ons</Form.Label>
+						<Row>
+							<Col>
+								<Form.Control
+									size="sm"
+									type="text"
+									value={product.price}
+									placeholder="Enter name"
+									onChange={(e) =>
+										setProduct({ ...product, price: e.target.value })
+									}
+								></Form.Control>
+							</Col>
+							<Col>
+								<Form.Control
+									size="sm"
+									type="number"
+									value={product.price}
+									placeholder="Enter price"
+									onChange={(e) =>
+										setProduct({ ...product, price: e.target.value })
+									}
+								></Form.Control>
+							</Col>
+						</Row>
+						<Button size="sm">Add</Button>
+					</Form.Group> */}
+					</Form>
+				</Col>
+				<Col md={4}>
 					<Form.Group>
 						<Form.Label>Image</Form.Label>
 						<Form.Control
+							size="sm"
 							type="text"
 							value={product.image}
 							placeholder="Enter image url"
@@ -201,6 +314,7 @@ const ProductEditScreen = ({ match, history }) => {
 					<Form.Group>
 						<Form.Label>Brand</Form.Label>
 						<Form.Control
+							size="sm"
 							as="select"
 							value={product.brand}
 							placeholder="Enter brand"
@@ -212,10 +326,12 @@ const ProductEditScreen = ({ match, history }) => {
 							<option value="Assorted">Assorted</option>
 						</Form.Control>
 					</Form.Group>
-
+				</Col>
+				<Col md={4}>
 					<Form.Group>
 						<Form.Label>Category</Form.Label>
 						<Form.Control
+							size="sm"
 							value={product.category}
 							as="select"
 							onChange={(e) =>
@@ -230,6 +346,7 @@ const ProductEditScreen = ({ match, history }) => {
 					<Form.Group>
 						<Form.Label>Count in Stock</Form.Label>
 						<Form.Control
+							size="sm"
 							type="number"
 							value={product.countInStock}
 							placeholder="Enter count in stock"
@@ -242,6 +359,7 @@ const ProductEditScreen = ({ match, history }) => {
 					<Form.Group>
 						<Form.Label>Description</Form.Label>
 						<Form.Control
+							size="sm"
 							type="text"
 							value={product.description}
 							placeholder="Enter description"
@@ -251,11 +369,16 @@ const ProductEditScreen = ({ match, history }) => {
 						></Form.Control>
 					</Form.Group>
 
-					<Button type="submit" variant="secondary" size="sm">
-						Submit
+					<Button
+						type="submit"
+						variant="info"
+						size="sm"
+						onClick={submitHandler}
+					>
+						Submit Product
 					</Button>
-				</Form>
-			</FormContainer>
+				</Col>
+			</Row>
 		</div>
 	)
 }

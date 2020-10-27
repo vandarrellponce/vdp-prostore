@@ -22,10 +22,10 @@ const PlaceOrderScreen = ({ history }) => {
 	const { order, loading, createError } = useSelector((state) => state.order)
 	const [cashOnHand, setCashOnHand] = useState('')
 	const dispatch = useDispatch()
-
+	/* 
 	const [chippy, setChippy] = useState(0)
 	const [piatos, setPiatos] = useState(0)
-	const [vcut, setVcut] = useState(0)
+	const [vcut, setVcut] = useState(0) */
 
 	//USE EFFECT
 	useEffect(() => {
@@ -149,6 +149,16 @@ const PlaceOrderScreen = ({ history }) => {
 									<Col>₱{totalPrice}</Col>
 								</Row>
 							</ListGroup.Item>
+							{/* 	<ListGroup.Item>
+								<Form.Group>
+									<Form.Label>Add on Chips</Form.Label>
+									<Form.Control as="select" multiple>
+										<option onSelect={(e) => setChippy(14)}>Chippy M</option>
+										<option onSelect={(e) => setChippy(24)}>Chippy L</option>
+										<option value={32}>Vcut L</option>
+									</Form.Control>
+								</Form.Group>
+							</ListGroup.Item> */}
 
 							<ListGroup.Item>
 								<Form onSubmit={placeOrderHandler}>
