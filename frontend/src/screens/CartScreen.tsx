@@ -57,7 +57,7 @@ const CartScreen = ({ match, location, history }) => {
 										<Col xs={3} md={3} className="cartscreen__col1__item__name">
 											<Link to={`/products/${item.product}`}>
 												{item.name}
-												<span>{item.size}</span>
+												<span>{item.size.name}</span>
 											</Link>
 										</Col>
 										<Col
@@ -65,7 +65,7 @@ const CartScreen = ({ match, location, history }) => {
 											md={2}
 											className="cartscreen__col1__item__price"
 										>
-											₱{item.price + item.sizePrice}
+											₱{item.price + item.size.price}
 										</Col>
 
 										{/* CHANGE THE QUANTITY OF SELECTED PRODUCT */}
@@ -81,11 +81,10 @@ const CartScreen = ({ match, location, history }) => {
 												value={item.qty}
 												onChange={(e) => {
 													dispatch(
-														addToCart(
-															item.product,
-															Number(e.target.value),
-															item.sizePrice
-														)
+														addToCart(item.product, Number(e.target.value), {
+															name: item.size.name,
+															price: item.size.price,
+														})
 													)
 													history.push('/cart')
 												}}
@@ -129,7 +128,7 @@ const CartScreen = ({ match, location, history }) => {
 								{cartItems
 									.reduce(
 										(acc, item) =>
-											acc + (item.price + item.sizePrice) * item.qty,
+											acc + (item.price + item.size.price) * item.qty,
 										0
 									)
 									.toFixed(2)}

@@ -33,13 +33,13 @@ const productSchema = mongoose.Schema(
 		countInStock: { type: Number, required: true, default: 0 },
 		sizes: [
 			{
-				name: { type: String },
+				name: { type: String, trim: true, lowercase: true },
 				price: { type: Number, default: 0 },
 			},
 		],
 		addons: [
 			{
-				name: { type: String },
+				name: { type: String, trim: true, lowercase: true },
 				price: { type: Number, default: 0 },
 			},
 		],

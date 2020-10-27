@@ -23,7 +23,10 @@ const ProductDetail = (props) => {
 	//	STATES
 	const productId = props.match.params.id
 	const [qty, setQty] = useState(1)
-	const [sizePrice, setSizePrice] = useState(0)
+	const [size, setSize] = useState({
+		name: 'regular',
+		price: 0,
+	})
 
 	const [rating, setRating] = useState('')
 	const [comment, setComment] = useState('')
@@ -58,7 +61,7 @@ const ProductDetail = (props) => {
 	// HANDLERS
 	const addToCartHandler = (e) => {
 		e.preventDefault()
-		dispatch(addToCart(product._id, qty, sizePrice))
+		dispatch(addToCart(product._id, qty, size))
 		props.history.push('/cart')
 		/* props.history.push(`/cart/${product._id}?qty=${qty}`) */
 	}
@@ -148,7 +151,7 @@ const ProductDetail = (props) => {
 								<Row>
 									<Col>Price:</Col>
 									<Col>
-										<strong>P{(product.price + sizePrice) * qty}</strong>
+										<strong>P{(product.price + size.price) * qty}</strong>
 									</Col>
 								</Row>
 							</ListGroup.Item>
@@ -161,6 +164,8 @@ const ProductDetail = (props) => {
 									</Col>
 								</Row>
 							</ListGroup.Item>
+
+							{/* SIZE OPTIONS */}
 							{product.sizes.length > 0 && (
 								<ListGroup.Item>
 									<Row>
@@ -170,7 +175,11 @@ const ProductDetail = (props) => {
 												size="sm"
 												as="select"
 												onChange={(e) => {
-													setSizePrice(Number(e.target.value))
+													const index = e.nativeEvent.target.selectedIndex
+													setSize({
+														name: e.nativeEvent.target[index].text,
+														price: Number(e.target.value),
+													})
 												}}
 											>
 												{product.sizes.map((size, i) => (

@@ -24,6 +24,9 @@ const ProductEditScreen = ({ match, history }) => {
 	})
 	const [sizeName, setSizeName] = useState('')
 	const [sizePrice, setSizePrice] = useState('')
+	const [addonName, setAddonName] = useState('')
+	const [addonPrice, setAddonPrice] = useState('')
+
 	const [isCreateProduct, setIsCreateProduct] = useState(true)
 	const [uploading, setUploading] = useState(false)
 	const [loading, setLoading] = useState(false)
@@ -161,6 +164,7 @@ const ProductEditScreen = ({ match, history }) => {
 			<Row>
 				<Col md={4}>
 					<Form onSubmit={submitHandler}>
+						{/* NAME */}
 						<Form.Group>
 							<Form.Label>Name</Form.Label>
 							<Form.Control
@@ -174,6 +178,7 @@ const ProductEditScreen = ({ match, history }) => {
 							></Form.Control>
 						</Form.Group>
 
+						{/* PRICE */}
 						<Form.Group>
 							<Form.Label>Price</Form.Label>
 							<Form.Control
@@ -186,6 +191,9 @@ const ProductEditScreen = ({ match, history }) => {
 								}
 							></Form.Control>
 						</Form.Group>
+
+						{/* SIZES */}
+						<Form.Label>Sizes</Form.Label>
 						{product.sizes.length > 0 &&
 							product.sizes.map((size, i) => (
 								<Row key={i}>
@@ -220,8 +228,9 @@ const ProductEditScreen = ({ match, history }) => {
 									</Col>
 								</Row>
 							))}
+
+						{/* SIZES FORM */}
 						<Form.Group>
-							<Form.Label>Sizes</Form.Label>
 							<Row>
 								<Col>
 									<Form.Control
@@ -260,37 +269,88 @@ const ProductEditScreen = ({ match, history }) => {
 								Add
 							</Button>
 						</Form.Group>
-						{/* <Form.Group>
+
+						{/* ADD ONS */}
 						<Form.Label>Add ons</Form.Label>
-						<Row>
-							<Col>
-								<Form.Control
-									size="sm"
-									type="text"
-									value={product.price}
-									placeholder="Enter name"
-									onChange={(e) =>
-										setProduct({ ...product, price: e.target.value })
-									}
-								></Form.Control>
-							</Col>
-							<Col>
-								<Form.Control
-									size="sm"
-									type="number"
-									value={product.price}
-									placeholder="Enter price"
-									onChange={(e) =>
-										setProduct({ ...product, price: e.target.value })
-									}
-								></Form.Control>
-							</Col>
-						</Row>
-						<Button size="sm">Add</Button>
-					</Form.Group> */}
+						{product.addons.length > 0 &&
+							product.addons.map((addon, i) => (
+								<Row key={i}>
+									<Col className="my-1" xs={5} md={5}>
+										<Form.Control
+											readOnly
+											size="sm"
+											type="text"
+											value={addon.name}
+										></Form.Control>
+									</Col>
+									<Col className="my-1" xs={5} md={5}>
+										<Form.Control
+											readOnly
+											size="sm"
+											type="number"
+											value={addon.price}
+										></Form.Control>
+									</Col>
+									<Col xs={2} md={2} className="my-1">
+										<Button
+											size="sm"
+											onClick={(e) => {
+												setProduct({
+													...product,
+													addons: product.addons.filter((a) => a !== addon),
+												})
+											}}
+										>
+											<i className="fas fa-trash"></i>
+										</Button>
+									</Col>
+								</Row>
+							))}
+
+						{/* ADD ON FORMS */}
+						<Form.Group>
+							<Row>
+								<Col>
+									<Form.Control
+										size="sm"
+										type="text"
+										value={addonName}
+										placeholder="Enter name"
+										onChange={(e) => setAddonName(e.target.value)}
+									></Form.Control>
+								</Col>
+								<Col>
+									<Form.Control
+										size="sm"
+										type="number"
+										value={addonPrice}
+										placeholder="Enter price"
+										onChange={(e) => setAddonPrice(e.target.value)}
+									></Form.Control>
+								</Col>
+							</Row>
+							<Button
+								className="my-1"
+								size="sm"
+								onClick={(e) => {
+									setProduct({
+										...product,
+										addons: [
+											...product.addons,
+											{ name: addonName, price: addonPrice },
+										],
+									})
+									setAddonName('')
+									setAddonPrice('')
+								}}
+							>
+								Add
+							</Button>
+						</Form.Group>
 					</Form>
 				</Col>
 				<Col md={4}>
+					{/* IMAGE FORM */}
 					<Form.Group>
 						<Form.Label>Image</Form.Label>
 						<Form.Control
@@ -327,6 +387,8 @@ const ProductEditScreen = ({ match, history }) => {
 						</Form.Control>
 					</Form.Group>
 				</Col>
+
+				{/* CATEGORY */}
 				<Col md={4}>
 					<Form.Group>
 						<Form.Label>Category</Form.Label>
@@ -343,6 +405,7 @@ const ProductEditScreen = ({ match, history }) => {
 						</Form.Control>
 					</Form.Group>
 
+					{/* COUNT IN STOCKS */}
 					<Form.Group>
 						<Form.Label>Count in Stock</Form.Label>
 						<Form.Control
@@ -356,6 +419,7 @@ const ProductEditScreen = ({ match, history }) => {
 						></Form.Control>
 					</Form.Group>
 
+					{/* DESCRIPTION */}
 					<Form.Group>
 						<Form.Label>Description</Form.Label>
 						<Form.Control
@@ -369,6 +433,7 @@ const ProductEditScreen = ({ match, history }) => {
 						></Form.Control>
 					</Form.Group>
 
+					{/* UPDATE BUTTON / CREATE BUTTON */}
 					<Button
 						type="submit"
 						variant="info"

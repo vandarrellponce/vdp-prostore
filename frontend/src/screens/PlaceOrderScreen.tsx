@@ -34,7 +34,7 @@ const PlaceOrderScreen = ({ history }) => {
 
 	// CALCULATE PRICES
 	const itemsPrice = cartItems.reduce(
-		(acc, item) => acc + (item.price + item.sizePrice) * item.qty,
+		(acc, item) => acc + (item.price + item.size.price) * item.qty,
 		0
 	)
 	const shippingPrice = 0
@@ -111,12 +111,12 @@ const PlaceOrderScreen = ({ history }) => {
 											<Col xs={4} md={4}>
 												<Link to={`/products/${item.product}`}>
 													{item.name}
-													<p>{item.size}</p>
+													<p>{item.size.name}</p>
 												</Link>
 											</Col>
 											<Col xs={4} md={4}>
-												{item.qty} x ₱{item.price + item.sizePrice} = ₱
-												{item.qty * (item.price + item.sizePrice)}
+												{item.qty} x ₱{item.price + item.size.price} = ₱
+												{item.qty * (item.price + item.size.price)}
 											</Col>
 										</Row>
 									</ListGroup.Item>
