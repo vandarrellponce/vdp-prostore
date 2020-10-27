@@ -58,6 +58,8 @@ export const updateProduct = expressAsyncHandler(async (req, res) => {
 		'price',
 		'countInStock',
 		'image',
+		'sizes',
+		'addons',
 	]
 	const isValidOperation = updates.every((update) =>
 		allowedUpdates.includes(update)
