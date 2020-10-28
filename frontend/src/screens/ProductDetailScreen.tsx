@@ -23,10 +23,12 @@ const ProductDetail = (props) => {
 	//	STATES
 	const productId = props.match.params.id
 	const [qty, setQty] = useState(1)
+
 	const [size, setSize] = useState({
 		name: 'regular',
 		price: 0,
 	})
+	const [addons, setAddons] = useState([])
 
 	const [rating, setRating] = useState('')
 	const [comment, setComment] = useState('')
@@ -61,7 +63,7 @@ const ProductDetail = (props) => {
 	// HANDLERS
 	const addToCartHandler = (e) => {
 		e.preventDefault()
-		dispatch(addToCart(product._id, qty, size))
+		dispatch(addToCart(product._id, qty, size, addons))
 		props.history.push('/cart')
 		/* props.history.push(`/cart/${product._id}?qty=${qty}`) */
 	}
@@ -144,6 +146,7 @@ const ProductDetail = (props) => {
 					</ListGroup>
 				</Col>
 
+				{/* PRICE */}
 				<Col md={3} className="productdetails__col3">
 					<Card>
 						<ListGroup variant="flush">
@@ -151,7 +154,13 @@ const ProductDetail = (props) => {
 								<Row>
 									<Col>Price:</Col>
 									<Col>
-										<strong>P{(product.price + size.price) * qty}</strong>
+										<strong>
+											P
+											{(product.price +
+												size.price +
+												addons.reduce((acc, i) => acc + i.price, 0)) *
+												qty}
+										</strong>
 									</Col>
 								</Row>
 							</ListGroup.Item>
@@ -171,13 +180,11 @@ const ProductDetail = (props) => {
 									<Row>
 										<Col>Size:</Col>
 										<Col>
-											<Form.Control
-												size="sm"
-												as="select"
+											<select
 												onChange={(e) => {
-													const index = e.nativeEvent.target.selectedIndex
 													setSize({
-														name: e.nativeEvent.target[index].text,
+														name:
+															e.nativeEvent.target[e.target.selectedIndex].text,
 														price: Number(e.target.value),
 													})
 												}}
@@ -187,9 +194,34 @@ const ProductDetail = (props) => {
 														{size.name}
 													</option>
 												))}
-											</Form.Control>
+											</select>
 										</Col>
 									</Row>
+								</ListGroup.Item>
+							)}
+
+							{/* ADDONs OPTIONS */}
+							{product.addons.length > 0 && (
+								<ListGroup.Item>
+									Addons:
+									{product.addons.map((addon, i) => (
+										<Form.Check
+											className="py-1"
+											key={i}
+											type="checkbox"
+											label={`${addon.name} - ${addon.price}`}
+											onChange={(e) => {
+												if (e.target.checked) {
+													setAddons([
+														...addons,
+														{ name: addon.name, price: addon.price },
+													])
+												} else {
+													setAddons([...addons.filter((x) => x !== addons[i])])
+												}
+											}}
+										/>
+									))}
 								</ListGroup.Item>
 							)}
 

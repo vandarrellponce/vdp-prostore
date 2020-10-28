@@ -55,17 +55,42 @@ const CartScreen = ({ match, location, history }) => {
 											<Image src={item.image} alt={item.name} fluid rounded />
 										</Col>
 										<Col xs={3} md={3} className="cartscreen__col1__item__name">
-											<Link to={`/products/${item.product}`}>
-												{item.name}
-												<span>{item.size.name}</span>
-											</Link>
+											<Link to={`/products/${item.product}`}>{item.name}</Link>
+											<p
+												style={{
+													fontSize: '12px',
+													padding: '1px',
+													margin: '1px',
+												}}
+											>
+												{item.size.name}
+											</p>
+											{item.addons.length > 0 && (
+												<div>
+													{item.addons.map((addon, i) => (
+														<p
+															key={i}
+															style={{
+																fontSize: '12px',
+																padding: '1px',
+																margin: '1px',
+															}}
+														>
+															{addon.name}
+														</p>
+													))}
+												</div>
+											)}
 										</Col>
 										<Col
 											xs={2}
 											md={2}
 											className="cartscreen__col1__item__price"
 										>
-											₱{item.price + item.size.price}
+											₱
+											{item.price +
+												item.size.price +
+												item.addons.reduce((acc, i) => acc + i.price, 0)}
 										</Col>
 
 										{/* CHANGE THE QUANTITY OF SELECTED PRODUCT */}
@@ -81,10 +106,12 @@ const CartScreen = ({ match, location, history }) => {
 												value={item.qty}
 												onChange={(e) => {
 													dispatch(
-														addToCart(item.product, Number(e.target.value), {
-															name: item.size.name,
-															price: item.size.price,
-														})
+														addToCart(
+															item.product,
+															Number(e.target.value),
+															item.size,
+															item.addons
+														)
 													)
 													history.push('/cart')
 												}}
@@ -128,7 +155,11 @@ const CartScreen = ({ match, location, history }) => {
 								{cartItems
 									.reduce(
 										(acc, item) =>
-											acc + (item.price + item.size.price) * item.qty,
+											acc +
+											(item.price +
+												item.size.price +
+												item.addons.reduce((acc, i) => acc + i.price, 0)) *
+												item.qty,
 										0
 									)
 									.toFixed(2)}

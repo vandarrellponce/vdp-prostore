@@ -34,7 +34,12 @@ const PlaceOrderScreen = ({ history }) => {
 
 	// CALCULATE PRICES
 	const itemsPrice = cartItems.reduce(
-		(acc, item) => acc + (item.price + item.size.price) * item.qty,
+		(acc, item) =>
+			acc +
+			(item.price +
+				item.size.price +
+				item.addons.reduce((acc, i) => acc + i.price, 0)) *
+				item.qty,
 		0
 	)
 	const shippingPrice = 0
@@ -111,12 +116,43 @@ const PlaceOrderScreen = ({ history }) => {
 											<Col xs={4} md={4}>
 												<Link to={`/products/${item.product}`}>
 													{item.name}
-													<p>{item.size.name}</p>
 												</Link>
+												<p
+													style={{
+														fontSize: '12px',
+														padding: '1px',
+														margin: '1px',
+													}}
+												>
+													{item.size.name}
+												</p>
+												{item.addons.length > 0 && (
+													<div>
+														{item.addons.map((addon, i) => (
+															<p
+																key={i}
+																style={{
+																	fontSize: '12px',
+																	padding: '1px',
+																	margin: '1px',
+																}}
+															>
+																{addon.name}
+															</p>
+														))}
+													</div>
+												)}
 											</Col>
 											<Col xs={4} md={4}>
-												{item.qty} x ₱{item.price + item.size.price} = ₱
-												{item.qty * (item.price + item.size.price)}
+												{item.qty} x ₱
+												{item.price +
+													item.size.price +
+													item.addons.reduce((acc, i) => acc + i.price, 0)}{' '}
+												= ₱
+												{item.qty *
+													(item.price +
+														item.size.price +
+														item.addons.reduce((acc, i) => acc + i.price, 0))}
 											</Col>
 										</Row>
 									</ListGroup.Item>
