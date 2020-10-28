@@ -217,7 +217,9 @@ const ProductDetail = (props) => {
 														{ name: addon.name, price: addon.price },
 													])
 												} else {
-													setAddons([...addons.filter((x) => x !== addons[i])])
+													setAddons([
+														...addons.filter((x) => x.name !== addon.name),
+													])
 												}
 											}}
 										/>
