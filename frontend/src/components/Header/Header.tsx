@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Route } from 'react-router-dom'
 import './Header.css'
 import Container from 'react-bootstrap/Container'
@@ -9,11 +9,42 @@ import { LinkContainer } from 'react-router-bootstrap'
 import { useSelector, useDispatch } from 'react-redux'
 import logoutUser from '../../actions/users/logoutUser'
 import SearchBox from '../SearchBox'
-import { Image } from 'react-bootstrap'
+import { Badge, Image } from 'react-bootstrap'
+import Axios from 'axios'
+import socketIOClient from 'socket.io-client'
+const ENDPOINT = '/'
 
 const Header = () => {
 	const { userInfo } = useSelector((state) => state.user)
+	const [notifs, setNotifs] = useState([])
+	const [totalNotifs, setTotalNotifs] = useState(0)
 	const dispatch = useDispatch()
+
+	const getNotifications = () => {
+		if (userInfo && userInfo.isAdmin) {
+			Axios.get('/api/notifications/admin?limit=10')
+				.then((res) => {
+					setTotalNotifs(res.data.count)
+					setNotifs(res.data.notifs)
+				})
+				.catch((e) => console.log(e.message))
+		}
+		if (userInfo && !userInfo.isAdmin) {
+			Axios.get(`/api/notifications/user/${userInfo._id}?limit=10`)
+				.then((res) => {})
+				.catch((e) => e)
+		}
+	}
+
+	useEffect(() => {
+		getNotifications()
+
+		const socket = socketIOClient(ENDPOINT)
+		socket.on('newNotification', () => getNotifications())
+		socket.on('updateNotification', () => getNotifications())
+		return () => socket.disconnect()
+		/* eslint-disable */
+	}, [userInfo])
 
 	// HANDLERS
 	const logoutHandler = (e) => {
@@ -46,7 +77,8 @@ const Header = () => {
 
 					<Navbar.Collapse id="basic-navbar-nav">
 						<Route render={({ history }) => <SearchBox history={history} />} />
-						{/* margin left auto */}
+
+						{/* CART */}
 						<Nav className="ml-auto">
 							<LinkContainer to="/cart/">
 								<Nav.Link>
@@ -55,6 +87,42 @@ const Header = () => {
 								</Nav.Link>
 							</LinkContainer>
 
+							{/* NOTIFICATIONS */}
+							<NavDropdown
+								title={
+									<span>
+										Alerts{' '}
+										{notifs.length !== 0 && (
+											<Badge variant="primary">{totalNotifs}</Badge>
+										)}
+									</span>
+								}
+								id="basic-nav-dropdown"
+								disabled={notifs.length === 0}
+							>
+								{notifs.length > 0 &&
+									notifs.map((notif, i) => (
+										<LinkContainer
+											to={`/orders/${notif.payload}/pay`}
+											key={i}
+											style={{ fontSize: '12px', padding: '5px' }}
+											onClick={(e) => {
+												Axios.put(
+													`/api/notifications/${notif._id}`
+												).then((res) => getNotifications())
+											}}
+										>
+											<NavDropdown.Item>
+												{!notif.isViewed && (
+													<Badge variant="success">New</Badge>
+												)}
+												{` ${notif.message}. ${notif.payload}`}
+											</NavDropdown.Item>
+										</LinkContainer>
+									))}
+							</NavDropdown>
+
+							{/* PROFILE */}
 							{userInfo ? (
 								<NavDropdown title={userInfo.name} id="basic-nav-dropdown">
 									<LinkContainer to="/profile">
@@ -79,6 +147,8 @@ const Header = () => {
 									</Nav.Link>
 								</LinkContainer>
 							)}
+
+							{/* CONFIG */}
 							{userInfo && userInfo.isAdmin && (
 								<NavDropdown title="Config" id="admin-menu">
 									<LinkContainer to="/admin/userlist">

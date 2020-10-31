@@ -27,8 +27,6 @@ const LoginScreen = (props) => {
 	}
 	if (userInfo) props.history.push(redirect)
 
-	let windowObjectReference = null
-
 	return (
 		<div className="py-3">
 			<FormContainer>

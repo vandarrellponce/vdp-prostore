@@ -10,6 +10,7 @@ import errorHandler from './middlewares/errorHandler.js'
 import adminRoutes from './routes/adminRoutes.js'
 import uploadRoutes from './routes/uploadRoutes.js'
 import googleAuthRoutes from './routes/googleAuthRoutes.js'
+import notifRoutes from './routes/notifRoutes.js'
 import morgan from 'morgan'
 import cookieParser from 'cookie-parser'
 import './config/passport.js'
@@ -31,6 +32,7 @@ const io = socketio(server)
 	io.emit('fromAPI', 'test data from server')
 })
  */
+app.set('socketio', io)
 app.use(cookieParser())
 app.use(express.json())
 app.use(cors())
@@ -54,6 +56,7 @@ app.get('/api/config/paypal', (req, res) =>
 )
 app.use('/api/admin', adminRoutes)
 app.use('/api/uploads', uploadRoutes)
+app.use('/api/notifications', notifRoutes)
 
 const __dirname = path.resolve()
 app.use('/uploads', express.static(path.join(__dirname, '/uploads')))

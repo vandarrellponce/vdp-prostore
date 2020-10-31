@@ -223,10 +223,10 @@ const PlaceOrderScreen = ({ history }) => {
 
 							<ListGroup.Item variant="danger">
 								<p>
-									<span>
+									<span role="img">
 										Orders outside Liloan, may have an additional delivery
 										charge. We will call you to let you know about it and for
-										you to confirm. Please keep your line open. Thanks! 😊😊😊
+										you to confirm. Please keep your line open. Thanks!{' '}
 									</span>
 								</p>
 							</ListGroup.Item>
@@ -253,7 +253,7 @@ const PlaceOrderScreen = ({ history }) => {
 									<span>
 										{`Once order is placed, Please keep your line open
 								(MOBILE NO. ${userInfo.shippingAddress.mobile}) for the verification of your delivery 
-								address and order. Thank you 😊😊😊
+								address and order. Thank you.
 								`}
 									</span>
 								</p>

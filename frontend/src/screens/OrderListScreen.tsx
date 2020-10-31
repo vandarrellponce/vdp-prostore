@@ -6,9 +6,10 @@ import Message from '../components/Message/Message'
 import Loader from '../components/Loader/Loader'
 import { LinkContainer } from 'react-router-bootstrap'
 import Axios from 'axios'
-
 import { Helmet } from 'react-helmet'
 import Paginate from '../components/Paginate'
+import socketIOClient from 'socket.io-client'
+const ENDPOINT = '/'
 
 const UserListScreen = ({ history }) => {
 	const [loading, setLoading] = useState(false)
@@ -43,6 +44,12 @@ const UserListScreen = ({ history }) => {
 	useEffect(() => {
 		getOrders({ pageSize, page })
 		if (userInfo && !userInfo.isAdmin) history.push('/')
+
+		const socket = socketIOClient(ENDPOINT)
+		socket.on('newOrder', () => getOrders({ pageSize, page }))
+		return () => socket.disconnect()
+
+		/* eslint-disable */
 	}, [userInfo, history, pageSize, page])
 
 	// HANDLERS

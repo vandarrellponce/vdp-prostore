@@ -1,5 +1,6 @@
 import expressAsyncHandler from 'express-async-handler'
 import mongoose from 'mongoose'
+import Notif from '../models/notifiModel.js'
 import Order from '../models/orderModel.js'
 
 // @desc	Create new order
@@ -38,6 +39,18 @@ export const createOrder = expressAsyncHandler(async (req, res) => {
 		const savedOrder = await (await order.save())
 			.populate('user', 'name email')
 			.execPopulate()
+
+		// create newOrder notif
+		const notif = new Notif({
+			target: 'admin',
+			message: 'New order has been posted',
+			payload: savedOrder._id,
+		})
+		await notif.save()
+
+		const io = req.app.get('socketio')
+		io.emit('newOrder')
+		io.emit('newNotification')
 
 		res.status(201).send(savedOrder)
 	} catch (error) {

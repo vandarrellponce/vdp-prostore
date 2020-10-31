@@ -8,12 +8,13 @@ const notifSchema = mongoose.Schema(
 			ref: 'User',
 		},
 		message: { type: String, required: true },
-		payload: { type: String, required: true },
+		payload: { type: mongoose.Schema.Types.ObjectId, required: true },
+		isViewed: { type: Boolean, required: true, default: false },
 		/* kind: { type: String, required: true }, // newOrder, updateOrder, newProduct */
 	},
 	{ timestamps: true }
 )
 
-const Notif = mongoose.Model('notifications', notifSchema)
+const Notif = mongoose.model('Notification', notifSchema)
 
 export default Notif
