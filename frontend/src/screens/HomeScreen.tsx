@@ -11,6 +11,8 @@ import Axios from 'axios'
 import { Link } from 'react-router-dom'
 import { Helmet } from 'react-helmet'
 import './css/HomeScreen.css'
+import socketIOClient from 'socket.io-client'
+const ENDPOINT = 'http://localhost:5000'
 
 const Home = ({ match }) => {
 	// STATES
@@ -40,6 +42,12 @@ const Home = ({ match }) => {
 	// USE EFFECT
 	useEffect(() => {
 		getProducts({ pageSize, page })
+
+		/* const socket = socketIOClient(ENDPOINT)
+		socket.on('fromAPI', (data) => console.log(data))
+
+		return () => socket.disconnect() */
+
 		/* eslint-disable */
 	}, [keyword, page, pageSize])
 

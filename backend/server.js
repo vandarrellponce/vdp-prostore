@@ -15,9 +15,22 @@ import cookieParser from 'cookie-parser'
 import './config/passport.js'
 import passport from 'passport'
 
+import http from 'http'
+import socketio from 'socket.io'
+
 // APP CONFIG
 dotenv.config()
+
 const app = express()
+const server = http.createServer(app)
+const io = socketio(server)
+
+// IO EVENTS
+/* io.on('connection', () => {
+	console.log('New websocket connection')
+	io.emit('fromAPI', 'test data from server')
+})
+ */
 app.use(cookieParser())
 app.use(express.json())
 app.use(cors())
@@ -64,6 +77,6 @@ app.use(errorHandler)
 
 // PORT CONFIG
 const port = process.env.PORT || 5005
-app.listen(port, () => {
+server.listen(port, () => {
 	console.log(`Server running in ${process.env.NODE_ENV} mode on port ${port}`)
 })
