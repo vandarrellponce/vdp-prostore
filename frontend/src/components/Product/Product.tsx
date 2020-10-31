@@ -30,7 +30,7 @@ const Product: React.FC<Props> = (props) => {
 	return (
 		<div
 			className="mycontainer"
-			onTouchMove={(e) => {
+			/* onTouchMove={(e) => {
 				let xAxis = (window.innerWidth / 2 - e.touches[0].clientX) / 15
 				let yAxis = (window.innerHeight / 2 - e.touches[0].clientY) / 15
 				cardRef.current.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`
@@ -50,7 +50,7 @@ const Product: React.FC<Props> = (props) => {
 
 				cardRef.current.style.transition = 'all 0.5s ease'
 				cardRef.current.style.transform = `rotateY(0deg) rotateX(0deg)`
-			}}
+			}} */
 			onMouseMove={(e) => {
 				let xAxis = (window.innerWidth / 2 - e.pageX) / 30
 				let yAxis = (window.innerHeight / 2 - e.pageY) / 30
