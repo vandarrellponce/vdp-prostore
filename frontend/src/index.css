@@ -3,6 +3,13 @@ main {
 }
 body {
 	font-family: 'Poppins', sans-serif;
+	max-width: 100%;
+	overflow-x: hidden;
+}
+
+.header__brand {
+	font-family: 'Bangers', cursive;
+	font-size: 42px;
 }
 
 /* .app {

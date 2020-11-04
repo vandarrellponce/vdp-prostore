@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Route } from 'react-router-dom'
 import './Header.css'
-import Container from 'react-bootstrap/Container'
+//import Container from 'react-bootstrap/Container'
 import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
 import NavDropdown from 'react-bootstrap/NavDropdown'
@@ -56,38 +56,44 @@ const Header = () => {
 	return (
 		<header>
 			<Navbar
-				variant="dark"
-				bg="dark"
+				className="pr-5 pl-5"
+				style={{ fontSize: '14px' }}
+				variant="light"
+				bg="light"
 				expand="lg"
 				collapseOnSelect
 				sticky="top"
 			>
-				<Container>
-					<LinkContainer to="/">
-						<Navbar.Brand>
-							<Image
+				{/* <Container> */}
+				<LinkContainer to="/">
+					<Navbar.Brand className="header__brand">
+						{/* <Image
 								src="/images/kumbatealogo3.png"
 								alt="Kumbatea Logo"
-								style={{ height: '50px', width: '100px' }}
-							/>
-						</Navbar.Brand>
-					</LinkContainer>
+								style={{ height: '70px', width: '170px' }}
+							/> */}
+						<div style={{ display: 'flex' }}>
+							<div style={{ color: 'black' }}>KUMBA</div>{' '}
+							<div style={{ color: 'rgb(86,204,157)' }}>TEA</div>
+						</div>
+					</Navbar.Brand>
+				</LinkContainer>
+				<Navbar.Toggle aria-controls="basic-navbar-nav" />
 
-					<Navbar.Toggle aria-controls="basic-navbar-nav" />
+				<Navbar.Collapse id="basic-navbar-nav" className="align">
+					<Route render={({ history }) => <SearchBox history={history} />} />
 
-					<Navbar.Collapse id="basic-navbar-nav">
-						<Route render={({ history }) => <SearchBox history={history} />} />
+					{/* CART */}
+					<Nav className="ml-auto">
+						<LinkContainer to="/cart/">
+							<Nav.Link>
+								<i className="fas fa-shopping-cart px-1"></i>
+								Cart
+							</Nav.Link>
+						</LinkContainer>
 
-						{/* CART */}
-						<Nav className="ml-auto">
-							<LinkContainer to="/cart/">
-								<Nav.Link>
-									<i className="fas fa-shopping-cart px-1"></i>
-									Cart
-								</Nav.Link>
-							</LinkContainer>
-
-							{/* NOTIFICATIONS */}
+						{/* NOTIFICATIONS */}
+						{userInfo && (
 							<NavDropdown
 								title={
 									<span>
@@ -121,51 +127,52 @@ const Header = () => {
 										</LinkContainer>
 									))}
 							</NavDropdown>
+						)}
 
-							{/* PROFILE */}
-							{userInfo ? (
-								<NavDropdown title={userInfo.name} id="basic-nav-dropdown">
-									<LinkContainer to="/profile">
-										<NavDropdown.Item>My Profile</NavDropdown.Item>
-									</LinkContainer>
-
-									<NavDropdown.Item onClick={logoutHandler}>
-										Logout
-									</NavDropdown.Item>
-
-									<NavDropdown.Divider />
-
-									<LinkContainer to="/profile">
-										<NavDropdown.Item>Other Link</NavDropdown.Item>
-									</LinkContainer>
-								</NavDropdown>
-							) : (
-								<LinkContainer to="/login">
-									<Nav.Link>
-										<i className="fas fa-user px-1"></i>
-										Login
-									</Nav.Link>
+						{/* PROFILE */}
+						{userInfo ? (
+							<NavDropdown title={userInfo.name} id="basic-nav-dropdown">
+								<LinkContainer to="/profile">
+									<NavDropdown.Item>My Profile</NavDropdown.Item>
 								</LinkContainer>
-							)}
 
-							{/* CONFIG */}
-							{userInfo && userInfo.isAdmin && (
-								<NavDropdown title="Config" id="admin-menu">
-									<LinkContainer to="/admin/userlist">
-										<NavDropdown.Item>Users</NavDropdown.Item>
-									</LinkContainer>
+								<NavDropdown.Item onClick={logoutHandler}>
+									Logout
+								</NavDropdown.Item>
 
-									<LinkContainer to="/admin/productlist">
-										<NavDropdown.Item>Products</NavDropdown.Item>
-									</LinkContainer>
+								<NavDropdown.Divider />
 
-									<LinkContainer to="/admin/orderlist">
-										<NavDropdown.Item>Orders</NavDropdown.Item>
-									</LinkContainer>
-								</NavDropdown>
-							)}
-						</Nav>
-						{/* <Form inline>
+								<LinkContainer to="/profile">
+									<NavDropdown.Item>Other Link</NavDropdown.Item>
+								</LinkContainer>
+							</NavDropdown>
+						) : (
+							<LinkContainer to="/login">
+								<Nav.Link>
+									<i className="fas fa-user px-1"></i>
+									Login
+								</Nav.Link>
+							</LinkContainer>
+						)}
+
+						{/* CONFIG */}
+						{userInfo && userInfo.isAdmin && (
+							<NavDropdown title="Config" id="admin-menu">
+								<LinkContainer to="/admin/userlist">
+									<NavDropdown.Item>Users</NavDropdown.Item>
+								</LinkContainer>
+
+								<LinkContainer to="/admin/productlist">
+									<NavDropdown.Item>Products</NavDropdown.Item>
+								</LinkContainer>
+
+								<LinkContainer to="/admin/orderlist">
+									<NavDropdown.Item>Orders</NavDropdown.Item>
+								</LinkContainer>
+							</NavDropdown>
+						)}
+					</Nav>
+					{/* <Form inline>
 						<FormControl
 							type="text"
 							placeholder="Search"
@@ -173,8 +180,8 @@ const Header = () => {
 						/>
 						<Button variant="outline-success">Search</Button>
 					</Form> */}
-					</Navbar.Collapse>
-				</Container>
+				</Navbar.Collapse>
+				{/* 	</Container> */}
 			</Navbar>
 		</header>
 	)
