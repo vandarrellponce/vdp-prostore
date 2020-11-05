@@ -1,15 +1,15 @@
 main {
-	min-height: 80vh;
+  min-height: 80vh;
 }
 body {
-	font-family: 'Poppins', sans-serif;
-	max-width: 100%;
-	overflow-x: hidden;
+  font-family: 'Poppins', sans-serif;
+  width: 100%;
+  overflow-x: hidden;
 }
 
 .header__brand {
-	font-family: 'Bangers', cursive;
-	font-size: 42px;
+  font-family: 'Bangers', cursive;
+  font-size: 42px;
 }
 
 /* .app {
@@ -19,13 +19,13 @@ body {
 h2,
 h3,
 h4 {
-	padding: 1rem 0;
+  padding: 1rem 0;
 }
 h1 {
-	font-size: 1.6rem;
-	padding: 0.1 rem;
+  font-size: 1.6rem;
+  padding: 0.1 rem;
 }
 
 .rating span {
-	margin: 0.1rem;
+  margin: 0.1rem;
 }

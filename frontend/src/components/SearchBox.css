@@ -1,0 +1,32 @@
+@media screen and (max-width: 540px) {
+  .view {
+    width: 400px;
+  }
+  .searchbox__formcontrol {
+    margin-left: 10px;
+    margin-right: 10px;
+    font-size: 14px;
+  }
+  .searchbox__button {
+    font-size: 14px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 5px;
+  }
+}
+
+@media screen and (min-width: 540px) and (max-width: 900px) {
+  .view {
+    width: 600px;
+  }
+
+  .searchbox__formcontrol {
+    font-size: 14px;
+    margin-left: 0;
+  }
+  .searchbox__button {
+    font-size: 14px;
+    margin-left: 50px;
+    margin-top: 4px;
+  }
+}
