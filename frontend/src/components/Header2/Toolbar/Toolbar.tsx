@@ -16,6 +16,7 @@ import { BiExit } from 'react-icons/bi'
 import { CgProfile } from 'react-icons/cg'
 import { FaBars } from 'react-icons/fa'
 import { Spring } from 'react-spring/renderprops'
+import Submenu from '../Submenu/Submenu'
 const ENDPOINT = '/'
 
 const Toolbar = () => {
@@ -59,19 +60,40 @@ const Toolbar = () => {
 
   const [sideBarOpen, setSideBarOpen] = useState(false)
   const [subMenuOpen, setSubMenuOpen] = useState(false)
+  const [location, setLocation] = useState({})
 
   const sideBarToggleHandler = (e) => {
     e.preventDefault()
     setSideBarOpen((prevState) => !prevState)
   }
 
-  const subMenuToggleHandler = (e) => {
+  // open submenu when mouse hover on icon
+  /* const openSubMenu = (e) => {
+    const link = e.target.className.animVal.split(' ')[1]
+    const tempBtn = e.target.getBoundingClientRect()
+    const center = (tempBtn.left + tempBtn.right - 755) / 2
+    const bottom = tempBtn.bottom + 15
+    setLocation({ center, bottom })
+    setSubMenuOpen(true)
+  }
+  const closeSubMenu = (e) => {
     e.preventDefault()
-    setSubMenuOpen((prevState) => !prevState)
+    setSubMenuOpen(false)
+  } */
+
+  // open submenu when clicked
+  const toggleSubMenu = (e) => {
+    const link = e.target.className.animVal.split(' ')[1]
+    const tempBtn = e.target.getBoundingClientRect()
+    const center = (tempBtn.left + tempBtn.right - 755) / 2
+    const bottom = tempBtn.bottom + 15
+    setLocation({ center, bottom })
+    setSubMenuOpen((prev) => !prev)
   }
 
   return (
-    <header>
+    <header className="toolbar">
+      {/* SIDEBAR */}
       <Sidebar
         sideBarToggleHandler={sideBarToggleHandler}
         show={sideBarOpen}
@@ -80,6 +102,14 @@ const Toolbar = () => {
         cartItems={cartItems}
       />
 
+      {/* SUBMENU */}
+      <Submenu
+        show={subMenuOpen}
+        setSubMenuOpen={setSubMenuOpen}
+        location={location}
+      />
+
+      {/* BACKDROP */}
       {sideBarOpen && (
         <CSSTransition
           in={sideBarOpen}
@@ -155,7 +185,13 @@ const Toolbar = () => {
             {(sprops) => (
               <div style={sprops}>
                 <Link to="/cart" className="toolbar__link" tabIndex={1}>
-                  <FiShoppingCart size="25px" className="toolbar__link__icon" />
+                  <FiShoppingCart
+                    size="25px"
+                    className="toolbar__link__icon cart"
+                    /*  onMouseOver={(e) => openSubMenu(e)}
+                    onMouseOut={(e) => closeSubMenu(e)} */
+                  />
+                  {/* cart */}
                   <Badge variant="primary" className="toolbar__badge">
                     {cartItems.length > 0 ? cartItems.length : null}
                   </Badge>
@@ -176,8 +212,9 @@ const Toolbar = () => {
                   <div style={sprops}>
                     <div className="toolbar__link" tabIndex={1}>
                       <RiNotification2Line
+                        onClick={(e) => toggleSubMenu(e)}
                         size="25px"
-                        className="toolbar__link__icon"
+                        className="toolbar__link__icon notification"
                       />
                       <Badge variant="secondary" className="toolbar__badge">
                         {totalNotifs > 0 ? totalNotifs : null}

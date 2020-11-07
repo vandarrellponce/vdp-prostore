@@ -69,7 +69,7 @@ const Home = ({ match }) => {
     <Spring from={{ opacity: 0 }} to={{ opacity: 1 }}>
       {(props) => (
         <div style={props}>
-          <div>
+          <div className="homescreen">
             {/* <h2 className="text-center">Latest Products</h2> */}
             <Helmet>
               <title>Kumbatea! | Home</title>

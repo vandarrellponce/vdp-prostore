@@ -1,3 +1,8 @@
+.toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
 .toolbar__nav {
   /* background-color: #fafafa; */
   background: linear-gradient(
@@ -19,6 +24,9 @@
   cursor: pointer;
   padding-right: 10px;
 }
+.toolbar__icon:hover {
+  opacity: 0.7;
+}
 .toolbar__badge {
   font-family: 'Poppins', sans-serif;
   font-size: 12px;
@@ -28,6 +36,10 @@
   font-family: 'Bangers', cursive;
   font-size: 42px;
   display: flex;
+}
+
+.toolbar__brand:hover {
+  opacity: 0.7;
 }
 
 .spacer {
@@ -68,10 +80,10 @@
 .toolbar__link__icon {
   transition: all 0.1s ease-out;
 }
-.toolbar__link__icon:hover {
+/* .toolbar__link__icon:hover {
   height: 40px;
   width: 40px;
-}
+} */
 
 /* APPEAR */
 .fade-appear {
