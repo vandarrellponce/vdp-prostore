@@ -5,13 +5,23 @@
   .searchbox__formcontrol {
     margin-left: 10px;
     margin-right: 10px;
-    font-size: 14px;
+    font-size: 12px;
+    width: 100%;
+    height: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   .searchbox__button {
-    font-size: 14px;
+    font-size: 12px;
     margin-left: 10px;
     margin-right: 10px;
     margin-top: 5px;
+    width: 100%;
+    height: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }
 
@@ -21,12 +31,24 @@
   }
 
   .searchbox__formcontrol {
+    margin-left: 10px !important;
+    margin-right: 10px !important;
+    width: 100% !important;
     font-size: 14px;
-    margin-left: 0;
+    height: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   .searchbox__button {
     font-size: 14px;
-    margin-left: 50px;
-    margin-top: 4px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 5px;
+    width: 100%;
+    height: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }

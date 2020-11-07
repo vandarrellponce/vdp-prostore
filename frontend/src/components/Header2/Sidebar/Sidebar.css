@@ -1,4 +1,5 @@
 .sidebar {
+  padding: 20px;
   position: fixed;
   height: 100%;
   width: 70%;
@@ -13,16 +14,24 @@
   flex-direction: column;
 
   transform: translateX(-100%);
-  transition: transform 0.3s ease-out;
+  transition: transform 0.1s ease-out;
 }
 .sidebar.open {
   transform: translateX(0);
   /* box-shadow: 5px 0px 5px 2040px rgba(0, 0, 0, 0.3); */
 }
 
+.sidebar__brand {
+  font-family: 'Bangers', cursive;
+  font-size: 42px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .sidebar__searchbox {
   display: flex;
-  margin-top: 50px;
+  margin-top: 10px;
   justify-content: center;
   align-items: center;
 }
@@ -46,7 +55,7 @@
   display: flex;
   height: 40px;
   max-width: 300px;
-  justify-content: left;
+  justify-content: space-between;
   align-items: center;
 }
 .sidebar__nav__item:hover {
@@ -78,4 +87,34 @@
   justify-content: center;
   width: 100%;
   font-size: 14px;
+}
+
+@media screen and (max-width: 540px) {
+  .view {
+    width: 400px;
+  }
+  .sidebar__container1 {
+    font-size: 12px;
+  }
+  .sidebar__nav__item {
+    margin-left: 20px;
+    margin-right: 20px;
+    padding: 3px;
+    height: 25px;
+  }
+}
+
+@media screen and (min-width: 540px) and (max-width: 900px) {
+  .view {
+    width: 600px;
+  }
+  .sidebar__container1 {
+    font-size: 14px;
+  }
+  .sidebar__nav__item {
+    margin-left: 20px;
+    margin-right: 20px;
+    padding: 3px;
+    height: 30px;
+  }
 }

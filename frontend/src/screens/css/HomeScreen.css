@@ -1,5 +1,5 @@
 .home__banner {
-  margin-bottom: -300px;
+  margin-bottom: -150px;
   object-fit: contain;
   width: 100%;
   mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.3));
@@ -26,12 +26,12 @@
 }
 
 /* For Tablets */
-@media screen and (min-width: 540px) and (max-width: 4080px) {
+@media screen and (min-width: 540px) and (max-width: 1080px) {
   .view {
     width: 600px;
   }
   .home__banner {
-    margin-bottom: -60px;
+    margin-bottom: -100px;
     object-fit: contain;
     width: 100%;
     mask-image: linear-gradient(

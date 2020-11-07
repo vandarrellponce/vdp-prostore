@@ -8,15 +8,22 @@ import Axios from 'axios'
 import logoutUser from '../../../actions/users/logoutUser'
 import Sidebar from '../Sidebar/Sidebar'
 import Backdrop from '../Backdrop/Backdrop'
+import { CSSTransition } from 'react-transition-group'
+import { Badge } from 'react-bootstrap'
+import { FiShoppingCart } from 'react-icons/fi'
+import { RiNotification2Line } from 'react-icons/ri'
+import { BiExit } from 'react-icons/bi'
+import { CgProfile } from 'react-icons/cg'
+import { FaBars } from 'react-icons/fa'
+import { Spring } from 'react-spring/renderprops'
 const ENDPOINT = '/'
 
 const Toolbar = () => {
-  const { userInfo } = useSelector((state) => state.user)
+  const { userInfo, authError } = useSelector((state) => state.user)
+  const { cartItems } = useSelector((state) => state.cart)
   const [notifs, setNotifs] = useState([])
   const [totalNotifs, setTotalNotifs] = useState(0)
   const dispatch = useDispatch()
-
-  const [sideBarOpen, setSideBarOpen] = useState(false)
 
   const getNotifications = () => {
     if (userInfo && userInfo.isAdmin) {
@@ -42,66 +49,185 @@ const Toolbar = () => {
     socket.on('updateNotification', () => getNotifications())
     return () => socket.disconnect()
     /* eslint-disable */
-  }, [userInfo])
+  }, [userInfo, authError])
 
   // HANDLERS
   const logoutHandler = (e) => {
     e.preventDefault()
-    dispatch(logoutUser())
-    /* window.location.reload() */
+    dispatch(logoutUser()).then((_) => window.location.reload())
   }
+
+  const [sideBarOpen, setSideBarOpen] = useState(false)
+  const [subMenuOpen, setSubMenuOpen] = useState(false)
 
   const sideBarToggleHandler = (e) => {
     e.preventDefault()
     setSideBarOpen((prevState) => !prevState)
   }
 
+  const subMenuToggleHandler = (e) => {
+    e.preventDefault()
+    setSubMenuOpen((prevState) => !prevState)
+  }
+
   return (
     <header>
-      <Sidebar sideBarToggleHandler={sideBarToggleHandler} show={sideBarOpen} />
-      {sideBarOpen && <Backdrop sideBarToggleHandler={sideBarToggleHandler} />}
+      <Sidebar
+        sideBarToggleHandler={sideBarToggleHandler}
+        show={sideBarOpen}
+        notifs={notifs}
+        totalNotifs={totalNotifs}
+        cartItems={cartItems}
+      />
+
+      {sideBarOpen && (
+        <CSSTransition
+          in={sideBarOpen}
+          appear={true}
+          timeout={100}
+          classNames="fade"
+        >
+          <Backdrop sideBarToggleHandler={sideBarToggleHandler} />
+        </CSSTransition>
+      )}
 
       <nav className="toolbar__nav">
+        {/* MENU BUTTON */}
         <div className="toolbar__icon">
-          <i className="fas fa-bars fa-2x" onClick={sideBarToggleHandler}></i>
+          <FaBars
+            size="30px"
+            onClick={sideBarToggleHandler}
+            style={{
+              color: 'white',
+              background:
+                'linear-gradient(90deg, rgba(243,150,154,1) 0%, rgba(86,204,157,1) 100%)',
+              borderRadius: '3px',
+              margin: '5px',
+              padding: '8px'
+            }}
+          />
         </div>
 
         {/* LOGO */}
-        <Link to="/" style={{ textDecoration: 'none' }}>
-          <div className="toolbar__brand">
-            <div style={{ color: 'black' }}>KUMBA</div>{' '}
-            <div style={{ color: 'rgb(86,204,157)' }}>TEA</div>
-          </div>
-        </Link>
-        <div className="toolbar__searchbox">
-          <Route render={({ history }) => <SearchBox history={history} />} />
-        </div>
-
-        <div className="spacer"></div>
-        <div className="toolbar__right__links">
-          <Link to="/cart" className="toolbar__link" tabIndex={1}>
-            Cart
-          </Link>
-          {userInfo ? (
-            <div className="toolbar__right__links__signedin">
-              <Link to="/profile" className="toolbar__link" tabIndex={1}>
-                {userInfo.name}
+        <Spring
+          from={{ opacity: 0, marginLeft: -100 }}
+          to={{ opacity: 1, marginLeft: 0 }}
+          config={{ delay: 1500, duration: 500 }}
+        >
+          {(sprops) => (
+            <div style={sprops}>
+              <Link to="/" style={{ textDecoration: 'none' }}>
+                <div className="toolbar__brand">
+                  <div style={{ color: 'black' }}>KUMBA</div>{' '}
+                  <div style={{ color: 'rgb(86,204,157)' }}>TEA</div>
+                </div>
               </Link>
-              <div className="toolbar__link" tabIndex={1}>
-                Notifications
-              </div>
-              <div
-                className="toolbar__link"
-                tabIndex={1}
-                onClick={logoutHandler}
-              >
-                Logout
+            </div>
+          )}
+        </Spring>
+
+        <Spring
+          from={{ opacity: 0, marginLeft: -100 }}
+          to={{ opacity: 1, marginLeft: 0 }}
+          config={{ delay: 2000, duration: 500 }}
+        >
+          {(sprops) => (
+            <div style={sprops}>
+              <div className="toolbar__searchbox">
+                <Route
+                  render={({ history }) => <SearchBox history={history} />}
+                />
               </div>
             </div>
+          )}
+        </Spring>
+
+        <div className="spacer"></div>
+
+        {/* LINKS */}
+        <div className="toolbar__right__links">
+          {/* CART */}
+          <Spring
+            from={{ opacity: 0, marginRight: -500 }}
+            to={{ opacity: 1, marginRight: 0 }}
+            config={{ delay: 1000, duration: 1000 }}
+          >
+            {(sprops) => (
+              <div style={sprops}>
+                <Link to="/cart" className="toolbar__link" tabIndex={1}>
+                  <FiShoppingCart size="25px" className="toolbar__link__icon" />
+                  <Badge variant="primary" className="toolbar__badge">
+                    {cartItems.length > 0 ? cartItems.length : null}
+                  </Badge>
+                </Link>
+              </div>
+            )}
+          </Spring>
+
+          {userInfo ? (
+            <div className="toolbar__right__links__signedin">
+              {/* NOTIFICATIONS */}
+              <Spring
+                from={{ opacity: 0, marginTop: -500 }}
+                to={{ opacity: 1, marginTop: 0 }}
+                config={{ delay: 1200, duration: 1000 }}
+              >
+                {(sprops) => (
+                  <div style={sprops}>
+                    <div className="toolbar__link" tabIndex={1}>
+                      <RiNotification2Line
+                        size="25px"
+                        className="toolbar__link__icon"
+                      />
+                      <Badge variant="secondary" className="toolbar__badge">
+                        {totalNotifs > 0 ? totalNotifs : null}
+                      </Badge>
+                    </div>
+                  </div>
+                )}
+              </Spring>
+
+              {/* PROFILE */}
+              <Spring
+                from={{ opacity: 0, marginTop: -500 }}
+                to={{ opacity: 1, marginTop: 0 }}
+                config={{ delay: 1300, duration: 1000 }}
+              >
+                {(sprops) => (
+                  <div style={sprops}>
+                    <Link to="/profile" className="toolbar__link" tabIndex={1}>
+                      {userInfo.name}{' '}
+                      <CgProfile size="25px" className="toolbar__link__icon" />
+                    </Link>
+                  </div>
+                )}
+              </Spring>
+
+              <Spring
+                from={{ opacity: 0, marginTop: -500 }}
+                to={{ opacity: 1, marginTop: 0 }}
+                config={{ delay: 1400, duration: 1000 }}
+              >
+                {(sprops) => (
+                  <div style={sprops}>
+                    <div
+                      className="toolbar__link"
+                      tabIndex={1}
+                      onClick={logoutHandler}
+                    >
+                      Logout{' '}
+                      <BiExit size="25px" className="toolbar__link__icon" />
+                    </div>
+                  </div>
+                )}
+              </Spring>
+            </div>
           ) : (
-            <Link to="/login" className="toolbar__link" tabIndex={1}>
-              Login
-            </Link>
+            authError && (
+              <Link to="/login" className="toolbar__link" tabIndex={1}>
+                Login
+              </Link>
+            )
           )}
         </div>
       </nav>

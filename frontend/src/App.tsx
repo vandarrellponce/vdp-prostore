@@ -1,9 +1,7 @@
-import React, { useEffect, useState } from 'react'
-import Container from 'react-bootstrap/Container'
+import React, { useEffect } from 'react'
 import { BrowserRouter, Route } from 'react-router-dom'
 import './app.css'
 import Footer from './components/Footer/Footer'
-import Header from './components/Header/Header'
 import CartScreen from './screens/CartScreen'
 import Home from './screens/HomeScreen'
 import LoginScreen from './screens/LoginScreen'
@@ -23,7 +21,6 @@ import ProductEditScreen from './screens/ProductEditScreen'
 import OrderListScreen from './screens/OrderListScreen'
 import { Col, Row } from 'react-bootstrap'
 import Toolbar from './components/Header2/Toolbar/Toolbar'
-import Sidebar from './components/Header2/Sidebar/Sidebar'
 
 const App = () => {
   const dispatch = useDispatch()
