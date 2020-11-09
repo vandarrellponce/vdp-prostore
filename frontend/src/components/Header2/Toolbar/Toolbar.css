@@ -16,7 +16,7 @@
   padding-right: 20px;
   display: flex;
   align-items: center;
-  /* border-bottom: 1px solid #e3e3e3; */
+  border-bottom: 1px solid #dfdfdf;
   font-size: 14px;
 }
 
@@ -30,6 +30,9 @@
 .toolbar__badge {
   font-family: 'Poppins', sans-serif;
   font-size: 12px;
+  pointer-events: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
 }
 
 .toolbar__brand {
@@ -61,6 +64,8 @@
   padding-right: 10px;
   cursor: pointer;
   color: black;
+  -moz-user-select: none;
+  -webkit-user-select: none;
   /* color: rgb(255, 255, 255); */
 }
 .toolbar__link:hover {

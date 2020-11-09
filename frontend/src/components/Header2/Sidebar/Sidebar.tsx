@@ -33,7 +33,7 @@ const Sidebar = (props) => {
         onClick={(e) => props.sideBarToggleHandler(e)}
       />
       <div className="sidebar__brand">
-        <div style={{ color: 'black' }}>KUMBA</div>{' '}
+        <div style={{ color: 'white' }}>KUMBA</div>{' '}
         <div style={{ color: 'rgb(86,204,157)' }}>TEA</div>
       </div>
 

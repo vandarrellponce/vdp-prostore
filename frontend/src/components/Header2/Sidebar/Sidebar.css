@@ -5,7 +5,7 @@
   width: 70%;
   max-width: 300px;
   z-index: 700;
-  background-color: rgb(247, 255, 252);
+  background: rgb(0, 0, 0, 0.8);
   top: 0;
   left: 0;
   box-shadow: 2px 0px 2px rgba(0, 0, 0, 0.3);
@@ -57,6 +57,7 @@
   max-width: 300px;
   justify-content: space-between;
   align-items: center;
+  color: rgb(200, 255, 255);
 }
 .sidebar__nav__item:hover {
   background-color: rgb(231, 231, 231);
@@ -100,7 +101,7 @@
     margin-left: 20px;
     margin-right: 20px;
     padding: 3px;
-    height: 25px;
+    height: 30px;
   }
 }
 

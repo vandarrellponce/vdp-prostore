@@ -85,7 +85,7 @@ const Toolbar = () => {
   const toggleSubMenu = (e) => {
     const link = e.target.className.animVal.split(' ')[1]
     const tempBtn = e.target.getBoundingClientRect()
-    const center = (tempBtn.left + tempBtn.right - 755) / 2
+    const center = (tempBtn.left + tempBtn.right - 205) / 2
     const bottom = tempBtn.bottom + 15
     setLocation({ center, bottom })
     setSubMenuOpen((prev) => !prev)
