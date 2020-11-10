@@ -1,6 +1,14 @@
+.searchbox__form {
+  display: flex;
+}
+
 @media screen and (max-width: 540px) {
   .view {
     width: 400px;
+  }
+  .searchbox__form {
+    display: flex;
+    flex-direction: column;
   }
   .searchbox__formcontrol {
     margin-left: 10px;
@@ -28,6 +36,10 @@
 @media screen and (min-width: 540px) and (max-width: 900px) {
   .view {
     width: 600px;
+  }
+  .searchbox__form {
+    display: flex;
+    flex-direction: column;
   }
 
   .searchbox__formcontrol {

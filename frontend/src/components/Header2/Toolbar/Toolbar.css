@@ -39,6 +39,7 @@
   font-family: 'Bangers', cursive;
   font-size: 42px;
   display: flex;
+  margin-right: 40px;
 }
 
 .toolbar__brand:hover {
@@ -176,7 +177,7 @@
   .view {
     width: 600px;
   }
-  .toolbar__icon {
+  /*  .toolbar__icon {
     display: none;
-  }
+  } */
 }
