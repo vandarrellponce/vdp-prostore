@@ -21,6 +21,7 @@ import ProductEditScreen from './screens/ProductEditScreen'
 import OrderListScreen from './screens/OrderListScreen'
 import { Col, Row } from 'react-bootstrap'
 import Toolbar from './components/Header2/Toolbar/Toolbar'
+import MyMapComponent from './screens/googlemap/GoogleMap'
 
 const App = () => {
   const dispatch = useDispatch()
@@ -40,6 +41,8 @@ const App = () => {
             <Col xs={12} md={2} className="px-3"></Col>
             <Col xs={12} md={8} className="ml-3">
               {/* <Container> */}
+
+              <Route path="/map" component={MyMapComponent} />
               <Route path="/orders/:orderId/pay" component={OrderScreen} />
               <Route path="/admin/users/:id/edit" component={UserEditScreen} />
               <Route
