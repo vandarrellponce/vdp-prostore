@@ -89,7 +89,7 @@ const ProfileScreen = (props) => {
         <title>Kumbatea! | Profile</title>
         <meta name="description" content="We sell the best milk tea in town" />
       </Helmet>
-      <Col md={3}>
+      <Col md={7}>
         {/* 	{success && (
 					<Message
 						children={
@@ -110,6 +110,7 @@ const ProfileScreen = (props) => {
             <Form.Label id="name">Name</Form.Label>
 
             <Form.Control
+              size="sm"
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
@@ -128,6 +129,7 @@ const ProfileScreen = (props) => {
           <Form.Group controlId="password">
             <Form.Label id="password">Password</Form.Label>
             <Form.Control
+              size="sm"
               type="password"
               value={password}
               placeholder="Enter new password"
@@ -139,6 +141,7 @@ const ProfileScreen = (props) => {
           <Form.Group controlId="confirmPassword">
             <Form.Label id="rePassword">Re-type Password</Form.Label>
             <Form.Control
+              size="sm"
               type="password"
               value={rePassword}
               placeholder="Re-enter new password"
@@ -146,12 +149,12 @@ const ProfileScreen = (props) => {
               disabled={!isChangePassword}
             ></Form.Control>
           </Form.Group>
-          <Button type="submit" variant="secondary">
+          <Button type="submit" variant="secondary" size="sm">
             Update
           </Button>
         </Form>
       </Col>
-      <Col md={9}>
+      <Col md={5}>
         {error ? (
           <Message variant="danger">{error}</Message>
         ) : (
@@ -161,10 +164,10 @@ const ProfileScreen = (props) => {
               <Loader />
             ) : (
               <div>
-                <Table hover responsive className="table-sm">
+                <Table hover responsive size="sm">
                   <thead>
                     <tr>
-                      <th>ID</th>
+                      {/*   <th>ID</th> */}
                       <th>DATE</th>
                       <th>TOTAL</th>
                       <th>PAID</th>
@@ -176,7 +179,7 @@ const ProfileScreen = (props) => {
                     {orders &&
                       orders.map((order) => (
                         <tr key={order._id}>
-                          <td>{order._id}</td>
+                          {/* <td>{order._id}</td> */}
                           <td>{order.createdAt.substring(0, 10)}</td>
                           <td>{order.totalPrice}</td>
                           <td>
