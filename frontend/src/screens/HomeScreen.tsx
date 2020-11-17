@@ -12,9 +12,12 @@ import { Link } from 'react-router-dom'
 import { Helmet } from 'react-helmet'
 import './css/HomeScreen.css'
 import { Spring } from 'react-spring/renderprops'
+import { useSelector } from 'react-redux'
 
 const Home = ({ match }) => {
   // STATES
+  const { appConfig } = useSelector((state) => state.appConfig)
+
   const [loading, setLoading] = useState(true)
   const [error] = useState(null)
   const [products, setProducts] = useState([])
@@ -72,7 +75,7 @@ const Home = ({ match }) => {
           <div className="homescreen">
             {/* <h2 className="text-center">Latest Products</h2> */}
             <Helmet>
-              <title>Kumbatea! | Home</title>
+              <title>{`${appConfig.appTitle}`} | Home</title>
               <meta
                 name="description"
                 content="We sell the best milk tea in town"

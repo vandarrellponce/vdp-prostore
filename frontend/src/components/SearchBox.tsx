@@ -27,7 +27,7 @@ const SearchBox = ({ history }) => {
       ></Form.Control>
       <Button
         type="submit"
-        variant="outline-success"
+        variant="outline-dark"
         className=" searchbox__button"
         size="sm"
       >

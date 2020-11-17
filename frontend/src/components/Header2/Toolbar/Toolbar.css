@@ -7,16 +7,15 @@
   /* background-color: #fafafa; */
   background: linear-gradient(
     90deg,
-    rgba(255, 255, 255, 1) 42%,
-    rgba(86, 204, 157, 1) 100%
+    rgba(255, 255, 255, 1) 0%,
+    rgba(1, 0, 10, 1) 100%
   );
 
-  /*  background-color: rgb(243, 150, 154); */
   padding-left: 20px;
   padding-right: 20px;
   display: flex;
   align-items: center;
-  border-bottom: 1px solid #dfdfdf;
+
   font-size: 14px;
 }
 
@@ -64,13 +63,13 @@
   padding-left: 10px;
   padding-right: 10px;
   cursor: pointer;
-  color: black;
+  color: white;
   -moz-user-select: none;
   -webkit-user-select: none;
   /* color: rgb(255, 255, 255); */
 }
 .toolbar__link:hover {
-  color: white;
+  color: rgb(255, 0, 0);
 
   /* color: #f3969a; */
 }

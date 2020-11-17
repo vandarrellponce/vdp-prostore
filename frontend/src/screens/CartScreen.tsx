@@ -17,6 +17,7 @@ import './css/CartScreen.css'
 const CartScreen = ({ match, location, history }) => {
   // STATES
   const { cartItems } = useSelector((state) => state.cart)
+  const { appConfig } = useSelector((state) => state.appConfig)
   const dispatch = useDispatch()
 
   // HANDLERS
@@ -32,7 +33,7 @@ const CartScreen = ({ match, location, history }) => {
   return (
     <div className="py-3 cartscreen__main">
       <Helmet>
-        <title>Gentle Home | My Cart</title>
+        <title>{`${appConfig.appTitle}`} | My Cart</title>
         <meta name="description" content="We sell the best milk tea in town" />
       </Helmet>
       <Row>

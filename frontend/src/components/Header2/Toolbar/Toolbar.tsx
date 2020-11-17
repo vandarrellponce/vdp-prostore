@@ -130,7 +130,7 @@ const Toolbar = () => {
             style={{
               color: 'white',
               background:
-                'linear-gradient(90deg, rgba(243,150,154,1) 0%, rgba(86,204,157,1) 100%)',
+                'linear-gradient(90deg, rgba(1,0,10,1) 0%, rgba(255,255,255,1) 100%)',
               borderRadius: '3px',
               margin: '5px',
               padding: '8px'
@@ -148,8 +148,9 @@ const Toolbar = () => {
             <div style={sprops}>
               <Link to="/" style={{ textDecoration: 'none' }}>
                 <div className="toolbar__brand">
-                  <div style={{ color: 'black' }}>KUMBA</div>{' '}
-                  <div style={{ color: 'rgb(86,204,157)' }}>TEA</div>
+                  <div style={{ color: 'black' }}>GENTLE</div>
+                  {'  '}
+                  <div style={{ color: 'black' }}>HOME</div>
                 </div>
               </Link>
             </div>
