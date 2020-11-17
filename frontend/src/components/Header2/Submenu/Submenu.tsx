@@ -14,7 +14,7 @@ const Submenu = (props) => {
 
   return (
     <div className={className} ref={container}>
-      submenu
+      <h3>Submenu</h3>
     </div>
   )
 }

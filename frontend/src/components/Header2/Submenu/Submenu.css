@@ -2,16 +2,22 @@
   position: absolute;
   top: 120%;
   right: 5%;
-  background: rgb(0, 0, 0, 0.8);
+  /*   background: rgb(0, 0, 0, 0.8); */
+  background: rgb(36, 37, 38);
   height: 90vh;
   width: 350px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   border-radius: 3px;
   display: none;
+
+  transition: all ease-in-out 0.3s;
 }
 
 .submenu.show {
-  display: block;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
 }
 
 /* .submenu::before {

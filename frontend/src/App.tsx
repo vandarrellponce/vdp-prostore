@@ -22,12 +22,15 @@ import OrderListScreen from './screens/OrderListScreen'
 import { Col, Row } from 'react-bootstrap'
 import Toolbar from './components/Header2/Toolbar/Toolbar'
 import MyMapComponent from './screens/googlemap/GoogleMap'
+import Axios from 'axios'
+import getAppConfig from './actions/appconfig/getAppConfig'
 
 const App = () => {
   const dispatch = useDispatch()
 
   useEffect(() => {
     dispatch(authUser())
+    dispatch(getAppConfig())
   }, [dispatch])
 
   return (
